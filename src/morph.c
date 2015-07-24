@@ -61,12 +61,11 @@ void blend_pixels(	IplImage *dst_image,
 					pixel src_pixel_1, 
 					pixel src_pixel_2, 
 					float t) {
-
 	int i;
 	for (i = 0; i < N_CHANNELS; i++) {
 		dst_image->imageData[dst_pixel.y * dst_image->widthStep + dst_pixel.x * N_CHANNELS + i] = 
-			(1 - t) * src_image_1->imageData[src_pixel_1.y * src_image_1->widthStep + src_pixel_1.x * N_CHANNELS + i] +
-			t * src_image_2->imageData[src_pixel_2.y * src_image_2->widthStep + src_pixel_2.x * N_CHANNELS + i];
+			(1 - t) * (unsigned char) src_image_1->imageData[src_pixel_1.y * src_image_1->widthStep + src_pixel_1.x * N_CHANNELS + i] +
+			t * (unsigned char) src_image_2->imageData[src_pixel_2.y * src_image_2->widthStep + src_pixel_2.x * N_CHANNELS + i];
 	}
 }
 
@@ -90,8 +89,6 @@ pixel compute_weighted_src_pixel(	point dst_point,
 		dst_segment.from = evaluate(from_interpolations[i], t);
 		dst_segment.to = evaluate(to_interpolations[i], t);
 
-// printf("dst_segment: (%f, %f) to (%f, %f)\n", dst_segment.from.x, dst_segment.from.y, dst_segment.to.x, dst_segment.to.y);
-
 		float u = projection_coefficient(dst_point, dst_segment);
 		float v = unit_perpendicular_coeffient(dst_point, dst_segment);
 
@@ -99,9 +96,6 @@ pixel compute_weighted_src_pixel(	point dst_point,
 
 		point disp = subtract(src_point, dst_point);
 		float weight = compute_weight(dst_point, dst_segment);
-
-// printf("disp = (%f, %f)\n", disp.x, disp.y);
-// printf("weight = %f\n", weight);
 
 		disp_sum = add(disp_sum, scalar_product(weight, disp));
 		weight_sum += weight;
@@ -165,11 +159,7 @@ void morph(	IplImage *src_image,
 				dst_pixel.x = x;
 				dst_pixel.y = y;
 
-// printf("mapping: (%u, %u) <- (%u, %u)\n", dst_pixel.x, dst_pixel.y, src_src_pixel.x, src_src_pixel.y);
-// sleep(1);
-
 				blend_pixels(img, src_image, dst_image, dst_pixel, src_src_pixel, dst_src_pixel, t);
-				// copy_pixel(img, src_image, dst_pixel, src_pixel);
 			}
 		}
 
