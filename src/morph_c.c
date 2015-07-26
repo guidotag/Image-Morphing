@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <cv.h>
 #include <highgui.h>
+#include "morph.h"
 #include "curve.h"
 #include "utils.h"
 
@@ -9,12 +10,7 @@
 #define B 2
 #define P 0.5
 
-typedef struct pixel {
-	unsigned int x, y;
-} pixel;
-
-
-void compute_interpolations(	segment *src_segments, 
+static void compute_interpolations(	segment *src_segments, 
 								segment *dst_segments, 
 								curve *from_interpolations,
 								curve *to_interpolations, 
@@ -41,20 +37,20 @@ void compute_interpolations(	segment *src_segments,
 	}
 }
 
-point compute_src_point(float u, float v, segment src_segment) {
+static point compute_src_point(float u, float v, segment src_segment) {
 	point p = src_segment.from;
 	point q = src_segment.to;
 	point sub = subtract(q, p);
 	return add(p, add(scalar_product(u, sub), scalar_product(v / norm(sub), perpendicular(sub))));
 }
 
-float compute_weight(point x, segment s) {
+static float compute_weight(point x, segment s) {
 	float dist = distance(x, s);
 	float length = norm(subtract(s.to, s.from));
 	return pow(pow(length, P) / (A + dist), B);
 }
 
-void blend_pixels(	IplImage *dst_image, 
+static void blend_pixels(	IplImage *dst_image, 
 					IplImage *src_image_1, 
 					IplImage *src_image_2,
 					pixel dst_pixel,  
@@ -69,7 +65,7 @@ void blend_pixels(	IplImage *dst_image,
 	}
 }
 
-pixel compute_weighted_src_pixel(	point dst_point,
+static pixel compute_weighted_src_pixel(	point dst_point,
 									segment *src_segments,
 									curve *from_interpolations, 
 									curve *to_interpolations,
