@@ -10,7 +10,7 @@ typedef struct CvVideoWriter CvVideoWriter;
 void test_bill_house() {
 	char *src_file = "../input/bill.bmp";
 	char *dst_file = "../input/house.bmp";
-	char *out_file = "../output/billhouse.bmp";
+	char *out_file = "../output/billhouse.avi";
 
 	IplImage *src_image, *dst_image;
 
@@ -272,7 +272,9 @@ void test_bill_house() {
 	dst_segments[23].to.y = 372;
 
 	// apply morphing
-	morph(src_image, dst_image, src_segments, dst_segments, n_segments, 100, writer);
+	int n_frames = 150;
+
+	morph_c(src_image, dst_image, src_segments, dst_segments, n_segments, n_frames, writer);
 
 	//cvReleaseImage(&src_image);
 	//cvReleaseImage(&dst_image);

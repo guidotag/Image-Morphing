@@ -1,23 +1,39 @@
 CC = gcc
+ASM = nasm
 CFLAGS = -std=c99 -Wall -pedantic -m64 -O2
+ASMFLAGS = -felf64 -g -F dwarf
 CLIBS = -lm
 OPENCVFLAGS = `pkg-config --cflags opencv`
 OPENCVLIBS = `pkg-config --libs opencv`
 
+OBJS = morph_c.o morph_asm.o curve.o utils.o algebra.o
+
 BIN = morph
+MAIN = main.o
+TESTBIN = test
+TESTMAIN = tests.o
 
-OBJS = main.o morph.o curve.o utils.o algebra.o
+.PHONY: all test clean
 
-.PHONY: all clean
+$(BIN): $(OBJS) $(MAIN)
+	$(CC) $(CFLAGS) -o $@ $^ $(OPENCVLIBS) $(CLIBS)
 
-$(BIN): $(OBJS)
+$(TESTBIN): $(OBJS) $(TESTMAIN)
 	$(CC) $(CFLAGS) -o $@ $^ $(OPENCVLIBS) $(CLIBS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< $(OPENCVFLAGS)
+	
+%.o: %.asm
+	$(ASM) $(ASMFLAGS) -o $@ $^
 
 all: $(BIN)
 
+test: $(TESTBIN)
+
 clean:
 	rm -f $(OBJS)
+	rm -f $(MAIN)
+	rm -f $(TESTMAIN)
 	rm -f $(BIN)
+	rm -f $(TESTBIN)

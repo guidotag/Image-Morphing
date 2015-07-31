@@ -7,3 +7,21 @@ float min(float a, float b) {
 float max(float a, float b) {
 	return a > b ? a : b;
 }
+
+CvVideoWriter *create_video_writer (const char *output_file, int width, int height, int fps) {
+	CvVideoWriter *writer = NULL;
+	int is_color = 1;
+	writer = cvCreateVideoWriter(output_file, 
+								//CV_FOURCC('M','J','P','G'),
+								CV_FOURCC('P','I','M','1'), // MPEG-1 codec
+								fps, 
+								cvSize(width, height), 
+								is_color);
+
+	if(writer == NULL) {
+        fprintf(stderr, "Cannot create video writer\n");
+        exit(EXIT_FAILURE);
+    }
+
+	return writer;
+}

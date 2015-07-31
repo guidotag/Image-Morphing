@@ -2,11 +2,10 @@
 #include <cv.h>
 #include <highgui.h>
 #include "morph.h"
-#include "curve.h"
 #include "utils.h"
 
 #define N_CHANNELS 3
-#define A 0.0001
+#define A 0.125
 #define B 2
 #define P 0.5
 
@@ -84,16 +83,19 @@ static pixel compute_weighted_src_pixel(	point dst_point,
 		segment dst_segment;
 		dst_segment.from = evaluate(from_interpolations[i], t);
 		dst_segment.to = evaluate(to_interpolations[i], t);
-
+		
 		float u = projection_coefficient(dst_point, dst_segment);
-		float v = unit_perpendicular_coeffient(dst_point, dst_segment);
 
+		float v = unit_perpendicular_coeffient(dst_point, dst_segment);
+		
+		float weight = compute_weight(dst_point, dst_segment);
+		
 		point src_point = compute_src_point(u, v, src_segments[i]);
 
 		point disp = subtract(src_point, dst_point);
-		float weight = compute_weight(dst_point, dst_segment);
 
 		disp_sum = add(disp_sum, scalar_product(weight, disp));
+		
 		weight_sum += weight;
 	}
 
@@ -118,7 +120,7 @@ static pixel compute_weighted_src_pixel(	point dst_point,
 }
 
 // nframes >= 2
-void morph(	IplImage *src_image, 
+void morph_c(	IplImage *src_image, 
 			IplImage *dst_image, 
 			segment *src_segments, 
 			segment *dst_segments, 
@@ -140,22 +142,57 @@ void morph(	IplImage *src_image,
 		t = i / (float)(n_frames - 1);
 
 		IplImage *img = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, N_CHANNELS);
-
+		
+		//~ int x, y;
+		//~ for (y = 0; y < height; y++) {
+			//~ for (x = 0; x < width; x++) {
+				//~ point dst_point;
+				//~ dst_point.x = x;
+				//~ dst_point.y = y;
+//~ 
+				//~ pixel src_src_pixel = compute_weighted_src_pixel(dst_point, src_segments, from_interpolations, to_interpolations, n_segments, t, width, height);
+				//~ pixel dst_src_pixel = compute_weighted_src_pixel(dst_point, dst_segments, from_interpolations, to_interpolations, n_segments, t, width, height);
+//~ 
+				//~ pixel dst_pixel;
+				//~ dst_pixel.x = x;
+				//~ dst_pixel.y = y;
+//~ 
+				//~ blend_pixels(img, src_image, dst_image, dst_pixel, src_src_pixel, dst_src_pixel, t);
+			//~ }
+		//~ }
+		
 		int x, y;
-		for (x = 0; x < width; x++) {
-			for (y = 0; y < height; y++) {
+		for (y = 0; y < height; y++) {
+			for (x = 0; x < width; x += 4) {
 				point dst_point;
 				dst_point.x = x;
 				dst_point.y = y;
-
-				pixel src_src_pixel = compute_weighted_src_pixel(dst_point, src_segments, from_interpolations, to_interpolations, n_segments, t, width, height);
-				pixel dst_src_pixel = compute_weighted_src_pixel(dst_point, dst_segments, from_interpolations, to_interpolations, n_segments, t, width, height);
-
-				pixel dst_pixel;
-				dst_pixel.x = x;
-				dst_pixel.y = y;
-
-				blend_pixels(img, src_image, dst_image, dst_pixel, src_src_pixel, dst_src_pixel, t);
+				int k;
+				
+				compute_weighted_src_pixel_asm(dst_point.x, dst_point.y, src_segments, from_interpolations, to_interpolations, n_segments, t, width, height);
+				pixel src_src_pixel[4];
+				unsigned int *ptr_x = &src_pixel_x;
+				unsigned int *ptr_y = &src_pixel_y;
+				for (k = 0; k < 4; k++) {
+					src_src_pixel[k].x = ptr_x[3 - k];
+					src_src_pixel[k].y = ptr_y[3 - k];
+				}
+				
+				compute_weighted_src_pixel_asm(dst_point.x, dst_point.y, dst_segments, from_interpolations, to_interpolations, n_segments, t, width, height);
+				pixel dst_src_pixel[4];
+				ptr_x = &src_pixel_x;
+				ptr_y = &src_pixel_y;
+				for (k = 0; k < 4; k++) {
+					dst_src_pixel[k].x = ptr_x[3 - k];
+					dst_src_pixel[k].y = ptr_y[3 - k];
+				}
+				
+				for (k = 0; k < 4; k++) {
+					pixel dst_pixel;
+					dst_pixel.x = x + k;
+					dst_pixel.y = y;
+					blend_pixels(img, src_image, dst_image, dst_pixel, src_src_pixel[k], dst_src_pixel[k], t);
+				}
 			}
 		}
 

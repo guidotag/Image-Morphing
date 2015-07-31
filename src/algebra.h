@@ -4,11 +4,12 @@
 #include <stdlib.h>
 #include <math.h>
 
-typedef struct point {
-	float x, y;
+typedef struct __attribute__((__packed__)) point {
+	float x;
+	float y;
 } point;
 
-typedef struct segment {
+typedef struct __attribute__((__packed__)) segment {
 	point from;
 	point to;
 } segment;

@@ -7,8 +7,11 @@
 // x(t) = a1 t + b1
 // y(t) = a2 t + b2
 
-typedef struct curve {
-	float a1, b1, a2, b2;
+typedef struct __attribute__((__packed__)) curve {
+	float a1;
+	float b1;
+	float a2;
+	float b2;
 } curve;
 
 point evaluate(curve c, float t);
