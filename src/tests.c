@@ -274,10 +274,10 @@ void test_bill_house() {
 	// apply morphing
 	int n_frames = 150;
 
-	morph_c(src_image, dst_image, src_segments, dst_segments, n_segments, n_frames, writer);
+	morph(src_image, dst_image, src_segments, dst_segments, n_segments, n_frames, writer, ASM);
 
-	//cvReleaseImage(&src_image);
-	//cvReleaseImage(&dst_image);
+	cvReleaseImage(&src_image);
+	cvReleaseImage(&dst_image);
 	cvReleaseVideoWriter(&writer);
 }
 
@@ -286,3 +286,4 @@ int main (int argc, char *argv[]) {
 
 	return EXIT_SUCCESS;
 }
+

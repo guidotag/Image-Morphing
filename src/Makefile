@@ -6,7 +6,7 @@ CLIBS = -lm
 OPENCVFLAGS = `pkg-config --cflags opencv`
 OPENCVLIBS = `pkg-config --libs opencv`
 
-OBJS = morph_c.o morph_asm.o curve.o utils.o algebra.o
+OBJS = morph.o magic.o curve.o utils.o algebra.o
 
 BIN = morph
 MAIN = main.o
