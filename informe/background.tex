@@ -1,0 +1,122 @@
+\section{Background matem'atico}
+
+\subsection{Elementos de 'Algebra Lineal}
+
+En esta secci'on hacemos breve repaso de las herramientas matem'aticas necesarias para comprender la raz'on de ciertos c'omputos involucrados en la t'ecnica de image morphing en la que nos basamos. Debemos notar, sin embargo, que la matem'atica es s'olo un elemento auxiliar para esta t'ecnica, y no aporta demasiado al entendimiento general de la misma. En esta sint'etica exposici'on de 'algebra lineal, no usaremos plena generalidad ni y en algunos casos priorizaremos la intuici'on antes que la rigurosidad.
+
+Dado que la t'ecnica de Beier y Neely procesa a la imagen como un plano de dos dimensiones (y no maneja, por ejemplo, la profundidad de la imagen), hablaremos siempre en el contexto del $\mathbb{R}$-espacio vectorial $\mathbb{R}^2$. Durante todo este trabajo, las negritas min'usculas $\mathbf{x}$ ser'an vectores, y las it'alicas min'usculas $x$ ser'an escalares. Como el espacio vectores que estamos considerando es un conjunto de puntos del plano, usaremos los t'erminos \textit{punto} y \textit{vector} indistintamente.
+
+Recordemos que el producto interno can'onico en $\mathbb{R}^2$ es la funci'on $\langle \cdot, \cdot\rangle_2: \mathbb{R}^2 \times \mathbb{R}^2 \to \mathbb{R}$ tal que
+
+\[\langle (x_1, y_1), (x_2, y_2)\rangle_2 = x_1 x_2 + y_1 y_2\]
+
+\noindent
+Como todo producto interno, induce una norma, que es la funci'on $||\cdot||_2:\mathbb{R}^2 \to \mathbb{R}$ tal que
+
+\[||\mathbf{p}||_2 = \sqrt{\langle \mathbf{p}, \mathbf{p}\rangle_2}\]
+
+\noindent
+que reescribiendo $\mathbf{p} = (x, y)$ queda
+
+\[||(x, y)||_2 = \sqrt{x^2 + y^2}\]
+
+\noindent
+A su vez, toda norma induce una distancia entre vectores, que es la funci'on $d_2:\mathbb{R}^2 \times \mathbb{R}^2 \to \mathbb{R}$ tal que 
+
+\[d_2(\mathbf{p}, \mathbf{q}) = ||\mathbf{p} - \mathbf{q}||_2\]
+
+\noindent
+y al reescribir $\mathbf{p} = (x_1, y_1)$ y $\mathbf{q} = (x_2, y_2)$ queda
+
+\[d_2((x_1, y_1), (x_2, y_2)) = \sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}\]
+
+\noindent
+que 'esta es la conocida distancia eucl'idea. En lo que sigue, y por simplicidad, notaremos $\langle \cdot, \cdot \rangle$, $||\cdot||$ y $d$ a las tres funciones anteriores.
+
+A partir de la distancia entre vectores surge el concepto de distancia entre un vector y un subespacio. Recordemos que un subespacio no es m'as que un subconjunto de vectores que es, en s'i mismo, un espacio vectorial. Por ejemplo, en $\mathbb{R}^2$, las rectas que pasan por el origen son subespacios. La distancia entre un vector $\mathbf{p}$ y un subespacio $L$ es
+
+\[d(\mathbf{p}, L) = \min\limits_{\mathbf{x} \in L} d(\mathbf{p}, \mathbf{x})\]
+
+\noindent
+Los subespacios que vamos a considerar son rectas por el origen, que son los 'unicos subespacios propios no nulos de $\mathbb{R}^2$, con lo cual vamos a estar calculando la distancia entre un punto y una recta. Es posible calcular f'acilmente esta distancia, y para esto vamos a caracterizar el 'unico punto del subespacio que realiza el m'inimo.
+
+El concepto clave para dar con esta caracterizaci'on es el de \textit{proyecci'on ortogonal} de un vector sobre un subespacio. Supongamos que tenemos un punto $\mathbf{p}$ y una recta $L$, y tracemos la recta perpendicular $L^{\perp}$. El punto $\mathbf{p}$ se puede escribir como la suma de un punto $\mathbf{q} \in L$ y otro punto $\mathbf{r} \in L^{\perp}$. En la figura \ref{fig3} podemos ver la situaci'on.
+
+\begin{figure}[H]
+	\begin{center}
+		%\includegraphics[scale=]{}
+	\end{center}		
+	\caption{}
+	\label{fig3}
+\end{figure}
+
+\noindent
+En este escenario, el punto $\mathbf{q}$ es la proyecci'on de $\mathbf{p}$ sobre el subespacio $L$, en la direcci'on de la recta ortogonal $L^{\perp}$. Esto es lo que se denomina, m'as sint'eticamente, proyecci'on ortogonal de $\mathbf{p}$ sobre $L$. Como indica la intuici'on, 'este es el punto de $L$ m'as cercano a $\mathbf{p}$, es decir que
+
+\begin{equation*}
+d(\mathbf{p}, L) = d(\mathbf{p}, \mathbf{q})
+\label{eq_dist_1}
+\end{equation*}
+
+\noindent
+Adem'as, esta distancia es exactamente la longitud del vector $\mathbf{r}$, con lo cual
+
+\begin{equation*}
+d(\mathbf{p}, \mathbf{q}) = ||\mathbf{r}||
+\label{eq_dist_2}
+\end{equation*}
+
+Como $L$ es una recta, podemos escribir $L = \langle \mathbf{u} \rangle = \{\alpha \mathbf{u}: \alpha \in \mathbb{R}\}$ para cierto vector $\mathbf{u}$, un vector director de la recta. Como $\mathbf{q}$ es un punto de $L$, existe $u \in \mathbb{R}$ tal que $\mathbf{q} = u\mathbf{u}$. Este $u$ es el coeficiente que determina la posici'on de $\mathbf{q}$ sobre la recta $L$. Se puede demostrar que 
+
+\begin{equation}
+u = \frac{\langle \mathbf{p}, \mathbf{u} \rangle}{||\mathbf{u}||^2}
+\label{eq_u}
+\end{equation}
+
+
+An'alogamente, si $L^{\perp} = \langle \mathbf{w} \rangle$ y $\mathbf{r} = w \mathbf{w}$, entonces
+
+\[w = \frac{\langle \mathbf{p}, \mathbf{w}\rangle}{||\mathbf{w}||^2}\]
+
+Como $L^{\perp}$ es la recta perpendicular a $L$, hay una fuerte relaci'on entre los vectores directores de ambas rectas. Si $\mathbf{u} = (x, y)$, llamamos $perp(\mathbf{u}) = (y, -x)$ al vector que se obtiene de rotar $\pi / 2$ radianes en sentido antihorario a $\mathbf{u}$. Se puede ver que $perp(\mathbf{u})$ es perpendicular a $\mathbf{u}$ y tiene la misma norma. Este vector $perp(\mathbf{u})$ resulta ser un director de $L^{\perp}$, con lo cual podemos poner $\mathbf{w} = perp(\mathbf{u})$, y por lo tanto
+
+\begin{equation}
+w = \frac{\langle\mathbf{p}, perp(\mathbf{u})\rangle}{||\mathbf{u}||^2}
+\label{eq_ww}
+\end{equation}
+
+En definitiva, las ecuaciones \ref{eq_u} y \ref{eq_ww} caracterizan las proyecciones $\mathbf{q}$ y $\mathbf{r}$ en funci'on del punto proyectado $\mathbf{p}$ y un vector director $\mathbf{u}$ de la recta sobre la que se proyecta.
+
+\subsection{Interpolaci'on Lineal}
+
+\label{interp}
+
+Dados dos puntos $(x_1, y_1)$ y $(x_2, y_2)$, existe una 'unica recta que los interpola. Si $x_1 \neq x_2$, esta recta es descripta por la f'ormula $y(x) = ax + b$, donde
+
+\begin{align*}
+a &= \frac{y_2 - y_1}{x_2 - x_1}\\
+b &= y_1 - a x_1
+\end{align*}
+
+\noindent
+Los puntos de la recta ser'an de la forma $(x, y(x))$.
+
+Si $x_1 = x_2$, podemos expresar la recta sencillamente como $x(y) = x_1$, y sus puntos  son de la forma $(x(y), y)$.
+
+Podemos expresar a ambas rectas, como una parametrizaci'on $\alpha: [0, 1] \to \mathbb{R}^2$, haciendo que la variable independiente var'ie entre los extremos de la interpolaci'on, a medida que el argumento $t$ de la parametrizaci'on $\alpha(t)$ var'ia de entre 0 y 1.
+
+Si $x_1 \neq x_2$, esta parametrizaci'on tiene la forma $\alpha(t) = (x(t), y(x(t)))$, donde
+
+\begin{align*}
+x(t) &= (x_2 - x_1) t + x_1\\
+y(x(t)) &= a(x_2 - x_1)t + ax_1 + b
+\end{align*}
+
+Si $x_1 = x_2$, la parametrizaci'on tiene la forma $\alpha(t) = (x(y(t)), y(t))$, donde
+
+\begin{align*}
+x(y(t)) &= x_1\\
+y(t) &= (y_2 - y_1) t + y_1
+\end{align*}
+
+La expresi'on param'etrica tiene una gran ventaja respecto de la forma expl'icita (dejando una variable libre, mediante la cual se expresa la restante), que es que permite manejar los dos casos $x_1 = x_2$ y $x_1 \neq x_2$ de la misma manera, expresando, en ambos casos, las dos componentes de la parametrizaci'on como funciones lineales de $t$. Por el contrario, la dependencia entre las variables en la forma expl'icita cambia seg'un el caso, siendo $y$ dependiente de $x$ si $x_1 = x_2$, y $x$ dependiente de $y$ si $x_1 \neq x_2$.

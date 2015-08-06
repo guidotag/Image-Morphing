@@ -1,0 +1,209 @@
+\section{Algoritmo de Beier y Neely}
+
+\subsection{Metamorfosis dirigida por segmentos}
+
+Para mapear las caracter'isticas de la imagen origen en las caracter'isticas de la imagen destino, esta t'ecnica utiliza segmentos dirigidos. A trav'es de ellos podemos indicar que todos los puntos sobre un sector de la imagen origen deben ser mapeados a cierto otro sector de la imagen destino. Estos segmentos establecen un campo de influencia en su entorno, de modo tal que todos los pixeles que se encuentren en estas inmediaciones ser'an mapeados al entorno del segmento destino asociado.
+
+\subsection{Deformaci'on de una imagen}
+
+Si bien estos pares de segmentos nos dan una idea de c'omo debe ser la transformaci'on, no es evidente el lugar exacto de la im'agen destino en el que debe ser mapeado cada pixel de la im'agen origen, ni tampoco c'omo deben moverse estos pixeles sobre las im'agenes intermedias, a lo largo de la deformaci'on.
+
+¿C'omo construimos una im'agen intermedia? Cada una de 'estas estar'a compuesta por pixeles que provienen de la imagen origen y de la imagen destino. La pregunta es cu'ales son esos pixeles fuente.
+
+Hay dos formas de mapear pixeles entre las im'agenes origen y destino, y la im'agen intermedia. La m'as intuitiva, aunque poco efectiva, es el mapeo hacia adelante (en ingl'es, \textit{forward mapping}), que consiste en mapear pixeles desde las im'agenes fuente (las im'agenes origen y destino) hacia la im'agen intermedia. Lo malo de esta t'ecnica es que podr'ian quedar pixeles de la im'agen intermedia sin pintar.
+
+La alternativa es el mapeo hacia atr'as (en ingl'es, \textit{reverse mapping}) y consiste en, a contrapelo de lo anterior, mapear pixeles desde la im'agen intermedia, hacia los extremos. En otras palabras, para cada pixel de la imagen deformada, determina qu'e pixel de cada imagen fuente le corresponde. Esto asegura que cada pixel de la imagen deformada obtendr'a un color.
+
+\begin{figure}[H]
+	\begin{center}
+		%\includegraphics[scale=]{}
+	\end{center}		
+	\caption{Forward mapping y reverse mapping}
+	\label{fig4}
+\end{figure}
+
+\subsection{Esquema general de la metamorfosis}
+
+Fijados los pares de segmentos en la imagen origen y destino, interpolamos los extremos de cada uno de estos pares, de modo tal de determinar la ubicaci'on de estos segmentos en cada una de las im'agenes intermedias en la metamorfosis. En este trabajo optamos por interpolar linealmente, aunque bien podr'ia utilizarse otro m'etodo.
+
+\begin{figure}[H]
+	\begin{center}
+		%\includegraphics[scale=]{}
+	\end{center}		
+	\caption{Interpolaci'on de segmentos}
+	\label{fig5}
+\end{figure}
+
+Para cada imagen intermedia a generar, determinamos las posiciones de los segmentos en dicha imagen. Luego, para cada pixel de esta imagen determinamos de qu'e pixel de la imagen original proviene, bas'andonos en la posici'on actual de los segmentos. Repetimos el proceso, ahora para determinar de qu'e pixel de la imagen destino proviene. Finalmente, hacemos una mezcla (en ingl'es, \textit{blending}) de los pixeles origen y destino calculados, como parte del cross-dissolving. Esta mezcla consiste en la suma ponderada componente a componente RGB de los pixeles involucrados, donde el peso de cada una depende del momento de la metamorfosis que estamos construyendo. Hacia el principio de la metamorfosis, el color del pixel original dominar'a, mientras que hacia el final, el color del pixel destino lo har'a.
+
+\begin{figure}[H]
+	\begin{center}
+		%\includegraphics[scale=]{}
+	\end{center}		
+	\caption{Construcci'on de una imagen intermedia}
+	\label{fig6}
+\end{figure}
+
+\subsection{Transformaci'on con un 'unico segmento}
+
+Supongamos por el momento que hay un 'unico segmento definido. En el contexto de la figura \ref{fig6}, ¿c'omo hacemos para encontrar la coordenada $\mathbf{x_{src}}$? Lo que haremos es encontrar la posici'on del punto $\mathbf{x}$ relativa al segmento dirigido $\mathbf{pq}$ y encontrar el pixel correspondiente a esta misma posici'on relativa pero con respecto al segmento dirigido $\mathbf{p_{src}q_{src}}$. Para esto, vamos a utilizar la proyecci'on de $\mathbf{x}$ sobre la recta que determina $\mathbf{pq}$, y sobre su ortogonal.
+
+Lo primero que haremos es trasladar todo al origen, por lo que todos los c'omputos los haremos en t'erminos del punto $\mathbf{x} - \mathbf{p}$ y las rectas de directores $\mathbf{q} - \mathbf{p}$ y $\mathbf{q_{src}} - \mathbf{p_{src}}$. Por la ecuaci'on \ref{eq_u}, el coeficiente de la proyecci'on de $\mathbf{x} - \mathbf{p}$ sobre la recta $\langle \mathbf{q} - \mathbf{p} \rangle$ es
+
+\begin{equation}
+u = \frac{\langle \mathbf{x} - \mathbf{p}, \mathbf{q} - \mathbf{p} \rangle}{||\mathbf{q} - \textbf{p}||^2}
+\label{eq_u_posta}
+\end{equation}
+
+\noindent
+de modo tal que la proyecci'on es exactamente $u (\mathbf{q} - \mathbf{p})$, es decir, la proyecci'on se encuentra en el m'ultiplo $u$ del vector $\mathbf{q} - \mathbf{p}$. Luego,
+
+\begin{equation}
+u (\mathbf{q_{src}} - \mathbf{p_{src}})
+\label{eq_qp}
+\end{equation}
+es la proyecci'on asociada a $\mathbf{x_{src}}$, proporcional al segmento $\mathbf{p_{src}q_{src}}$. Notar que las proporciones se preservan porque la magnitud $u$ es una proporci'on. Intuitivamente, hemos determinado a qu'e \textit{altura} del segmento $\mathbf{p_{src}q_{src}}$ se encuentra $\mathbf{x_{src}}$.
+
+Para determinar cu'an lejos se encuentra, vamos a usar la proyecci'on sobre el ortogonal $\langle \mathbf{q} - \mathbf{p} \rangle^{\perp}$. El coeficiente de la proyecci'on es, seg'un la ecuaci'on \ref{eq_ww},
+
+\[w = \frac{\langle \mathbf{x} - \mathbf{p}, perp(\mathbf{q} - \mathbf{p}) \rangle}{||\mathbf{q} - \mathbf{p}||^2}\]
+
+Podr'iamos usar este coeficiente para ubicar $\mathbf{x_{src}}$, aunque esto significar'ia que las proporciones tambi'en se preservan en la direcci'on ortogonal a $\mathbf{pq}$. Seg'un indican los creadores de la t'ecnica en su art'iculo, es m'as util \emph{no} mantener la escala en la direcci'on ortogonal al segmento. En otras palabras, la distancia del punto $\mathbf{x_{src}}$ a la recta $\langle \mathbf{q_{src}} - \mathbf{p_{src}} \rangle$ debe ser la misma que del punto $\mathbf{x}$ a la recta $\langle \mathbf{q} - \mathbf{p} \rangle$, sumado a que los puntos deben preservar su ubicaci'on con respecto a los segmentos, en el sentido de que o bien ambos puntos se encuentran a izquierda de los segmentos, o bien ambos se encuentran a derecha. Nosotros hemos seguido su consejo.
+
+Notemos que podemos escribir la proyecci'on $w\hspace{0.1cm}perp(\mathbf{q} - \mathbf{p})$ como $\frac{\langle \mathbf{x} - \mathbf{p}, perp(\mathbf{q} - \mathbf{p}) \rangle}{||\mathbf{q} - \mathbf{p}||} \frac{perp(\mathbf{q} - \mathbf{p})}{||\mathbf{q} - \mathbf{p}||}$. Llamemos
+
+\begin{equation}
+v = \frac{\langle \mathbf{x} - \mathbf{p}, perp(\mathbf{q} - \mathbf{p}) \rangle}{||\mathbf{q} - \mathbf{p}||}
+\label{eq_v_posta}
+\end{equation}
+
+\noindent
+La clave es que, como $\frac{perp(\mathbf{q} - \mathbf{p})}{||\mathbf{q} - \mathbf{p}||}$ es unitario y tiene la direcci'on y el sentido de $perp(\mathbf{q} - \mathbf{p})$, entonces 
+
+\begin{equation}
+v \hspace{0.10cm} \frac{perp(\mathbf{q_{src}} - \mathbf{p_{src}})}{||\mathbf{q_{src}} - \mathbf{p_{src}}||}
+\label{eq_qp_ort}
+\end{equation}
+
+es una componente en direcci'on ortogonal a $\mathbf{p_{src}q_{src}}$ que preserva distancia y sentido, en la forma en que se indic'o en el p'arrafo anterior.
+
+En definitiva, las expresiones \ref{eq_qp} y \ref{eq_qp_ort} determinan las componentes de $\mathbf{x_{src}} - \mathbf{p}$, de manera que
+
+\begin{equation}
+\mathbf{x_{src}} = u (\mathbf{q_{src}} - \mathbf{p_{src}}) + v \hspace{0.10cm} \frac{perp(\mathbf{q_{src}} - \mathbf{p_{src}})}{||\mathbf{q_{src}} - \mathbf{p_{src}}||} + \mathbf{p}
+\label{eq_x_posta}
+\end{equation}
+
+\begin{figure}[H]
+	\begin{center}
+		%\includegraphics[scale=]{}
+	\end{center}		
+	\caption{Transformaci'on con un 'unico segmento}
+	\label{fig7}
+\end{figure}
+
+\noindent
+Para calcular $\mathbf{x_{dst}}$, el procedimiento es el mismo, ahora utilizando el segmento $\mathbf{p_{dst}q_{dst}}$ en lugar de $\mathbf{p_{src}q_{src}}$.
+
+Teniendo las coordenadas $\mathbf{x_{src}}$ y $\mathbf{x_{dst}}$, s'olo resta hacer el blending entre tales puntos para obtener los colores de $\mathbf{x}$. Para cada componente RGB $c$, ponemos
+
+\begin{equation}
+c(\mathbf{x}) = (1 - t) \hspace{0.1cm}c(\mathbf{x_{src}}) + t \hspace{0.1cm} c(\mathbf{x_{dst}})
+\label{eq_blend}
+\end{equation}
+
+\noindent
+donde $t \in [0, 1]$ es el tiempo transcurrido en la metamorfosis.
+
+\subsection{Transformaci'on con m'ultiples segmentos}
+
+En general, las metamorfosis en las que estemos interesados ser'an complejas y requerir'an m'as de un segmento. Cuando hay m'as de un segmento, cada punto no se ve afectado por un 'unico segmento cercano, sino por todos, que ejercen influencia en mayor o menor medida. Para determinar el pixel origen correspondiente a un punto $\mathbf{x}$, vamos a tomar cada uno de los segmentos de la imagen intermedia, y su segmento asociado en la imagen origen, y hacer el reverse mapping como si el segmento considerado fuera el 'unico. El procesamiento para el $i$-'esimo segmento, que llamamos $\mathbf{p}[i]\mathbf{q}[i]$, resultar'a en un punto $\mathbf{x}_{\mathbf{src}}[i]$, lo que significa que, seg'un $\mathbf{p}[i]\mathbf{q}[i]$, $\mathbf{x}$ se desplaza en $\mathbf{d}[i] = \mathbf{x}_{\mathbf{src}}[i] - \mathbf{x}$. Cada uno de estos desplazamientos tendr'a un peso, que ser'a inversamente proporcional a la distancia de $\mathbf{x}$ a $\mathbf{p}[i]\mathbf{q}[i]$, y directamente proporcional a la longitud de $\mathbf{p}[i]\mathbf{q}[i]$. El desplazamiento definitivo, con el que determinaremos $\mathbf{x_{src}}$, ser'a el promedio ponderado de estos desplazamientos parciales.
+
+El peso que utilizaremos es
+
+\begin{equation}
+weight = \left(\frac{||\mathbf{q}[i] - \mathbf{p}[i]||^c}{a + d(\mathbf{x}, \mathbf{p}[i]\mathbf{q}[i])}\right)^b
+\label{eq_weight}
+\end{equation}
+
+\noindent
+donde $a$, $b$ y $c$ son constantes prefijadas. La constante $a$ cumple la funci'on de que la expresi'on no se indefina para los puntos que se encuentran sobre el segmento $\mathbf{p}[i]\mathbf{q}[i]$, por lo que se debe elegir apenas mayor que cero. La constante $c$ determina cu'an influyente es la longitud de un segmento, de modo tal que a valores grandes de $c$, m'as influencia tienen los segmentos largos. Finalmente, la constante $b$ indica cu'anto cae la fuerza de un segmento en funci'on de la distancia a la que se encuentra. Si $b$ es grande, cada punto ser'a afectado s'olo por los segmentos que est'an cerca. Notar que si $b$ es cero, todos los segmentos afectan a todos los pixeles en igual medida.
+
+Para calcular la distancia $d(\mathbf{x}, \mathbf{p}[i]\mathbf{q}[i])$, podemos usar el mismo coeficiente $u$ calculado usando la f'ormula \ref{eq_u_posta}. Si $u \in [0, 1]$ entonces la proyecci'on de $\mathbf{x}$ cae sobre el segmento $\mathbf{p}[i]\mathbf{q}[i]$, y el punto de la proyecci'on realiza la distancia, y se puede ver que esta distancia es $|v|$, para el valor de $v$ calculado en la ecuaci'on \ref{eq_v_posta}. Si $u < 0$ entonces la proyecci'on cae en un punto que tiene sentido contrario al segmento, por lo que la distancia se realiza sobre el extremo $\mathbf{p}[i]$, y vale $||\mathbf{x} - \mathbf{p}[i]||$. Finalmente, si $u > 1$, la distancia se realiza sobre el otro extremo $\mathbf{q}[i]$, y vale $||\mathbf{x} - \mathbf{q}[i]||$.
+
+Terminamos esta explicaci'on presentando el algoritmo completo. El algoritmo \ref{algo1} es el encargado de, dado un pixel $\mathbf{x}$, encontrar el pixel $\mathbf{x'}$ correspondiente en una imagen fuente. En otras palabras, calcula $\mathbf{x_{src}}$ o $\mathbf{x_{dst}}$ seg'un se use los segmentos de la imagen origen o los de la imagen destino, respectivamente. El algoritmo \ref{algo2} es la transformaci'on completa.
+
+%\newpage
+
+\begin{algorithm}
+\DontPrintSemicolon
+
+\SetKwInOut{input}{Input}
+\SetKwInOut{output}{Output}
+\SetKwInOut{signature}{Signatura}
+
+%\signature{\textsc{Compute-Source-Point}($\mathbf{x}$)}
+\input{$\mathbf{x}$ pixel de la imagen intermedia\\$\mathbf{p}[]\mathbf{q}[]$ segmentos de la imagen intermedia\\
+$\mathbf{p'}[]\mathbf{q'}[]$ segmentos de la imagen fuente}
+
+\output{$\mathbf{x'}$ pixel de la imagen fuente}
+
+%\output{}
+$\mathbf{d\_{sum}} \gets (0, 0)$\;
+$weight\_sum \gets 0$\;
+Sea $s$ la cantidad de segmentos\;
+\For{$i \gets 1$ \KwTo $s$}{
+	Calcular $u$ y $v$ en base a $\mathbf{p}[i]\mathbf{q}[i]$ y $\mathbf{x}$ (ecuaciones \ref{eq_u_posta} y \ref{eq_v_posta})\;
+	Calcular $\mathbf{x'}[i]$ en base a $u$, $v$, $\mathbf{p'}[i]\mathbf{q'}[i]$ y $\mathbf{p}[i]$ (ecuaci'on \ref{eq_x_posta})\;
+	$\mathbf{d}[i] \gets \mathbf{x'}[i] - \mathbf{x}$\;
+	Calcular $weight$ en base a $\mathbf{p}[i]\mathbf{q}[i]$ y $\mathbf{x}$ (ecuaci'on \ref{eq_weight}) \;
+	$\mathbf{d\_{sum}} \gets \mathbf{d\_{sum}} + weight * \mathbf{d}[i]$\;
+	$weight\_sum \gets weight\_sum + weight$\;
+}
+
+$\mathbf{x'} \gets \mathbf{x} + \mathbf{d\_{sum}}/weight\_sum$\;
+\Return $\mathbf{x'}$\;
+\caption[]{C'omputo de pixel fuente}
+\label{algo1}
+\end{algorithm}
+
+\begin{algorithm}
+\DontPrintSemicolon
+
+\SetKwInOut{input}{Input}
+\SetKwInOut{output}{Output}
+\SetKwInOut{signature}{Signatura}
+
+%\signature{\textsc{Compute-Source-Point}($\mathbf{x}$)}
+\input{Imagen origen\\Imagen destino\\
+$\mathbf{p_{src}}[]\mathbf{q_{src}}[]$ segmentos de la imagen origen\\
+$\mathbf{p_{dst}}[]\mathbf{q_{dst}}[]$ segmentos de la imagen destino}
+
+%\output{}
+Sea $s$ la cantidad de segmentos\;
+\For{$i \gets 1$ \KwTo $s$}{
+	Calcular la interpolaci'on lineal de $\mathbf{p_{src}}[i]$ y $\mathbf{p_{dst}}[i]$ de forma param'etrica\;
+	Calcular la interpolaci'on lineal de $\mathbf{q_{src}}[i]$ y $\mathbf{q_{dst}}[i]$ de forma param'etrica\;
+}
+
+\For{$t$ corriendo entre 0 y 1}{
+	\ForEach{p'ixel $\mathbf{x}$}{
+		Calcular $\mathbf{x_{src}}$ en base a $\mathbf{x}$, las interpolaciones en tiempo $t$ y los segmentos de la imagen origen (algoritmo \ref{algo1})\;
+		Calcular $\mathbf{x_{dst}}$ en base a $\mathbf{x}$, las interpolaciones en tiempo $t$ y los segmentos de la imagen destino (algoritmo \ref{algo1})\;
+		Colorear $\mathbf{x}$ mezclando $\mathbf{x_{src}}$ y $\mathbf{x_{dst}}$ (ecuaci'on \ref{eq_blend})\;
+	}
+	Escribir la im'agen intermedia\;
+}
+\caption[]{Metamorfosis}
+\label{algo2}
+\end{algorithm}
+
+\newpage
+
+En el algoritmo \ref{algo2} no est'a especificada la forma en que $t$ toma valores entre 0 y 1. En la pr'actica, esto est'a determinado por la cantidad de im'agenes intermedias que queremos que compongan a la metamorfosis. Si llamamos $f$ a la cantidad total de im'agenes que componen a la metamorfosis (es decir, la imagen origen, m'as las im'agenes intermedias, m'as la imagen destino), entonces $t$ tomar'a los valores $i / (f - 1)$, para $i = 0, \dots, f -1$, en ese orden.
+
+\subsection{Complejidad temporal}
+
+El algoritmo \ref{algo1} tiene un costo $O(s)$, puesto que el ciclo 4-11 se ejecuta $s$ veces, y cada una de sus operaciones es $O(1)$.
+
+Las l'ineas 2 a 5 del algoritmo \ref{algo2}, en las cuales se computan las interpolaciones, cuestan $O(s)$ en total, puesto que son $2s$ interpolaciones en total y cada una cuesta $O(1)$, como se puede ver en la secci'on \ref{interp}. Los ciclos anidados 6-13 se ejecutan $f \times w \times h$ veces, donde $w$ es el ancho de las im'agenes y $h$ es el alto. Las l'ineas 8 y 9 son $O(s)$ cada una, mientras que la l'inea 10 es $O(1)$. Por lo tanto, el ciclo 6-13 es $O(f \times w \times h \times s)$ y, en definitiva, 'este es el costo del algoritmo.

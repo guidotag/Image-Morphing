@@ -18,10 +18,5 @@ CvVideoWriter *create_video_writer (const char *output_file, int width, int heig
 								cvSize(width, height), 
 								is_color);
 
-	if(writer == NULL) {
-        fprintf(stderr, "Cannot create video writer\n");
-        exit(EXIT_FAILURE);
-    }
-
 	return writer;
 }

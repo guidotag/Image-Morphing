@@ -352,11 +352,11 @@ compute_weighted_src_pixel_asm:
 	push r15
 	sub rsp, 8
 	
-	pshufb xmm0, [mask_copy_lowest_dword]															; xmm0 = x | x + 1 | x + 2 | x + 3
-	movdqu xmm15, [mask_float_zero_one_two_three]
-	addps xmm0, xmm15
+	pshufb xmm0, [mask_copy_lowest_dword]															
+	movdqu xmm15, [mask_float_zero_one_two_three]													
+	addps xmm0, xmm15																				; xmm0 = x | x + 1 | x + 2 | x + 3
 	
-	pshufb xmm1, [mask_copy_lowest_dword]
+	pshufb xmm1, [mask_copy_lowest_dword]															; xmm1 = y | y | y | y
 	
 	pshufb xmm2, [mask_copy_lowest_dword]																		
 	movdqu [time], xmm2
@@ -381,6 +381,9 @@ compute_weighted_src_pixel_asm:
 	
 	xor rbx, rbx
 	.loop:
+		cmp rbx, r15
+		je .end_loop
+		
 		movdqu xmm8, [time]																			; xmm8 = t
 		
 		; Compute dst_segment.from = evaluate(from_interpolations[i], t)
@@ -444,8 +447,7 @@ compute_weighted_src_pixel_asm:
 		movdqu [weight_sum], xmm5																	; weight_sum += weight
 		
 		inc rbx
-		cmp rbx, r15
-		jne .loop
+		jmp .loop
 	.end_loop:
 	
 	movdqu xmm4, [weight_sum]
@@ -470,7 +472,7 @@ compute_weighted_src_pixel_asm:
 	pand xmm8, xmm6
 	pand xmm9, xmm6
 	
-	divps xmm2, xmm4
+	divps xmm2, xmm4																				; Could raise FPU's Divide-By-Zero flag, but we don't care
 	divps xmm3, xmm4
 	addps xmm0, xmm2
 	addps xmm1, xmm3

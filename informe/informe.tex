@@ -1,0 +1,42 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{a4wide}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usepackage{todonotes}
+%\usepackage[lined, ruled, linesnumbered]{algorithm2e}
+\usepackage[lined, ruled, linesnumbered]{algorithm2e}
+\usepackage{caption}	% Para agregar captions de table a entornos tabular
+\usepackage{float}
+
+\graphicspath{{imagenes/}}
+
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{prop}{Proposición}[section]
+\newtheorem{lema}{Lema}[section]
+
+\theoremstyle{remark}
+\newtheorem{obs}{Observación}[section]
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definición}[section]
+
+\newcommand{\twodots}{\cdot\cdot\hspace{0.75mm}}
+
+\begin{document}
+	\input{caratula}
+	\tableofcontents
+	\input{abstract}
+	\input{introduccion}
+	\input{background}
+	\input{algoritmo}
+	\input{vectorizacion}
+	\input{experimentacion}
+	\bibliographystyle{plain}
+	\bibliography{informe}
+\end{document}

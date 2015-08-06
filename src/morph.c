@@ -156,6 +156,7 @@ static void generate_sequence_c(IplImage *src_image,
 	cvReleaseImage(&img);
 }
 
+// Pre: images' width is >= 4
 static void generate_sequence_asm(	IplImage *src_image, 
 									IplImage *dst_image, 
 									segment *src_segments, 
@@ -178,6 +179,10 @@ static void generate_sequence_asm(	IplImage *src_image,
 		int x, y;
 		for (y = 0; y < height; y++) {
 			for (x = 0; x < width; x += 4) {
+				if (x + 4 > width) {
+					x = width - 4;
+				}
+				
 				point dst_point;
 				dst_point.x = x;
 				dst_point.y = y;
@@ -220,7 +225,7 @@ static void generate_sequence_asm(	IplImage *src_image,
 	cvReleaseImage(&img);
 }
 
-// nframes >= 2
+// Pre: nframes >= 2
 void morph(	IplImage *src_image, 
 			IplImage *dst_image, 
 			segment *src_segments, 

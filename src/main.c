@@ -31,6 +31,11 @@ int main (int argc, char *argv[]) {
 	}
 
 	CvVideoWriter *writer = create_video_writer(out_file, src_image->width, src_image->height, 25);
+	
+	if(writer == NULL) {
+        fprintf(stderr, "Cannot create video writer\n");
+        exit(EXIT_FAILURE);
+    }
 
 	// select segments
 
