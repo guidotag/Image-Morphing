@@ -1,7 +1,7 @@
 Image-Morphing
 ==============
 
-Final project for the Computer Organization II course, University of Buenos Aires, Faculty of Exact and Natural Sciences.
+Final project for the Computer Organization II course, at the University of Buenos Aires, Faculty of Exact and Natural Sciences.
 
 ## Hardware prerequisites
 
@@ -9,7 +9,7 @@ An x86-64 processor with SSE3 instructions or better.
 
 ## Software prerequisites
 
-- Intel C compiler, which is included in the Intel® Parallel Studio XE packages. You can download a free trial from Intel's webpage, or a full version for academic usage only. Alternatively, you can use the GCC compiler, and change the CC variable in the `Makefile`.
+- Intel C compiler, which is included in the Intel® Parallel Studio XE packages. You can download a free trial, or a full version for academic usage only, both from Intel's webpage. Alternatively, you can use the GCC compiler, and change the CC variable in the `Makefile`.
 
 - OpenCV 2.4 or better.
 
