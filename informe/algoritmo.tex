@@ -16,7 +16,7 @@ La alternativa es el mapeo hacia atr'as (en ingl'es, \textit{reverse mapping}) y
 
 \begin{figure}[H]
 	\begin{center}
-		%\includegraphics[scale=]{}
+		\input{imagenes/fig4.pdf_tex}
 	\end{center}		
 	\caption{Forward mapping y reverse mapping}
 	\label{fig4}
@@ -28,17 +28,17 @@ Fijados los pares de segmentos en la imagen origen y destino, interpolamos los e
 
 \begin{figure}[H]
 	\begin{center}
-		%\includegraphics[scale=]{}
+		\input{imagenes/fig5.pdf_tex}
 	\end{center}		
 	\caption{Interpolaci'on de segmentos}
 	\label{fig5}
 \end{figure}
 
-Para cada imagen intermedia a generar, determinamos las posiciones de los segmentos en dicha imagen. Luego, para cada pixel de esta imagen determinamos de qu'e pixel de la imagen original proviene, bas'andonos en la posici'on actual de los segmentos. Repetimos el proceso, ahora para determinar de qu'e pixel de la imagen destino proviene. Finalmente, hacemos una mezcla (en ingl'es, \textit{blending}) de los pixeles origen y destino calculados, como parte del cross-dissolving. Esta mezcla consiste en la suma ponderada componente a componente RGB de los pixeles involucrados, donde el peso de cada una depende del momento de la metamorfosis que estamos construyendo. Hacia el principio de la metamorfosis, el color del pixel original dominar'a, mientras que hacia el final, el color del pixel destino lo har'a.
+Para cada imagen intermedia a generar, determinamos las posiciones de los segmentos en dicha imagen. Luego, para cada pixel de esta imagen determinamos de qu'e pixel de la imagen original proviene, bas'andonos en la posici'on actual de los segmentos. Repetimos el proceso, ahora para determinar de qu'e pixel de la imagen destino proviene. Finalmente, hacemos una mezcla (en ingl'es, \textit{blending}) de los pixeles origen y destino calculados, como parte del cross-dissolving. Esta mezcla consiste en la suma ponderada, componente a componente RGB, de los pixeles involucrados, en la que el peso de cada componente depende del momento de la metamorfosis que estamos construyendo. Hacia el principio de la metamorfosis, el color del pixel original dominar'a, mientras que hacia el final, el color del pixel destino lo har'a.
 
 \begin{figure}[H]
 	\begin{center}
-		%\includegraphics[scale=]{}
+		\input{imagenes/fig6.pdf_tex}
 	\end{center}		
 	\caption{Construcci'on de una imagen intermedia}
 	\label{fig6}
@@ -62,6 +62,8 @@ de modo tal que la proyecci'on es exactamente $u (\mathbf{q} - \mathbf{p})$, es 
 u (\mathbf{q_{src}} - \mathbf{p_{src}})
 \label{eq_qp}
 \end{equation}
+
+\noindent
 es la proyecci'on asociada a $\mathbf{x_{src}}$, proporcional al segmento $\mathbf{p_{src}q_{src}}$. Notar que las proporciones se preservan porque la magnitud $u$ es una proporci'on. Intuitivamente, hemos determinado a qu'e \textit{altura} del segmento $\mathbf{p_{src}q_{src}}$ se encuentra $\mathbf{x_{src}}$.
 
 Para determinar cu'an lejos se encuentra, vamos a usar la proyecci'on sobre el ortogonal $\langle \mathbf{q} - \mathbf{p} \rangle^{\perp}$. El coeficiente de la proyecci'on es, seg'un la ecuaci'on \ref{eq_ww},
@@ -85,6 +87,7 @@ v \hspace{0.10cm} \frac{perp(\mathbf{q_{src}} - \mathbf{p_{src}})}{||\mathbf{q_{
 \label{eq_qp_ort}
 \end{equation}
 
+\noindent
 es una componente en direcci'on ortogonal a $\mathbf{p_{src}q_{src}}$ que preserva distancia y sentido, en la forma en que se indic'o en el p'arrafo anterior.
 
 En definitiva, las expresiones \ref{eq_qp} y \ref{eq_qp_ort} determinan las componentes de $\mathbf{x_{src}} - \mathbf{p}$, de manera que
@@ -96,7 +99,7 @@ En definitiva, las expresiones \ref{eq_qp} y \ref{eq_qp_ort} determinan las comp
 
 \begin{figure}[H]
 	\begin{center}
-		%\includegraphics[scale=]{}
+		\input{imagenes/fig7.pdf_tex}
 	\end{center}		
 	\caption{Transformaci'on con un 'unico segmento}
 	\label{fig7}

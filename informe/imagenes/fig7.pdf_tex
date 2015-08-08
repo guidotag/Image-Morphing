@@ -1,0 +1,66 @@
+%% Creator: Inkscape inkscape 0.48.4, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'fig7.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{293.04685059bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.45012167)%
+    \put(0,0){\includegraphics[width=\unitlength]{fig7.pdf}}%
+    \put(0.1041511,0.00851773){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Imagen origen}}}%
+    \put(0.5671763,0.01291156){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Imagen intermedia}}}%
+    \put(0.10060938,0.1670658){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$u$}}}%
+    \put(0.6807022,0.24074149){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$u$}}}%
+    \put(0.74729953,0.29575666){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$v$}}}%
+    \put(0.11279814,0.23301988){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$v$}}}%
+    \put(0.0301513,0.24524512){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\mathbf{q_{src}}$}}}%
+    \put(0.10543527,0.11591127){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\mathbf{p_{src}}$}}}%
+    \put(0.64400532,0.17285675){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\mathbf{p}$}}}%
+    \put(0.71253297,0.42573367){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\mathbf{q}$}}}%
+    \put(0.18940586,0.27902645){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\mathbf{x_{src}}$}}}%
+    \put(0.8090509,0.22883716){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\mathbf{x}$}}}%
+  \end{picture}%
+\endgroup%

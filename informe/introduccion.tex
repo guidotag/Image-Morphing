@@ -6,7 +6,7 @@ Diversos algoritmos para realizar esta metamorfosis han sido desarrollados, sien
 
 \begin{figure}[H]
 	\begin{center}
-		%\includegraphics[scale=]{}
+		\includegraphics[scale=0.65]{imagenes/dissolving.png}
 	\end{center}		
 	\caption{Cross-dissolving}
 	\label{fig1}
@@ -17,9 +17,8 @@ Esta t'ecnica no resulta satisfactoria, puesto que la transformaci'on no es natu
 En este trabajo nos concentramos en la t'ecnica desarrollada por Beier y Neely, presentada en \cite{1}, que realiza el mapeo de caracter'isticas a trav'es de segmentos dirigidos (l'ineas rectas con principio, fin y sentido) en la imagen origen asociados a segmentos dirigidos en la imagen destino. Esto no s'olo determina c'omo deben ser transformados los puntos sobre esos segmentos, sino que tambi'en dan informaci'on sobre la transformaci'on de los puntos que los rodean. Implementamos una versi'on de este m'etodo basada en instrucciones SIMD, y la comparamos contra una versi'on tradicional, que realiza el procesamiento en serie, ganando, la primera, en t'erminos de tiempo de ejecuci'on, por un amplio margen. No tenemos registro de ninguna publicaci'on sobre una implementaci'on de este tipo, ni siquiera de los resultados de la vectorizaci'on de otros algoritmos de metamorfosis de im'agenes, con lo cual nuestro aporte es, en peque\~{n}a dosis, novedoso.
 
 \begin{figure}[H]
-	TODO USAR LA MISMA SECUENCIA QUE ANTES
 	\begin{center}
-		%\includegraphics[scale=]{}
+		\includegraphics[scale=0.65]{imagenes/warping.png}
 	\end{center}		
 	\caption{Cross-dissolving con warping}
 	\label{fig2}

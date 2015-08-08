@@ -173,8 +173,10 @@ static void generate_sequence_asm(	IplImage *src_image,
 	IplImage *img = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, N_CHANNELS);
 	int i;
 	
+//~ for(i = 0; i < 6; i++) {
 	for (i = 0; i < n_frames; i++) {
 		float t = i / (float)(n_frames - 1);
+//~ float t = i / 5.0;
 		
 		int x, y;
 		for (y = 0; y < height; y++) {
@@ -218,6 +220,10 @@ static void generate_sequence_asm(	IplImage *src_image,
 				}
 			}
 		}
+		
+//~ char str[] = "../output/seq_x.png";
+//~ str[14] = '0' + i;
+//~ cvSaveImage(str, img, NULL);
 
 		cvWriteFrame(writer, img);
 	}
