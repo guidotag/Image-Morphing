@@ -2,94 +2,86 @@
 
 \subsection{Resultados}
 
-Comparamos una implementaci'on en C, con la vectorizada. Para esto, tomamos dos imagenes de tama\~{n}o $1024 \times 768$, y trazamos 44 segmentos sobre cada una de ellas. En la figura \ref{fig8} se puede ver la metamorfosis utilizando los 44 segmentos.
+Comparamos una implementaci'on en C, con la vectorizada\footnote{El c'odigo de ambas se puede encontrar en \url{https://github.com/guidotag/Image-Morphing}.}. Para esto, tomamos dos imagenes de tama\~{n}o $1024 \times 768$, y trazamos 44 segmentos sobre cada una de ellas. En la figura \ref{fig2} se puede ver la metamorfosis utilizando los 44 segmentos.
+
+Para la comparaci'on, decidimos dejar fijas las im'agenes origen y destino, es decir que $w = 1024$ y $h = 768$, fijar la cantidad de frames de la metamorfosis en $f = 100$, y s'olo variar la cantidad de segmentos $s$ utilizados. Esta elecci'on se basa en que el par'ametro $s$ es el que determina la intensidad del c'omputo de cada una de las llamadas individuales a la implementaci'on del algoritmo \ref{algo1}, que es la pieza que hemos vectorizado. Los par'ametros $f$, $w$ y $h$ solamente marcan cu'antas veces se llama a ese procedimiento.
+
+Para cada una de las implementaciones, variando $s \in \{0, 5, 10, 15, 20, 25, 30, 35, 40\}$, medimos el tiempo de ejecuci'on total del algoritmo \ref{algo2}. Esto incluye el overhead que impone el framework utilizado para la escritura de los frames del video a lo largo de todo el proceso, al finalizar cada iteraci'on. Como veremos a continuaci'on, este overhead es despreciable respecto del resto del procesamiento.
+
+En la figura \ref{fig8} presentamos los resultados de la comparaci'on. Ambas versiones fueron compiladas mediante la herramienta de Intel, cuyo grado de optimizaci'on es mucho mayor que otros compiladores, como GCC. Adem'as se utiliz'o el flag -O3, la opci'on de optimizaci'on m'as agresiva. Medimos el tiempo de ejecuci'on en cantidad de ciclos de reloj, utilizando el registro TSC (Time Stamp Counter) de un procesador Intel\textregistered Core\texttrademark i5-3470 compuesto de cuatro cores de 3.20GHz cada uno.
+
+Recordemos que el costo del algoritmo \ref{algo2} es proporcional a $f \times w \times h \times s$, de modo que el gr'afico de tiempo de ejecuci'on en funci'on de $s$ ser'a una recta con pendiente proporcional a $f \times w \times h$.
 
 \begin{figure}[H]
 	\begin{center}
-		%\includegraphics[scale=]{}
+		\input{texplots/morph_1024_768.tex}
 	\end{center}		
-	\caption{Metamorfosis empleada para benchmarking}
+	\caption{Comparaci'on C vs. SIMD}
 	\label{fig8}
 \end{figure}
 
-Para la comparaci'on, decidimos dejar fija las im'agenes origen y destino, es decir que $w = 1024$ y $h = 768$, fijar la cantidad de frames de la metamorfosis en $f = 100$, y variar la cantidad de segmentos $s$ utilizados. Esta elecci'on se basa en que el par'ametro $s$ es el que determina la intensidad del c'omputo de cada una de las llamadas individuales a la implementaci'on del algoritmo \ref{algo1}, que es la pieza que hemos vectorizado. Los par'ametros $f$, $w$ y $h$ solamente marcan cu'antas veces se llama a ese procedimiento.
+La siguiente tabla muestra los tiempos de ejecuci'on exactos, permitiendo calcular la diferencia de tiempo entre las implementaciones.
 
-Para cada una de las implementaciones, variando $s \in \{0, 5, 10, 15, 20, 25, 30, 35, 40\}$, medimos el tiempo de ejecuci'on total, del algoritmo \ref{algo2}. Esto incluye el overhead que impone en framework utilizado para el manejo de video, para la creaci'on de un frame sobre el que trabajamos a lo largo de todo el proceso, y su escritura en el video, al finalizar cada iteraci'on. Como se puede ver en los tiempos de ejecuci'on para $s = 0$, experimento en el que s'olo escribimos sobre el video, casi sin realizar c'omputos en el algoritmo \ref{algo1}, este overhead es despreciable respecto del resto del procesamiento.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$s$ & \textbf{C} & \textbf{SIMD} & \textbf{C / SIMD}\\
+\hline
+0 & 7309812582 & 5941940863 & 1.23\\
+5 & 326478638311 & 29467020103 & 11.08\\
+10 & 639832096193 & 52546672036 & 12.18\\
+15 & 954306269556 & 73077639985 & 13.06\\
+20 & 1269998392581 & 96104580737 & 13.21\\
+25 & 1587171271314 & 116337177498 & 13.64\\
+30 & 1901684635986 & 138126686002 & 13.77\\
+35 & 2216291340338 & 160337691233 & 13.82\\
+40 & 2535347665489 & 182194876866 & 13.91\\
+\hline
+\end{tabular} 
+\end{center}
 
-En la figura \ref{fig9} presentamos los resultados de la comparaci'on. Ambas versiones fueron compiladas con el flag de optimizaci'on -O3. Recordemos que el costo del algoritmo \ref{algo2} es proporcional a $f \times w \times h \times s$, de modo que el gr'afico de tiempo de ejecuci'on en funci'on de $s$ ser'a una recta con pendiente proporcional a $f \times w \times h$.
+En el caso $s = 0$ se escribe el video casi sin realizar c'omputos durante el algoritmo \ref{algo1}, por lo que es una buena medida del overhead que impone el procesamiento de video. Observemos que el tiempo en ese caso es del orden de $10^{10}$ ciclos de clock, mientras que para $s > 0$ todos los valores van de los $10^{12}$ a los $10^{13}$ ciclos, es decir, de 100 a 1000 veces m'as. Esto indica que el overhead en cuesti'on va del 1\% al $0.1\%$, una cantidad despreciable de trabajo del procesador.
 
-\begin{figure}[H]
-	\begin{center}
-		%\includegraphics[scale=]{}
-	\end{center}		
-	\caption{Comparaci'on C vs. SIMD}
-	\label{fig9}
-\end{figure}
-
-Una cuenta permite ver que, en promedio, la implementaci'on SIMD es 25 veces m'as r'apida que la versi'on en C, lo cual es una diferencia m'as que notable.
+Como se ve, la implementaci'on SIMD es, a medida que $s$ crece, casi 14 veces m'as r'apida. Si bien la velocidad de crecimiento de la raz'on de los tiempos disminuye dr'asticamente a partir de $s = 15$, no se ve un estancamiento total de dicho valor, con lo cual podr'ia seguir increment'andose para valores de $s$ m'as grandes que 40. En este trabajo no exploraremos qu'e sucede m'as all'a de $s = 40$, pues no son valores de inter'es pr'actico.
 
 \subsection{An'alisis}
 
-En general, al vectorizar procedimientos obtenemos ganancias m'ultiplo de la cantidad de datos procesados al mismo tiempo. Sin embargo, en este caso, la vectorizaci'on supera ampliamente esa expectativa, al ser 25 veces m'as r'apida, pese a que cada ejecuci'on procesa s'olo 4 pixeles en paralelo. En busca de una explicaci'on para este fen'omeno, comparamos con lupa ambas implementaciones.
+En general, al vectorizar procedimientos obtenemos ganancias m'ultiplo de la cantidad de datos procesados al mismo tiempo. Sin embargo, en este caso, la vectorizaci'on supera ampliamente esa expectativa, al ser 14 veces m'as r'apida, pese a que cada ejecuci'on procesa s'olo 4 pixeles en paralelo. En busca de una explicaci'on para este fen'omeno, comparamos con lupa ambas implementaciones.
 
 La implementaci'on con extensiones SIMD tiene dos caracter'isticas remarcables, directamente relacionadas con su performance:
 
 \begin{itemize}
-	\item \textbf{Casi todas las magnitudes involucradas se mantienen, todo el tiempo, en registros.} Esto permite evitar accesos a memoria, que son hasta 100 veces m'as costosos que los accesos a registros, en el caso de un cache miss.
+	\item \textbf{Casi todas las magnitudes involucradas se mantienen, todo el tiempo, en registros.} Esto permite evitar accesos a memoria, que son m'as de 100 veces m'as costosos que los accesos a registros, en el caso de un cache miss.
 	\item \textbf{Todas las funciones auxiliares est'an implementadas en forma de macros.} Si bien esto permite reducir el overhead de una implementaci'on que usa etiquetas e instrucciones \texttt{call}, la motivaci'on verdadera fue hacer la programaci'on m'as sencilla, puesto que, en el intento de mantener la mayor'ia de los datos en registros, 'estos deb'ian ser manipulados cuidadosamente. Utilizando macros podemos decidir exactamente qu'e registros queremos que sean utilizados por una rutina.
 \end{itemize}
 
-Ambas elecciones tienen desventajas. Por un lado, al intentar explotar al m'aximo la utilizaci'on de los registros, se hace mucho m'as complicada la programaci'on, al ser limitada la cantidad de registros que tenemos a nuestra disposici'on. Sortear este problema es simplemente una cuesti'on de planificar bien el programa. Por otro lado, la utilizaci'on de macros tiene dos desventajas. Primero, no es posible una utilizaci'on din'amica de ese pedazo de c'odigo, en el sentido de que cada llamada a la macro replicar'a su c'odigo, haciendo que el c'odigo objeto sea mucho m'as largo. En nuestro caso, el c'odigo objeto de la vectorizaci'on consta de algunos cientos de l'ineas, de modo que, en este caso, 'esto no resulta una verdadera contra. En segundo lugar, no es posible debuggear las l'ineas que componen a la macro, haciendo m'as dif'icil la detecci'on y correcci'on de errores.
+Ambas caracter'isticas tienen desventajas. Por un lado, al intentar explotar al m'aximo la utilizaci'on de los registros, se hace mucho m'as complicada la programaci'on, al ser limitada la cantidad de registros que tenemos a nuestra disposici'on. Sortear este problema es simplemente una cuesti'on de planificar bien el programa. Por otro lado, la utilizaci'on de macros tiene dos desventajas. Primero, no es posible una utilizaci'on din'amica del c'odigo de la macro, en el sentido de que cada invocaci'on a ella replicar'a su c'odigo, haciendo que el c'odigo objeto de todo el programa sea mucho m'as largo. En nuestro caso, el c'odigo objeto de la vectorizaci'on consta de algunas cientos de l'ineas, de modo que no resulta una verdadera contra. En segundo lugar, no es posible depurar las l'ineas que componen a la macro, haciendo m'as dif'icil la detecci'on y correcci'on de errores.
 
-Para realizar una fiel comparaci'on contra el programa C, realizamos un dump del c'odigo objeto de esta implementaci'on. La primer observaci'on que hicimos, es que la cantidad neta de l'ineas de la versi'on C del reverse mapping y todas las funciones auxiliares utilizadas, es de 650 l'ineas aproximadamente, mientras que la versi'on SIMD tiene alrededor de 350. Si bien un programa m'as compacto no es necesariamente mejor, en este caso es tenemos 350 l'ineas que fueron cuidadosamente pensadas, contrariamente a las 650 elaboradas por un compilador, lo cual podr'ia indicar que la mano humana est'a haciendo diferencia.
+Para realizar un an'alisis detallado de la versi'on C, hicimos un dump de su c'odigo objeto, siendo dos las observaciones que se desprenden del mismo:
 
-En este sentido, notamos que hay auxiliares del dump de C que son sorprendentemente complejas, especialmente las funciones \texttt{add} y \texttt{subtract}, que se encargan de sumar y restar vectores respectivamente. La versi'on SIMD de \texttt{add} se compone de las siguientes dos instrucciones:
+\begin{itemize}
+	\item \textbf{La cantidad neta de l'ineas del reverse mapping y todas las funciones auxiliares utilizadas, es de 750 l'ineas.} Esto es m'as del doble del tama\~{n}o de la versi'on SIMD, que tiene alrededor de 350. Si bien un programa m'as compacto no es necesariamente mejor, en este caso tenemos 350 l'ineas que fueron cuidadosamente pensadas, contrariamente a las 750 elaboradas por un compilador, lo cual podr'ia indicar que la mano humana est'a haciendo una diferencia.
+	
+	\item \textbf{Casi todas las variables locales involucradas en el ciclo principal del algoritmo fueron almacenadas en stack.} Esto obliga a hacer lecturas de memoria en cada llamada a una funci'on auxiliar, y escrituras de memoria para almacenar su resultado. Resulta claro el contraste con la implementaci'on en SIMD, en la que se busc'o mantener todos los datos que fueran posibles en los registros.
+\end{itemize}
 
-\begin{verbatim}
-addps xmm0, xmm2
-addps xmm1, xmm3
-\end{verbatim}
+Como se puede ver, la diferencia que parece estar inclinando la balanza a favor de la versi'on SIMD (a'un m'as de lo que ya lo hace la vectorizaci'on) es el predominante uso de la memoria principal de la versi'on C. Para corroborar este hecho y comparar otras m'etricas de performance, realizamos un an'alisis con la herramienta \textit{perf} de Linux. Tomamos el caso $s = 20$ y corrimos el programa completo, una vez utilizando la implementaci'on en C, y otra con el procedimiento SIMD. Los resultados fueron los siguientes:
 
-\noindent
-donde \texttt{xmm0} y \texttt{xmm2} contienen las coordenadas $x$ de los vectores a sumar, y \texttt{xmm1} y \texttt{xmm3} las coordenadas $y$. El c'odigo original de la versi'on C es el siguiente:
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+& \textbf{C} & \textbf{SIMD}\\
+\hline
+\textbf{Ciclos de clock} & $1.43 \times 10^{12}$ & $1.07 \times 10^{11}$\\
+\textbf{Instrucciones} & $9.69 \times 10^{11}$ & $2.03 \times 10^{11}$\\
+\textbf{Instrucciones por ciclo} & $0.68$ & $1.90$\\
+\textbf{Referencias a cache} & $1.96 \times 10^{7}$ & $1.87 \times 10^{7}$\\
+\textbf{Cache misses} & $61.55$\% & $68.20$\%\\
+\textbf{Branches} & $1.20 \times 10^{11}$ & $1.22 \times 10^{9}$\\
+\textbf{Branch misses} & $0.60$\% & $0.73$\%\\
+\textbf{Lecturas de memoria} & $2.70 \times 10^{9}$ & $4.17 \times 10^{8}$\\                                                    \textbf{Escrituras de memoria} & $1.99 \times 10^{11}$ & $5.50 \times 10^{9}$\\
+\hline
+\end{tabular}
+\end{center}
 
-\begin{verbatim}
-point add(point a, point b) {
-    point res;
-    res.x = a.x + b.x;
-    res.y = a.y + b.y;
-    return res;
-}
-\end{verbatim}
-
-\noindent
-mientras que su dump es:
-
-\begin{verbatim}
-movq   QWORD PTR [rsp-0x38],xmm0
-mov    rdx,QWORD PTR [rsp-0x38]
-movq   QWORD PTR [rsp-0x38],xmm1
-mov    rax,QWORD PTR [rsp-0x38]
-mov    rcx,rdx
-mov    DWORD PTR [rsp-0x10],edx
-shr    rcx,0x20
-mov    rsi,rax
-mov    DWORD PTR [rsp-0xc],eax
-mov    QWORD PTR [rsp-0x38],rcx
-shr    rsi,0x20
-movss  xmm3,DWORD PTR [rsp-0x38]
-mov    QWORD PTR [rsp-0x28],rsi
-movss  xmm2,DWORD PTR [rsp-0x10]
-addss  xmm3,DWORD PTR [rsp-0x28]
-addss  xmm2,DWORD PTR [rsp-0xc]
-movss  DWORD PTR [rsp-0x38],xmm3
-mov    rdx,QWORD PTR [rsp-0x38]
-movss  DWORD PTR [rsp-0x10],xmm2
-mov    eax,DWORD PTR [rsp-0x10]
-shl    rdx,0x20
-or     rax,rdx
-mov    QWORD PTR [rsp-0x38],rax
-movq   xmm0,QWORD PTR [rsp-0x38]
-ret    
-nop    WORD PTR cs:[rax+rax*1+0x0]
-\end{verbatim}
+Los n'umeros confirman que la cantidad de accesos a memoria de la implementaci'on SIMD es 'ordenes de magnitud menor. A esto se suma que la vectorizaci'on aprovecha mucho m'as al procesador, al ejecutar casi el triple de instrucciones por ciclo que la implementaci'on en C. Por 'ultimo, es remarcable la diferencia en la cantidad de branches (instrucciones de salto ejecutadas) que resulta 100 veces menor en la vectorizaci'on, siendo el porcentaje de errores de predicci'on aproximadamente el mismo, con lo cual, en total, la cantidad de errores de predicci'on tambi'en es 100 veces menor en la vectorizaci'on.

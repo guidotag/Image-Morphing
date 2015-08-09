@@ -117,12 +117,12 @@ void test_bill_house() {
 
 	src_segments[16].from.x = 299;
 	src_segments[16].from.y = 220;
-	src_segments[16].to.x = 337;//227
+	src_segments[16].to.x = 337;
 	src_segments[16].to.y = 221;
 
 	src_segments[17].from.x = 415;
 	src_segments[17].from.y = 215;
-	src_segments[17].to.x = 465;//415
+	src_segments[17].to.x = 465;
 	src_segments[17].to.y = 210;
 
 	src_segments[18].from.x = 378;
@@ -416,7 +416,7 @@ void test_a_b() {
 void test_scarlett_keanu() {
 	char *src_file = "../input/scarlett.bmp";
 	char *dst_file = "../input/keanu.bmp";
-	char *out_file = "../output/scarlettkeanu.avi";
+	char *out_file = "../output/keanuscarlett.avi";
 
 	IplImage *src_image, *dst_image;
 
@@ -885,12 +885,11 @@ void test_scarlett_keanu() {
     // apply morphing
 	int n_frames = 100;
 	
-	n_segments = 40;
-	unsigned long long start, end;
-	START_CLOCK(start);
+	//~ unsigned long long start, end;
+	//~ START_CLOCK(start);
 	morph(dst_image, src_image, dst_segments, src_segments, n_segments, n_frames, writer, ASM);
-	STOP_CLOCK(end);
-	printf("TSC: %llu\n", end - start);
+	//~ STOP_CLOCK(end);
+	//~ printf("TSC: %llu\n", end - start);
 	
 	cvReleaseImage(&src_image);
 	cvReleaseImage(&dst_image);

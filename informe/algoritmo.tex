@@ -6,13 +6,13 @@ Para mapear las caracter'isticas de la imagen origen en las caracter'isticas de 
 
 \subsection{Deformaci'on de una imagen}
 
-Si bien estos pares de segmentos nos dan una idea de c'omo debe ser la transformaci'on, no es evidente el lugar exacto de la im'agen destino en el que debe ser mapeado cada pixel de la im'agen origen, ni tampoco c'omo deben moverse estos pixeles sobre las im'agenes intermedias, a lo largo de la deformaci'on.
+Si bien estos pares de segmentos nos dan una idea de c'omo debe ser la transformaci'on, no es evidente el lugar exacto de la imagen destino en el que debe ser mapeado cada pixel de la imagen origen, ni tampoco c'omo deben moverse estos pixeles sobre las im'agenes intermedias, a lo largo de la deformaci'on.
 
-¿C'omo construimos una im'agen intermedia? Cada una de 'estas estar'a compuesta por pixeles que provienen de la imagen origen y de la imagen destino. La pregunta es cu'ales son esos pixeles fuente.
+¿C'omo construimos una imagen intermedia? Cada una de 'estas estar'a compuesta por pixeles que provienen de la imagen origen y de la imagen destino. La pregunta es cu'ales son esos pixeles fuente.
 
-Hay dos formas de mapear pixeles entre las im'agenes origen y destino, y la im'agen intermedia. La m'as intuitiva, aunque poco efectiva, es el mapeo hacia adelante (en ingl'es, \textit{forward mapping}), que consiste en mapear pixeles desde las im'agenes fuente (las im'agenes origen y destino) hacia la im'agen intermedia. Lo malo de esta t'ecnica es que podr'ian quedar pixeles de la im'agen intermedia sin pintar.
+Hay dos formas de mapear pixeles entre las im'agenes origen y destino, y la imagen intermedia. La m'as intuitiva, aunque poco efectiva, es el mapeo hacia adelante (en ingl'es, \textit{forward mapping}), que consiste en mapear pixeles desde las im'agenes fuente (las im'agenes origen y destino) hacia la imagen intermedia. Lo malo de esta t'ecnica es que podr'ian quedar pixeles de la imagen intermedia sin pintar.
 
-La alternativa es el mapeo hacia atr'as (en ingl'es, \textit{reverse mapping}) y consiste en, a contrapelo de lo anterior, mapear pixeles desde la im'agen intermedia, hacia los extremos. En otras palabras, para cada pixel de la imagen deformada, determina qu'e pixel de cada imagen fuente le corresponde. Esto asegura que cada pixel de la imagen deformada obtendr'a un color.
+La alternativa es el mapeo hacia atr'as (en ingl'es, \textit{reverse mapping}) y consiste en, a contrapelo de lo anterior, mapear pixeles desde la imagen intermedia, hacia los extremos. En otras palabras, para cada pixel de la imagen intermedia, determina qu'e pixel de cada imagen fuente le corresponde. Esto asegura que cada pixel de la imagen intermedia obtendr'a un color.
 
 \begin{figure}[H]
 	\begin{center}
@@ -191,11 +191,11 @@ Sea $s$ la cantidad de segmentos\;
 
 \For{$t$ corriendo entre 0 y 1}{
 	\ForEach{p'ixel $\mathbf{x}$}{
-		Calcular $\mathbf{x_{src}}$ en base a $\mathbf{x}$, las interpolaciones en tiempo $t$ y los segmentos de la imagen origen (algoritmo \ref{algo1})\;
-		Calcular $\mathbf{x_{dst}}$ en base a $\mathbf{x}$, las interpolaciones en tiempo $t$ y los segmentos de la imagen destino (algoritmo \ref{algo1})\;
+		Calcular $\mathbf{x_{src}}$ en base a $\mathbf{x}$, los segmentos en tiempo $t$ y los segmentos de la imagen origen (algoritmo \ref{algo1})\;
+		Calcular $\mathbf{x_{dst}}$ en base a $\mathbf{x}$, los segmentos en tiempo $t$ y los segmentos de la imagen destino (algoritmo \ref{algo1})\;
 		Colorear $\mathbf{x}$ mezclando $\mathbf{x_{src}}$ y $\mathbf{x_{dst}}$ (ecuaci'on \ref{eq_blend})\;
 	}
-	Escribir la im'agen intermedia\;
+	Escribir la imagen intermedia\;
 }
 \caption[]{Metamorfosis}
 \label{algo2}
@@ -203,7 +203,7 @@ Sea $s$ la cantidad de segmentos\;
 
 \newpage
 
-En el algoritmo \ref{algo2} no est'a especificada la forma en que $t$ toma valores entre 0 y 1. En la pr'actica, esto est'a determinado por la cantidad de im'agenes intermedias que queremos que compongan a la metamorfosis. Si llamamos $f$ a la cantidad total de im'agenes que componen a la metamorfosis (es decir, la imagen origen, m'as las im'agenes intermedias, m'as la imagen destino), entonces $t$ tomar'a los valores $i / (f - 1)$, para $i = 0, \dots, f -1$, en ese orden.
+En el algoritmo \ref{algo2} no est'a especificada la forma en que $t$ toma valores entre 0 y 1. En la pr'actica, esto est'a determinado por la cantidad de im'agenes que queremos que compongan la metamorfosis (es decir, la imagen origen, m'as las im'agenes intermedias, m'as la imagen destino). Si llamamos $f$ a esta cantidad , entonces $t$ tomar'a los valores $i / (f - 1)$, para $i = 0, \dots, f -1$, en ese orden.
 
 \subsection{Complejidad temporal}
 

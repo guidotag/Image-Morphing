@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{337.73068848bp}%
+    \setlength{\unitlength}{337.56662598bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,13 +48,13 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.39027172)%
+  \begin{picture}(1,0.3904614)%
     \put(0,0){\includegraphics[width=\unitlength]{fig4.pdf}}%
-    \put(0.09037127,0.00739078){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Imagen fuente}}}%
-    \put(0.6646563,0.00952821){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Imagen deformada}}}%
-    \put(0.46442219,0.31330712){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Forward}}}%
-    \put(0.38363943,0.14794604){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Reverse}}}%
-    \put(0.46137868,0.27518676){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{mapping}}}%
-    \put(0.37985494,0.11077859){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{mapping}}}%
+    \put(0.09041519,0.00739437){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Imagen fuente}}}%
+    \put(0.66497933,0.00953284){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Imagen intermedia}}}%
+    \put(0.4646479,0.31345939){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Forward}}}%
+    \put(0.38382589,0.14801794){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Reverse}}}%
+    \put(0.46160292,0.2753205){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{mapping}}}%
+    \put(0.38003956,0.11083243){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{mapping}}}%
   \end{picture}%
 \endgroup%
