@@ -11,7 +11,7 @@ typedef struct CvVideoWriter CvVideoWriter;
 void test_bill_house() {
 	char *src_file = "../input/bill.bmp";
 	char *dst_file = "../input/house.bmp";
-	char *out_file = "../output/billhouse_dissolve.avi";
+	char *out_file = "../output/billhouse.avi";
 
 	IplImage *src_image, *dst_image;
 
