@@ -30,4 +30,4 @@ This will process all the pair of images defined in the `main.c` file. All the i
 
 ## How does it work?
 
-Information about the morphing process can be found in `informe.pdf`. This document is in Spanish.
+Information about the morphing process can be found in `informe/informe.pdf`. This document is in Spanish.
