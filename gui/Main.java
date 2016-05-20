@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.EventQueue;
+import java.awt.Color;
 
 public class Main {
 	public static void main(String[] args) {
