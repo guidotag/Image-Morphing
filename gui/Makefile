@@ -9,7 +9,4 @@ all: Main.class
 	$(JC) $(JFLAGS) $<
 
 clean:
-	rm -f IMFrame.class
-	rm -f ImagePanel.class
-	rm -f Main.class
-	rm -f Main\$$1.class
+	rm -f *.class

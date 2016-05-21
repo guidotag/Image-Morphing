@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <cv.h>
 #include <highgui.h>
 #include "algebra.h"
@@ -896,10 +897,74 @@ void test_scarlett_keanu() {
 	cvReleaseVideoWriter(&writer);
 }
 
+void read_int(FILE *file, int *val) {
+	fscanf(file, "%d", val);
+}
+
+void read_segments(FILE *file, segment *src_segments, int n_segments) {
+	int i;
+	for (i = 0; i < n_segments; ++i) {
+		fscanf(file, "%f %f %f %f", 
+			&src_segments[i].from.x, &src_segments[i].from.y,
+			&src_segments[i].to.x, &src_segments[i].to.y);
+	}
+}
+
 int main (int argc, char *argv[]) {
 	//~ test_bill_house();
 	//~ test_a_b();
-	test_scarlett_keanu();
+	//~ test_scarlett_keanu();
+
+	if (argc != 6) {
+		fprintf(stderr, "Wrong number of arguments");
+		return EXIT_FAILURE;
+	}
+
+	// setup
+	char *src_path = argv[1];
+	char *dst_path = argv[2];
+	char *out_path = argv[3];
+	char *segments_path = argv[4];
+	int n_frames = atoi(argv[5]);
+
+	FILE *segments_file = fopen(segments_path, "r");
+
+	int n_segments;
+	read_int(segments_file, &n_segments);
+
+	segment src_segments[n_segments];
+	segment dst_segments[n_segments];
+
+	read_segments(segments_file, src_segments, n_segments);
+	read_segments(segments_file, dst_segments, n_segments);
+
+	fclose(segments_file);
+
+	IplImage *src_image, *dst_image;
+
+	if ((src_image = cvLoadImage(src_path, CV_LOAD_IMAGE_COLOR)) == 0) {
+		fprintf(stderr, "Couldn't load source image\n");
+		exit(EXIT_FAILURE);
+	}
+
+	if ((dst_image = cvLoadImage(dst_path, CV_LOAD_IMAGE_COLOR)) == 0) {
+		fprintf(stderr, "Couldn't load destination image\n");
+		exit(EXIT_FAILURE);
+	}
+
+	CvVideoWriter *writer = create_video_writer(out_path, src_image->width, src_image->height, 25);
+	
+	if(writer == NULL) {
+        fprintf(stderr, "Cannot create video writer\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // morph
+    morph(dst_image, src_image, dst_segments, src_segments, n_segments, n_frames, writer, ASM);
+
+	cvReleaseImage(&src_image);
+	cvReleaseImage(&dst_image);
+	cvReleaseVideoWriter(&writer);
 
 	return EXIT_SUCCESS;
 }
