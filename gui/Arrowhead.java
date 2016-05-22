@@ -4,12 +4,12 @@ import java.awt.Polygon;
 public class Arrowhead extends Polygon{
 
 	public Arrowhead(Segment shaft, int height, int base) {
-		// Initially locate the heads points laying over the positive x axis.
+		// Initially locate the head points laying over the positive x axis.
 		Point h1 = new Point(0, 0);
 		Point h2 = new Point(height, base / 2);
 		Point h3 = new Point(height, -base / 2);
 
-		// Compute how much we need to rotate it to fit with the shaft.
+		// Compute how much we need to rotate it to fit the shaft.
 		Point p1 = new Point(1, 0);
 		Point p2 = new Point((int)(shaft.getFrom().getX() - shaft.getTo().getX()),
 							(int)(shaft.getFrom().getY() - shaft.getTo().getY()));

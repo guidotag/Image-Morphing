@@ -12,9 +12,6 @@ public class IMImagePanel extends ImagePanel {
 	private static final int SEGMENT_ARROWHEAD_BASE = 8;
 	private static final int SEGMENT_ARROWHEAD_HEIGHT = 10;
 
-	private int width;
-	private int height;
-
 	private Point cursor;
 	private Segment currentSegment;
 	private ArrayList<Segment> segments;
@@ -24,9 +21,6 @@ public class IMImagePanel extends ImagePanel {
 
 	public IMImagePanel(int width, int height) {
 		super(width, height);
-
-		this.width = width;
-		this.height = height;
 
 		this.cursor = null;
 		this.currentSegment = null;
@@ -86,6 +80,12 @@ public class IMImagePanel extends ImagePanel {
     	this.repaint();
     }
 
+    public void removeAllSegments() {
+        this.currentSegment = null;
+        this.segments.clear();
+        this.repaint();
+    }
+
     public void enableMouseListener() {
     	this.addMouseListener(this.listener);
     	this.addMouseMotionListener(this.listener);
@@ -100,6 +100,10 @@ public class IMImagePanel extends ImagePanel {
     	this.coordinator = coordinator;
     }
 
+    public int getSegmentsCount() {
+        return this.segments.size();
+    }
+
     public ArrayList<Segment> getSegments() {
     	ArrayList<Segment> scaledSegments = new ArrayList<Segment>();
 
@@ -110,19 +114,52 @@ public class IMImagePanel extends ImagePanel {
     	return scaledSegments;
     }
 
+    private boolean isOutOfBounds(Point p) {
+        double x = p.getX();
+        double y = p.getY();
+
+        if (x < 0 || x > this.getWidth() || y < 0 || y > this.getHeight()) {
+            return true;
+        }
+
+        return false;
+    }
+
    	private void truncateCurrentSegment() {
-   		// TODO
+   		if (this.isOutOfBounds(this.currentSegment.getTo())) {
+            double tLow = 0;
+            double tHigh = 1;
+            double precision = Math.pow(10, -4);
+
+            while (tHigh - tLow > precision) {
+                double tMid = (tLow + tHigh) / 2;
+                if (this.isOutOfBounds(IMImagePanel.computeSegmentPoint(this.currentSegment, tMid))) {
+                    tHigh = tMid;
+                } else {
+                    tLow = tMid;
+                }
+            }
+
+            this.currentSegment = new Segment(this.currentSegment.getFrom(), IMImagePanel.computeSegmentPoint(this.currentSegment, tLow));
+        }
    	}
 
    	private Segment scaleSegment(Segment segment) {
-    	double xScale = super.getRealWidth() / (double)this.width;
-    	double yScale = super.getRealHeight() / (double)this.height;
+    	double xScale = super.getRealWidth() / (double)super.getWidth();
+    	double yScale = super.getRealHeight() / (double)super.getHeight();
 
     	Point fromScaled = new Point((int)(segment.getFrom().getX() * xScale),
     										(int)(segment.getFrom().getY() * yScale));
     	Point toScaled = new Point((int)(segment.getTo().getX() * xScale),
     										(int)(segment.getTo().getY() * yScale));
     	return new Segment(fromScaled, toScaled);
+    }
+
+    private static Point computeSegmentPoint(Segment segment, double t) {
+        Point a = segment.getFrom();
+        Point b = segment.getTo();
+        return new Point((int)((b.getX() - a.getX()) * t + a.getX()),
+                        (int)((b.getY() - a.getY()) * t + a.getY()));
     }
 
     private static void drawPoint(Graphics g, Point point) {
@@ -147,11 +184,11 @@ public class IMImagePanel extends ImagePanel {
 
     private class IMImagePanelMouseListener implements MouseListener, MouseMotionListener {
 		private IMImagePanel imagePanel;
-		private boolean leftClicked;
+		private boolean drawingSegment;
 
 		public IMImagePanelMouseListener(IMImagePanel imagePanel) {
 			this.imagePanel = imagePanel;
-			this.leftClicked = false;
+			this.drawingSegment = false;
 		}
 
 		// MouseListener methods.
@@ -163,7 +200,7 @@ public class IMImagePanel extends ImagePanel {
 				return;
 			}
 
-			this.leftClicked = true;
+			this.drawingSegment = true;
 			this.imagePanel.removeCursor();
 			this.imagePanel.startSegment(e.getPoint());
 		}
@@ -173,7 +210,7 @@ public class IMImagePanel extends ImagePanel {
 				return;
 			}
 
-			this.leftClicked = false;
+			this.drawingSegment = false;
 			this.imagePanel.endCurrentSegment(e.getPoint());
 		}
 
@@ -181,7 +218,7 @@ public class IMImagePanel extends ImagePanel {
 		}
  
  		public void mouseExited(MouseEvent e) {
- 			if (this.leftClicked) {
+ 			if (this.drawingSegment) {
  				return;
  			}
 
@@ -190,7 +227,7 @@ public class IMImagePanel extends ImagePanel {
 
  		// MouseMotionListener methods.
  		public void mouseDragged(MouseEvent e) {
- 			if (!this.leftClicked) {
+ 			if (!this.drawingSegment) {
  				return;
  			}
 
@@ -198,7 +235,7 @@ public class IMImagePanel extends ImagePanel {
  		}
 
  		public void mouseMoved(MouseEvent e) {
- 			if (this.leftClicked) {
+ 			if (this.drawingSegment) {
  				return;
  			}
 

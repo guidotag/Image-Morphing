@@ -1,0 +1,362 @@
+0000000000403b70 <compute_weighted_src_pixel_asm>:
+  403b70:	55                   	push   rbp
+  403b71:	48 89 e5             	mov    rbp,rsp
+  403b74:	53                   	push   rbx
+  403b75:	41 54                	push   r12
+  403b77:	41 55                	push   r13
+  403b79:	41 56                	push   r14
+  403b7b:	41 57                	push   r15
+  403b7d:	48 83 ec 08          	sub    rsp,0x8
+  403b81:	66 0f 38 00 04 25 90 	pshufb xmm0,XMMWORD PTR ds:0x608890
+  403b88:	88 60 00 
+  403b8b:	f3 44 0f 6f 3c 25 b8 	movdqu xmm15,XMMWORD PTR ds:0x6088b8
+  403b92:	88 60 00 
+  403b95:	41 0f 58 c7          	addps  xmm0,xmm15
+  403b99:	66 0f 38 00 0c 25 90 	pshufb xmm1,XMMWORD PTR ds:0x608890
+  403ba0:	88 60 00 
+  403ba3:	66 0f 38 00 14 25 90 	pshufb xmm2,XMMWORD PTR ds:0x608890
+  403baa:	88 60 00 
+  403bad:	f3 0f 7f 14 25 10 88 	movdqu XMMWORD PTR ds:0x608810,xmm2
+  403bb4:	60 00 
+  403bb6:	48 c1 e1 04          	shl    rcx,0x4
+  403bba:	48 c1 e9 04          	shr    rcx,0x4
+  403bbe:	49 c1 e0 04          	shl    r8,0x4
+  403bc2:	49 c1 e8 04          	shr    r8,0x4
+  403bc6:	49 c1 e1 04          	shl    r9,0x4
+  403bca:	49 c1 e9 04          	shr    r9,0x4
+  403bce:	49 89 fc             	mov    r12,rdi
+  403bd1:	49 89 f5             	mov    r13,rsi
+  403bd4:	49 89 d6             	mov    r14,rdx
+  403bd7:	49 89 cf             	mov    r15,rcx
+  403bda:	66 0f ef d2          	pxor   xmm2,xmm2
+  403bde:	66 0f ef db          	pxor   xmm3,xmm3
+  403be2:	f3 0f 7f 14 25 20 88 	movdqu XMMWORD PTR ds:0x608820,xmm2
+  403be9:	60 00 
+  403beb:	48 31 db             	xor    rbx,rbx
+
+0000000000403bee <compute_weighted_src_pixel_asm.loop>:
+  403bee:	4c 39 fb             	cmp    rbx,r15
+  403bf1:	0f 84 b8 04 00 00    	je     4040af <compute_weighted_src_pixel_asm.end_loop>
+  403bf7:	f3 44 0f 6f 04 25 10 	movdqu xmm8,XMMWORD PTR ds:0x608810
+  403bfe:	88 60 00 
+  403c01:	48 89 d8             	mov    rax,rbx
+  403c04:	48 31 d2             	xor    rdx,rdx
+  403c07:	ba 10 00 00 00       	mov    edx,0x10
+  403c0c:	48 f7 ea             	imul   rdx
+  403c0f:	4c 01 e8             	add    rax,r13
+  403c12:	66 0f 6e 20          	movd   xmm4,DWORD PTR [rax]
+  403c16:	66 0f 38 00 24 25 90 	pshufb xmm4,XMMWORD PTR ds:0x608890
+  403c1d:	88 60 00 
+  403c20:	66 44 0f 6e 78 04    	movd   xmm15,DWORD PTR [rax+0x4]
+  403c26:	66 44 0f 38 00 3c 25 	pshufb xmm15,XMMWORD PTR ds:0x608890
+  403c2d:	90 88 60 00 
+  403c31:	41 0f 59 e0          	mulps  xmm4,xmm8
+  403c35:	41 0f 58 e7          	addps  xmm4,xmm15
+  403c39:	66 0f 6e 68 08       	movd   xmm5,DWORD PTR [rax+0x8]
+  403c3e:	66 0f 38 00 2c 25 90 	pshufb xmm5,XMMWORD PTR ds:0x608890
+  403c45:	88 60 00 
+  403c48:	66 44 0f 6e 78 0c    	movd   xmm15,DWORD PTR [rax+0xc]
+  403c4e:	66 44 0f 38 00 3c 25 	pshufb xmm15,XMMWORD PTR ds:0x608890
+  403c55:	90 88 60 00 
+  403c59:	41 0f 59 e8          	mulps  xmm5,xmm8
+  403c5d:	41 0f 58 ef          	addps  xmm5,xmm15
+  403c61:	48 89 d8             	mov    rax,rbx
+  403c64:	48 31 d2             	xor    rdx,rdx
+  403c67:	ba 10 00 00 00       	mov    edx,0x10
+  403c6c:	48 f7 ea             	imul   rdx
+  403c6f:	4c 01 f0             	add    rax,r14
+  403c72:	66 0f 6e 30          	movd   xmm6,DWORD PTR [rax]
+  403c76:	66 0f 38 00 34 25 90 	pshufb xmm6,XMMWORD PTR ds:0x608890
+  403c7d:	88 60 00 
+  403c80:	66 44 0f 6e 78 04    	movd   xmm15,DWORD PTR [rax+0x4]
+  403c86:	66 44 0f 38 00 3c 25 	pshufb xmm15,XMMWORD PTR ds:0x608890
+  403c8d:	90 88 60 00 
+  403c91:	41 0f 59 f0          	mulps  xmm6,xmm8
+  403c95:	41 0f 58 f7          	addps  xmm6,xmm15
+  403c99:	66 0f 6e 78 08       	movd   xmm7,DWORD PTR [rax+0x8]
+  403c9e:	66 0f 38 00 3c 25 90 	pshufb xmm7,XMMWORD PTR ds:0x608890
+  403ca5:	88 60 00 
+  403ca8:	66 44 0f 6e 78 0c    	movd   xmm15,DWORD PTR [rax+0xc]
+  403cae:	66 44 0f 38 00 3c 25 	pshufb xmm15,XMMWORD PTR ds:0x608890
+  403cb5:	90 88 60 00 
+  403cb9:	41 0f 59 f8          	mulps  xmm7,xmm8
+  403cbd:	41 0f 58 ff          	addps  xmm7,xmm15
+  403cc1:	f3 44 0f 6f de       	movdqu xmm11,xmm6
+  403cc6:	44 0f 5c dc          	subps  xmm11,xmm4
+  403cca:	f3 44 0f 6f e7       	movdqu xmm12,xmm7
+  403ccf:	44 0f 5c e5          	subps  xmm12,xmm5
+  403cd3:	f3 45 0f 6f eb       	movdqu xmm13,xmm11
+  403cd8:	f3 45 0f 6f fc       	movdqu xmm15,xmm12
+  403cdd:	45 0f 59 ed          	mulps  xmm13,xmm13
+  403ce1:	45 0f 59 ff          	mulps  xmm15,xmm15
+  403ce5:	45 0f 58 ef          	addps  xmm13,xmm15
+  403ce9:	45 0f 51 ed          	sqrtps xmm13,xmm13
+  403ced:	45 0f 59 ed          	mulps  xmm13,xmm13
+  403cf1:	f3 44 0f 6f f0       	movdqu xmm14,xmm0
+  403cf6:	44 0f 5c f4          	subps  xmm14,xmm4
+  403cfa:	f3 44 0f 6f f9       	movdqu xmm15,xmm1
+  403cff:	44 0f 5c fd          	subps  xmm15,xmm5
+  403d03:	45 0f 59 de          	mulps  xmm11,xmm14
+  403d07:	45 0f 59 e7          	mulps  xmm12,xmm15
+  403d0b:	f3 45 0f 6f c3       	movdqu xmm8,xmm11
+  403d10:	45 0f 58 c4          	addps  xmm8,xmm12
+  403d14:	45 0f 5e c5          	divps  xmm8,xmm13
+  403d18:	f3 44 0f 6f de       	movdqu xmm11,xmm6
+  403d1d:	44 0f 5c dc          	subps  xmm11,xmm4
+  403d21:	f3 44 0f 6f e7       	movdqu xmm12,xmm7
+  403d26:	44 0f 5c e5          	subps  xmm12,xmm5
+  403d2a:	f3 45 0f 6f eb       	movdqu xmm13,xmm11
+  403d2f:	f3 45 0f 6f fc       	movdqu xmm15,xmm12
+  403d34:	45 0f 59 ed          	mulps  xmm13,xmm13
+  403d38:	45 0f 59 ff          	mulps  xmm15,xmm15
+  403d3c:	45 0f 58 ef          	addps  xmm13,xmm15
+  403d40:	45 0f 51 ed          	sqrtps xmm13,xmm13
+  403d44:	f3 45 0f 6f f3       	movdqu xmm14,xmm11
+  403d49:	f3 45 0f 6f dc       	movdqu xmm11,xmm12
+  403d4e:	66 45 0f ef e4       	pxor   xmm12,xmm12
+  403d53:	45 0f 5c e6          	subps  xmm12,xmm14
+  403d57:	f3 44 0f 6f f0       	movdqu xmm14,xmm0
+  403d5c:	44 0f 5c f4          	subps  xmm14,xmm4
+  403d60:	f3 44 0f 6f f9       	movdqu xmm15,xmm1
+  403d65:	44 0f 5c fd          	subps  xmm15,xmm5
+  403d69:	45 0f 59 de          	mulps  xmm11,xmm14
+  403d6d:	45 0f 59 e7          	mulps  xmm12,xmm15
+  403d71:	f3 45 0f 6f cb       	movdqu xmm9,xmm11
+  403d76:	45 0f 58 cc          	addps  xmm9,xmm12
+  403d7a:	45 0f 5e cd          	divps  xmm9,xmm13
+  403d7e:	f3 44 0f 7f 0c 25 30 	movdqu XMMWORD PTR ds:0x608830,xmm9
+  403d85:	88 60 00 
+  403d88:	f3 44 0f 6f de       	movdqu xmm11,xmm6
+  403d8d:	44 0f 5c dc          	subps  xmm11,xmm4
+  403d91:	f3 44 0f 6f e7       	movdqu xmm12,xmm7
+  403d96:	44 0f 5c e5          	subps  xmm12,xmm5
+  403d9a:	f3 45 0f 6f eb       	movdqu xmm13,xmm11
+  403d9f:	f3 45 0f 6f fc       	movdqu xmm15,xmm12
+  403da4:	45 0f 59 ed          	mulps  xmm13,xmm13
+  403da8:	45 0f 59 ff          	mulps  xmm15,xmm15
+  403dac:	45 0f 58 ef          	addps  xmm13,xmm15
+  403db0:	45 0f 51 ed          	sqrtps xmm13,xmm13
+  403db4:	45 0f 59 ed          	mulps  xmm13,xmm13
+  403db8:	f3 44 0f 6f f0       	movdqu xmm14,xmm0
+  403dbd:	44 0f 5c f4          	subps  xmm14,xmm4
+  403dc1:	f3 44 0f 6f f9       	movdqu xmm15,xmm1
+  403dc6:	44 0f 5c fd          	subps  xmm15,xmm5
+  403dca:	45 0f 59 de          	mulps  xmm11,xmm14
+  403dce:	45 0f 59 e7          	mulps  xmm12,xmm15
+  403dd2:	f3 45 0f 6f d3       	movdqu xmm10,xmm11
+  403dd7:	45 0f 58 d4          	addps  xmm10,xmm12
+  403ddb:	45 0f 5e d5          	divps  xmm10,xmm13
+  403ddf:	f3 45 0f 6f da       	movdqu xmm11,xmm10
+  403de4:	66 44 0f 6e 34 25 b0 	movd   xmm14,DWORD PTR ds:0x6088b0
+  403deb:	88 60 00 
+  403dee:	66 44 0f 38 00 34 25 	pshufb xmm14,XMMWORD PTR ds:0x608890
+  403df5:	90 88 60 00 
+  403df9:	45 0f c2 de 02       	cmpleps xmm11,xmm14
+  403dfe:	f3 45 0f 6f e2       	movdqu xmm12,xmm10
+  403e03:	66 45 0f ef f6       	pxor   xmm14,xmm14
+  403e08:	45 0f c2 e6 05       	cmpnltps xmm12,xmm14
+  403e0d:	f3 45 0f 6f eb       	movdqu xmm13,xmm11
+  403e12:	66 45 0f db ec       	pand   xmm13,xmm12
+  403e17:	f3 45 0f 6f da       	movdqu xmm11,xmm10
+  403e1c:	66 45 0f ef f6       	pxor   xmm14,xmm14
+  403e21:	45 0f c2 de 01       	cmpltps xmm11,xmm14
+  403e26:	f3 45 0f 6f e2       	movdqu xmm12,xmm10
+  403e2b:	66 44 0f 6e 34 25 b0 	movd   xmm14,DWORD PTR ds:0x6088b0
+  403e32:	88 60 00 
+  403e35:	66 44 0f 38 00 34 25 	pshufb xmm14,XMMWORD PTR ds:0x608890
+  403e3c:	90 88 60 00 
+  403e40:	45 0f c2 e6 06       	cmpnleps xmm12,xmm14
+  403e45:	f3 44 0f 7f 1c 25 40 	movdqu XMMWORD PTR ds:0x608840,xmm11
+  403e4c:	88 60 00 
+  403e4f:	f3 44 0f 7f 24 25 50 	movdqu XMMWORD PTR ds:0x608850,xmm12
+  403e56:	88 60 00 
+  403e59:	f3 44 0f 7f 2c 25 60 	movdqu XMMWORD PTR ds:0x608860,xmm13
+  403e60:	88 60 00 
+  403e63:	f3 44 0f 6f de       	movdqu xmm11,xmm6
+  403e68:	44 0f 5c dc          	subps  xmm11,xmm4
+  403e6c:	f3 44 0f 6f e7       	movdqu xmm12,xmm7
+  403e71:	44 0f 5c e5          	subps  xmm12,xmm5
+  403e75:	f3 45 0f 6f eb       	movdqu xmm13,xmm11
+  403e7a:	f3 45 0f 6f fc       	movdqu xmm15,xmm12
+  403e7f:	45 0f 59 ed          	mulps  xmm13,xmm13
+  403e83:	45 0f 59 ff          	mulps  xmm15,xmm15
+  403e87:	45 0f 58 ef          	addps  xmm13,xmm15
+  403e8b:	45 0f 51 ed          	sqrtps xmm13,xmm13
+  403e8f:	f3 45 0f 6f f3       	movdqu xmm14,xmm11
+  403e94:	f3 45 0f 6f dc       	movdqu xmm11,xmm12
+  403e99:	66 45 0f ef e4       	pxor   xmm12,xmm12
+  403e9e:	45 0f 5c e6          	subps  xmm12,xmm14
+  403ea2:	f3 44 0f 6f f0       	movdqu xmm14,xmm0
+  403ea7:	44 0f 5c f4          	subps  xmm14,xmm4
+  403eab:	f3 44 0f 6f f9       	movdqu xmm15,xmm1
+  403eb0:	44 0f 5c fd          	subps  xmm15,xmm5
+  403eb4:	45 0f 59 de          	mulps  xmm11,xmm14
+  403eb8:	45 0f 59 e7          	mulps  xmm12,xmm15
+  403ebc:	f3 45 0f 6f d3       	movdqu xmm10,xmm11
+  403ec1:	45 0f 58 d4          	addps  xmm10,xmm12
+  403ec5:	45 0f 5e d5          	divps  xmm10,xmm13
+  403ec9:	66 44 0f db 14 25 a0 	pand   xmm10,XMMWORD PTR ds:0x6088a0
+  403ed0:	88 60 00 
+  403ed3:	66 44 0f db 14 25 60 	pand   xmm10,XMMWORD PTR ds:0x608860
+  403eda:	88 60 00 
+  403edd:	f3 45 0f 6f ca       	movdqu xmm9,xmm10
+  403ee2:	f3 44 0f 6f e0       	movdqu xmm12,xmm0
+  403ee7:	f3 44 0f 6f e9       	movdqu xmm13,xmm1
+  403eec:	f3 44 0f 6f f4       	movdqu xmm14,xmm4
+  403ef1:	f3 44 0f 6f fd       	movdqu xmm15,xmm5
+  403ef6:	45 0f 5c e6          	subps  xmm12,xmm14
+  403efa:	45 0f 5c ef          	subps  xmm13,xmm15
+  403efe:	f3 45 0f 6f f4       	movdqu xmm14,xmm12
+  403f03:	f3 45 0f 6f fd       	movdqu xmm15,xmm13
+  403f08:	45 0f 59 f6          	mulps  xmm14,xmm14
+  403f0c:	45 0f 59 ff          	mulps  xmm15,xmm15
+  403f10:	45 0f 58 f7          	addps  xmm14,xmm15
+  403f14:	45 0f 51 f6          	sqrtps xmm14,xmm14
+  403f18:	66 44 0f db 34 25 40 	pand   xmm14,XMMWORD PTR ds:0x608840
+  403f1f:	88 60 00 
+  403f22:	66 45 0f eb ce       	por    xmm9,xmm14
+  403f27:	f3 44 0f 6f e0       	movdqu xmm12,xmm0
+  403f2c:	f3 44 0f 6f e9       	movdqu xmm13,xmm1
+  403f31:	f3 44 0f 6f f6       	movdqu xmm14,xmm6
+  403f36:	f3 44 0f 6f ff       	movdqu xmm15,xmm7
+  403f3b:	45 0f 5c e6          	subps  xmm12,xmm14
+  403f3f:	45 0f 5c ef          	subps  xmm13,xmm15
+  403f43:	f3 45 0f 6f f4       	movdqu xmm14,xmm12
+  403f48:	f3 45 0f 6f fd       	movdqu xmm15,xmm13
+  403f4d:	45 0f 59 f6          	mulps  xmm14,xmm14
+  403f51:	45 0f 59 ff          	mulps  xmm15,xmm15
+  403f55:	45 0f 58 f7          	addps  xmm14,xmm15
+  403f59:	45 0f 51 f6          	sqrtps xmm14,xmm14
+  403f5d:	66 44 0f db 34 25 50 	pand   xmm14,XMMWORD PTR ds:0x608850
+  403f64:	88 60 00 
+  403f67:	66 45 0f eb ce       	por    xmm9,xmm14
+  403f6c:	f3 44 0f 6f e6       	movdqu xmm12,xmm6
+  403f71:	f3 44 0f 6f ef       	movdqu xmm13,xmm7
+  403f76:	44 0f 5c e4          	subps  xmm12,xmm4
+  403f7a:	44 0f 5c ed          	subps  xmm13,xmm5
+  403f7e:	f3 45 0f 6f f4       	movdqu xmm14,xmm12
+  403f83:	f3 45 0f 6f fd       	movdqu xmm15,xmm13
+  403f88:	45 0f 59 f6          	mulps  xmm14,xmm14
+  403f8c:	45 0f 59 ff          	mulps  xmm15,xmm15
+  403f90:	45 0f 58 f7          	addps  xmm14,xmm15
+  403f94:	45 0f 51 f6          	sqrtps xmm14,xmm14
+  403f98:	45 0f 51 f6          	sqrtps xmm14,xmm14
+  403f9c:	66 44 0f 6e 24 25 b4 	movd   xmm12,DWORD PTR ds:0x6088b4
+  403fa3:	88 60 00 
+  403fa6:	66 44 0f 38 00 24 25 	pshufb xmm12,XMMWORD PTR ds:0x608890
+  403fad:	90 88 60 00 
+  403fb1:	45 0f 58 cc          	addps  xmm9,xmm12
+  403fb5:	45 0f 5e f1          	divps  xmm14,xmm9
+  403fb9:	45 0f 59 f6          	mulps  xmm14,xmm14
+  403fbd:	f3 45 0f 6f ce       	movdqu xmm9,xmm14
+  403fc2:	f3 41 0f 6f e1       	movdqu xmm4,xmm9
+  403fc7:	f3 41 0f 6f e8       	movdqu xmm5,xmm8
+  403fcc:	f3 0f 6f 34 25 30 88 	movdqu xmm6,XMMWORD PTR ds:0x608830
+  403fd3:	60 00 
+  403fd5:	48 89 d8             	mov    rax,rbx
+  403fd8:	ba 10 00 00 00       	mov    edx,0x10
+  403fdd:	48 f7 ea             	imul   rdx
+  403fe0:	4c 01 e0             	add    rax,r12
+  403fe3:	66 0f 6e 38          	movd   xmm7,DWORD PTR [rax]
+  403fe7:	66 0f 38 00 3c 25 90 	pshufb xmm7,XMMWORD PTR ds:0x608890
+  403fee:	88 60 00 
+  403ff1:	66 44 0f 6e 40 04    	movd   xmm8,DWORD PTR [rax+0x4]
+  403ff7:	66 44 0f 38 00 04 25 	pshufb xmm8,XMMWORD PTR ds:0x608890
+  403ffe:	90 88 60 00 
+  404002:	66 44 0f 6e 50 08    	movd   xmm10,DWORD PTR [rax+0x8]
+  404008:	66 44 0f 38 00 14 25 	pshufb xmm10,XMMWORD PTR ds:0x608890
+  40400f:	90 88 60 00 
+  404013:	66 44 0f 6e 58 0c    	movd   xmm11,DWORD PTR [rax+0xc]
+  404019:	66 44 0f 38 00 1c 25 	pshufb xmm11,XMMWORD PTR ds:0x608890
+  404020:	90 88 60 00 
+  404024:	44 0f 5c d7          	subps  xmm10,xmm7
+  404028:	45 0f 5c d8          	subps  xmm11,xmm8
+  40402c:	f3 45 0f 6f ea       	movdqu xmm13,xmm10
+  404031:	f3 45 0f 6f fb       	movdqu xmm15,xmm11
+  404036:	45 0f 59 ed          	mulps  xmm13,xmm13
+  40403a:	45 0f 59 ff          	mulps  xmm15,xmm15
+  40403e:	45 0f 58 ef          	addps  xmm13,xmm15
+  404042:	45 0f 51 ed          	sqrtps xmm13,xmm13
+  404046:	f3 44 0f 6f e6       	movdqu xmm12,xmm6
+  40404b:	45 0f 5e e5          	divps  xmm12,xmm13
+  40404f:	f3 45 0f 6f eb       	movdqu xmm13,xmm11
+  404054:	66 45 0f ef f6       	pxor   xmm14,xmm14
+  404059:	45 0f 5c f2          	subps  xmm14,xmm10
+  40405d:	45 0f 59 ec          	mulps  xmm13,xmm12
+  404061:	45 0f 59 f4          	mulps  xmm14,xmm12
+  404065:	44 0f 59 d5          	mulps  xmm10,xmm5
+  404069:	44 0f 59 dd          	mulps  xmm11,xmm5
+  40406d:	41 0f 58 fa          	addps  xmm7,xmm10
+  404071:	45 0f 58 c3          	addps  xmm8,xmm11
+  404075:	41 0f 58 fd          	addps  xmm7,xmm13
+  404079:	45 0f 58 c6          	addps  xmm8,xmm14
+  40407d:	0f 5c f8             	subps  xmm7,xmm0
+  404080:	44 0f 5c c1          	subps  xmm8,xmm1
+  404084:	0f 59 fc             	mulps  xmm7,xmm4
+  404087:	44 0f 59 c4          	mulps  xmm8,xmm4
+  40408b:	0f 58 d7             	addps  xmm2,xmm7
+  40408e:	41 0f 58 d8          	addps  xmm3,xmm8
+  404092:	f3 0f 6f 2c 25 20 88 	movdqu xmm5,XMMWORD PTR ds:0x608820
+  404099:	60 00 
+  40409b:	0f 58 ec             	addps  xmm5,xmm4
+  40409e:	f3 0f 7f 2c 25 20 88 	movdqu XMMWORD PTR ds:0x608820,xmm5
+  4040a5:	60 00 
+  4040a7:	48 ff c3             	inc    rbx
+  4040aa:	e9 3f fb ff ff       	jmp    403bee <compute_weighted_src_pixel_asm.loop>
+
+00000000004040af <compute_weighted_src_pixel_asm.end_loop>:
+  4040af:	f3 0f 6f 24 25 20 88 	movdqu xmm4,XMMWORD PTR ds:0x608820
+  4040b6:	60 00 
+  4040b8:	66 41 0f 6e ef       	movd   xmm5,r15d
+  4040bd:	66 0f 38 00 2c 25 90 	pshufb xmm5,XMMWORD PTR ds:0x608890
+  4040c4:	88 60 00 
+  4040c7:	66 0f ef ff          	pxor   xmm7,xmm7
+  4040cb:	66 0f 66 ef          	pcmpgtd xmm5,xmm7
+  4040cf:	66 41 0f 6e f7       	movd   xmm6,r15d
+  4040d4:	66 0f 38 00 34 25 90 	pshufb xmm6,XMMWORD PTR ds:0x608890
+  4040db:	88 60 00 
+  4040de:	66 0f ef ff          	pxor   xmm7,xmm7
+  4040e2:	66 0f 76 f7          	pcmpeqd xmm6,xmm7
+  4040e6:	f3 44 0f 6f c0       	movdqu xmm8,xmm0
+  4040eb:	f3 44 0f 6f c9       	movdqu xmm9,xmm1
+  4040f0:	66 44 0f db c6       	pand   xmm8,xmm6
+  4040f5:	66 44 0f db ce       	pand   xmm9,xmm6
+  4040fa:	0f 5e d4             	divps  xmm2,xmm4
+  4040fd:	0f 5e dc             	divps  xmm3,xmm4
+  404100:	0f 58 c2             	addps  xmm0,xmm2
+  404103:	0f 58 cb             	addps  xmm1,xmm3
+  404106:	66 0f db c5          	pand   xmm0,xmm5
+  40410a:	66 0f db cd          	pand   xmm1,xmm5
+  40410e:	66 41 0f eb c0       	por    xmm0,xmm8
+  404113:	66 41 0f eb c9       	por    xmm1,xmm9
+  404118:	66 0f ef d2          	pxor   xmm2,xmm2
+  40411c:	0f 5f c2             	maxps  xmm0,xmm2
+  40411f:	41 ff c8             	dec    r8d
+  404122:	66 41 0f 6e d0       	movd   xmm2,r8d
+  404127:	66 0f 38 00 14 25 90 	pshufb xmm2,XMMWORD PTR ds:0x608890
+  40412e:	88 60 00 
+  404131:	0f 5b d2             	cvtdq2ps xmm2,xmm2
+  404134:	0f 5d c2             	minps  xmm0,xmm2
+  404137:	66 0f ef d2          	pxor   xmm2,xmm2
+  40413b:	0f 5f ca             	maxps  xmm1,xmm2
+  40413e:	41 ff c9             	dec    r9d
+  404141:	66 41 0f 6e d1       	movd   xmm2,r9d
+  404146:	66 0f 38 00 14 25 90 	pshufb xmm2,XMMWORD PTR ds:0x608890
+  40414d:	88 60 00 
+  404150:	0f 5b d2             	cvtdq2ps xmm2,xmm2
+  404153:	0f 5d ca             	minps  xmm1,xmm2
+  404156:	66 0f 5b c0          	cvtps2dq xmm0,xmm0
+  40415a:	66 0f 5b c9          	cvtps2dq xmm1,xmm1
+  40415e:	f3 0f 7f 04 25 70 88 	movdqu XMMWORD PTR ds:0x608870,xmm0
+  404165:	60 00 
+  404167:	f3 0f 7f 0c 25 80 88 	movdqu XMMWORD PTR ds:0x608880,xmm1
+  40416e:	60 00 
+  404170:	48 83 c4 08          	add    rsp,0x8
+  404174:	41 5f                	pop    r15
+  404176:	41 5e                	pop    r14
+  404178:	41 5d                	pop    r13
+  40417a:	41 5c                	pop    r12
+  40417c:	5b                   	pop    rbx
+  40417d:	5d                   	pop    rbp
+  40417e:	c3                   	ret    
+  40417f:	90                   	nop

@@ -1,0 +1,12 @@
+- Verificar que las 2 imagenes cargadas tengan el mismo tamanio.
+- Variar fps.
+- Barra de menu que tenga:
+	- Preferences. Debe abrir una ventanita con opciones para elegir:
+		- Segments file folder.
+		- Morph binary file.
+		- Output folder.
+	- Help.
+
+- Boton para swapear imagenes (con sus segmentos).
+- Permitir borrar segmentos individualmente. Capaz se puede hacer seleccionando con click izquierdo, y luego supr.
+- Cargar archivo de segmentos. Como hacemos para verificar que sea valido para las 2 imagenes cargadas?

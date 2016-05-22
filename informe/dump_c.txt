@@ -1,0 +1,945 @@
+0000000000402bd0 <morph>:
+  402bd0:	55                   	push   rbp
+  402bd1:	48 89 e5             	mov    rbp,rsp
+  402bd4:	41 54                	push   r12
+  402bd6:	41 55                	push   r13
+  402bd8:	41 56                	push   r14
+  402bda:	41 57                	push   r15
+  402bdc:	53                   	push   rbx
+  402bdd:	48 81 ec c8 01 00 00 	sub    rsp,0x1c8
+  402be4:	45 89 c6             	mov    r14d,r8d
+  402be7:	4d 63 f6             	movsxd r14,r14d
+  402bea:	45 89 cc             	mov    r12d,r9d
+  402bed:	4d 89 f5             	mov    r13,r14
+  402bf0:	49 c1 e5 04          	shl    r13,0x4
+  402bf4:	4c 89 e8             	mov    rax,r13
+  402bf7:	48 89 8d 88 fe ff ff 	mov    QWORD PTR [rbp-0x178],rcx
+  402bfe:	48 89 95 80 fe ff ff 	mov    QWORD PTR [rbp-0x180],rdx
+  402c05:	48 89 b5 70 fe ff ff 	mov    QWORD PTR [rbp-0x190],rsi
+  402c0c:	48 89 bd 90 fe ff ff 	mov    QWORD PTR [rbp-0x170],rdi
+  402c13:	4c 89 b5 68 ff ff ff 	mov    QWORD PTR [rbp-0x98],r14
+  402c1a:	48 83 c0 0f          	add    rax,0xf
+  402c1e:	48 83 e0 f0          	and    rax,0xfffffffffffffff0
+  402c22:	48 2b e0             	sub    rsp,rax
+  402c25:	48 89 e0             	mov    rax,rsp
+  402c28:	49 89 c7             	mov    r15,rax
+  402c2b:	4c 89 e8             	mov    rax,r13
+  402c2e:	48 83 c0 0f          	add    rax,0xf
+  402c32:	48 83 e0 f0          	and    rax,0xfffffffffffffff0
+  402c36:	48 2b e0             	sub    rsp,rax
+  402c39:	48 89 e0             	mov    rax,rsp
+  402c3c:	48 89 85 78 fe ff ff 	mov    QWORD PTR [rbp-0x188],rax
+  402c43:	33 c9                	xor    ecx,ecx
+  402c45:	48 8b 85 88 fe ff ff 	mov    rax,QWORD PTR [rbp-0x178]
+  402c4c:	33 d2                	xor    edx,edx
+  402c4e:	48 8b 9d 80 fe ff ff 	mov    rbx,QWORD PTR [rbp-0x180]
+  402c55:	48 83 bd 68 ff ff ff 	cmp    QWORD PTR [rbp-0x98],0x0
+  402c5c:	00 
+  402c5d:	0f 8e 4a 01 00 00    	jle    402dad <morph+0x1dd>
+  402c63:	4c 89 ad 10 fe ff ff 	mov    QWORD PTR [rbp-0x1f0],r13
+  402c6a:	49 89 cd             	mov    r13,rcx
+  402c6d:	44 89 b5 a0 fe ff ff 	mov    DWORD PTR [rbp-0x160],r14d
+  402c74:	49 89 d6             	mov    r14,rdx
+  402c77:	44 89 a5 18 fe ff ff 	mov    DWORD PTR [rbp-0x1e8],r12d
+  402c7e:	49 89 c4             	mov    r12,rax
+  402c81:	8b 33                	mov    esi,DWORD PTR [rbx]
+  402c83:	8b 7b 04             	mov    edi,DWORD PTR [rbx+0x4]
+  402c86:	45 8b 04 24          	mov    r8d,DWORD PTR [r12]
+  402c8a:	45 8b 4c 24 04       	mov    r9d,DWORD PTR [r12+0x4]
+  402c8f:	89 b5 40 fe ff ff    	mov    DWORD PTR [rbp-0x1c0],esi
+  402c95:	89 bd 44 fe ff ff    	mov    DWORD PTR [rbp-0x1bc],edi
+  402c9b:	44 89 85 48 fe ff ff 	mov    DWORD PTR [rbp-0x1b8],r8d
+  402ca2:	44 89 8d 4c fe ff ff 	mov    DWORD PTR [rbp-0x1b4],r9d
+  402ca9:	f2 0f 10 85 40 fe ff 	movsd  xmm0,QWORD PTR [rbp-0x1c0]
+  402cb0:	ff 
+  402cb1:	f2 0f 10 8d 48 fe ff 	movsd  xmm1,QWORD PTR [rbp-0x1b8]
+  402cb8:	ff 
+  402cb9:	e8 02 15 00 00       	call   4041c0 <interpolate>
+  402cbe:	0f 13 85 20 fe ff ff 	movlps QWORD PTR [rbp-0x1e0],xmm0
+  402cc5:	0f 13 8d 28 fe ff ff 	movlps QWORD PTR [rbp-0x1d8],xmm1
+  402ccc:	8b b5 20 fe ff ff    	mov    esi,DWORD PTR [rbp-0x1e0]
+  402cd2:	43 89 34 3e          	mov    DWORD PTR [r14+r15*1],esi
+  402cd6:	41 8b 74 24 08       	mov    esi,DWORD PTR [r12+0x8]
+  402cdb:	89 b5 48 fe ff ff    	mov    DWORD PTR [rbp-0x1b8],esi
+  402ce1:	44 8b 53 08          	mov    r10d,DWORD PTR [rbx+0x8]
+  402ce5:	44 8b 5b 0c          	mov    r11d,DWORD PTR [rbx+0xc]
+  402ce9:	41 8b 74 24 0c       	mov    esi,DWORD PTR [r12+0xc]
+  402cee:	44 89 95 40 fe ff ff 	mov    DWORD PTR [rbp-0x1c0],r10d
+  402cf5:	44 89 9d 44 fe ff ff 	mov    DWORD PTR [rbp-0x1bc],r11d
+  402cfc:	89 b5 4c fe ff ff    	mov    DWORD PTR [rbp-0x1b4],esi
+  402d02:	8b bd 24 fe ff ff    	mov    edi,DWORD PTR [rbp-0x1dc]
+  402d08:	44 8b 85 28 fe ff ff 	mov    r8d,DWORD PTR [rbp-0x1d8]
+  402d0f:	44 8b 8d 2c fe ff ff 	mov    r9d,DWORD PTR [rbp-0x1d4]
+  402d16:	f2 0f 10 85 40 fe ff 	movsd  xmm0,QWORD PTR [rbp-0x1c0]
+  402d1d:	ff 
+  402d1e:	f2 0f 10 8d 48 fe ff 	movsd  xmm1,QWORD PTR [rbp-0x1b8]
+  402d25:	ff 
+  402d26:	43 89 7c 3e 04       	mov    DWORD PTR [r14+r15*1+0x4],edi
+  402d2b:	47 89 44 3e 08       	mov    DWORD PTR [r14+r15*1+0x8],r8d
+  402d30:	47 89 4c 3e 0c       	mov    DWORD PTR [r14+r15*1+0xc],r9d
+  402d35:	e8 86 14 00 00       	call   4041c0 <interpolate>
+  402d3a:	0f 13 85 30 fe ff ff 	movlps QWORD PTR [rbp-0x1d0],xmm0
+  402d41:	0f 13 8d 38 fe ff ff 	movlps QWORD PTR [rbp-0x1c8],xmm1
+  402d48:	4c 8b 95 78 fe ff ff 	mov    r10,QWORD PTR [rbp-0x188]
+  402d4f:	49 ff c5             	inc    r13
+  402d52:	8b b5 30 fe ff ff    	mov    esi,DWORD PTR [rbp-0x1d0]
+  402d58:	49 83 c4 10          	add    r12,0x10
+  402d5c:	8b bd 34 fe ff ff    	mov    edi,DWORD PTR [rbp-0x1cc]
+  402d62:	48 83 c3 10          	add    rbx,0x10
+  402d66:	44 8b 85 38 fe ff ff 	mov    r8d,DWORD PTR [rbp-0x1c8]
+  402d6d:	44 8b 8d 3c fe ff ff 	mov    r9d,DWORD PTR [rbp-0x1c4]
+  402d74:	43 89 34 16          	mov    DWORD PTR [r14+r10*1],esi
+  402d78:	43 89 7c 16 04       	mov    DWORD PTR [r14+r10*1+0x4],edi
+  402d7d:	47 89 44 16 08       	mov    DWORD PTR [r14+r10*1+0x8],r8d
+  402d82:	47 89 4c 16 0c       	mov    DWORD PTR [r14+r10*1+0xc],r9d
+  402d87:	49 83 c6 10          	add    r14,0x10
+  402d8b:	4c 3b ad 68 ff ff ff 	cmp    r13,QWORD PTR [rbp-0x98]
+  402d92:	0f 8c e9 fe ff ff    	jl     402c81 <morph+0xb1>
+  402d98:	4c 8b ad 10 fe ff ff 	mov    r13,QWORD PTR [rbp-0x1f0]
+  402d9f:	44 8b b5 a0 fe ff ff 	mov    r14d,DWORD PTR [rbp-0x160]
+  402da6:	44 8b a5 18 fe ff ff 	mov    r12d,DWORD PTR [rbp-0x1e8]
+  402dad:	83 7d 18 00          	cmp    DWORD PTR [rbp+0x18],0x0
+  402db1:	0f 85 af 08 00 00    	jne    403666 <morph+0xa96>
+  402db7:	48 8b 8d 90 fe ff ff 	mov    rcx,QWORD PTR [rbp-0x170]
+  402dbe:	be 08 00 00 00       	mov    esi,0x8
+  402dc3:	ba 03 00 00 00       	mov    edx,0x3
+  402dc8:	44 8b 71 2c          	mov    r14d,DWORD PTR [rcx+0x2c]
+  402dcc:	8b 59 28             	mov    ebx,DWORD PTR [rcx+0x28]
+  402dcf:	44 89 f7             	mov    edi,r14d
+  402dd2:	48 c1 e7 20          	shl    rdi,0x20
+  402dd6:	48 0b fb             	or     rdi,rbx
+  402dd9:	e8 f2 de ff ff       	call   400cd0 <cvCreateImage@plt>
+  402dde:	48 89 85 60 fe ff ff 	mov    QWORD PTR [rbp-0x1a0],rax
+  402de5:	33 c0                	xor    eax,eax
+  402de7:	45 85 e4             	test   r12d,r12d
+  402dea:	0f 8e 5b 0d 00 00    	jle    403b4b <morph+0xf7b>
+  402df0:	66 0f ef db          	pxor   xmm3,xmm3
+  402df4:	41 8d 4c 24 ff       	lea    ecx,[r12-0x1]
+  402df9:	66 0f ef d2          	pxor   xmm2,xmm2
+  402dfd:	8d 73 ff             	lea    esi,[rbx-0x1]
+  402e00:	66 0f ef c9          	pxor   xmm1,xmm1
+  402e04:	41 8d 7e ff          	lea    edi,[r14-0x1]
+  402e08:	f3 0f 2a d9          	cvtsi2ss xmm3,ecx
+  402e0c:	f3 0f 2a d6          	cvtsi2ss xmm2,esi
+  402e10:	f3 0f 2a cf          	cvtsi2ss xmm1,edi
+  402e14:	4c 89 ad 10 fe ff ff 	mov    QWORD PTR [rbp-0x1f0],r13
+  402e1b:	f2 0f 10 05 bd 33 00 	movsd  xmm0,QWORD PTR [rip+0x33bd]        # 4061e0 <.L_2il0floatpacket.4>
+  402e22:	00 
+  402e23:	f3 0f 11 8d a0 fe ff 	movss  DWORD PTR [rbp-0x160],xmm1
+  402e2a:	ff 
+  402e2b:	f3 0f 11 95 68 fe ff 	movss  DWORD PTR [rbp-0x198],xmm2
+  402e32:	ff 
+  402e33:	f3 0f 11 9d 28 fe ff 	movss  DWORD PTR [rbp-0x1d8],xmm3
+  402e3a:	ff 
+  402e3b:	4c 89 bd 98 fe ff ff 	mov    QWORD PTR [rbp-0x168],r15
+  402e42:	45 89 f7             	mov    r15d,r14d
+  402e45:	4c 8b 6d 10          	mov    r13,QWORD PTR [rbp+0x10]
+  402e49:	41 89 c6             	mov    r14d,eax
+  402e4c:	66 0f ef c9          	pxor   xmm1,xmm1
+  402e50:	33 d2                	xor    edx,edx
+  402e52:	f3 41 0f 2a ce       	cvtsi2ss xmm1,r14d
+  402e57:	f3 0f 5e 8d 28 fe ff 	divss  xmm1,DWORD PTR [rbp-0x1d8]
+  402e5e:	ff 
+  402e5f:	45 85 ff             	test   r15d,r15d
+  402e62:	0f 8e ba 0c 00 00    	jle    403b22 <morph+0xf52>
+  402e68:	f3 0f 10 05 78 33 00 	movss  xmm0,DWORD PTR [rip+0x3378]        # 4061e8 <.L_2il0floatpacket.4+0x8>
+  402e6f:	00 
+  402e70:	89 d8                	mov    eax,ebx
+  402e72:	44 89 a5 18 fe ff ff 	mov    DWORD PTR [rbp-0x1e8],r12d
+  402e79:	f3 0f 5c c1          	subss  xmm0,xmm1
+  402e7d:	f3 0f 11 85 b8 fe ff 	movss  DWORD PTR [rbp-0x148],xmm0
+  402e84:	ff 
+  402e85:	f3 0f 11 8d 70 ff ff 	movss  DWORD PTR [rbp-0x90],xmm1
+  402e8c:	ff 
+  402e8d:	44 89 b5 20 fe ff ff 	mov    DWORD PTR [rbp-0x1e0],r14d
+  402e94:	4c 8b ad 90 fe ff ff 	mov    r13,QWORD PTR [rbp-0x170]
+  402e9b:	4c 8b a5 70 fe ff ff 	mov    r12,QWORD PTR [rbp-0x190]
+  402ea2:	45 33 f6             	xor    r14d,r14d
+  402ea5:	33 db                	xor    ebx,ebx
+  402ea7:	85 c0                	test   eax,eax
+  402ea9:	0f 8e 54 0c 00 00    	jle    403b03 <morph+0xf33>
+  402eaf:	66 0f ef c0          	pxor   xmm0,xmm0
+  402eb3:	f3 0f 2a c2          	cvtsi2ss xmm0,edx
+  402eb7:	f3 0f 11 85 c0 fe ff 	movss  DWORD PTR [rbp-0x140],xmm0
+  402ebe:	ff 
+  402ebf:	89 95 a8 fe ff ff    	mov    DWORD PTR [rbp-0x158],edx
+  402ec5:	44 89 bd 30 fe ff ff 	mov    DWORD PTR [rbp-0x1d0],r15d
+  402ecc:	89 85 b0 fe ff ff    	mov    DWORD PTR [rbp-0x150],eax
+  402ed2:	66 0f ef c9          	pxor   xmm1,xmm1
+  402ed6:	33 c0                	xor    eax,eax
+  402ed8:	f3 41 0f 2a ce       	cvtsi2ss xmm1,r14d
+  402edd:	f3 0f 10 85 c0 fe ff 	movss  xmm0,DWORD PTR [rbp-0x140]
+  402ee4:	ff 
+  402ee5:	66 0f ef d2          	pxor   xmm2,xmm2
+  402ee9:	f3 0f 11 8d 10 ff ff 	movss  DWORD PTR [rbp-0xf0],xmm1
+  402ef0:	ff 
+  402ef1:	45 33 ff             	xor    r15d,r15d
+  402ef4:	f3 0f 11 85 14 ff ff 	movss  DWORD PTR [rbp-0xec],xmm0
+  402efb:	ff 
+  402efc:	48 83 bd 68 ff ff ff 	cmp    QWORD PTR [rbp-0x98],0x0
+  402f03:	00 
+  402f04:	0f 8e ec 0b 00 00    	jle    403af6 <morph+0xf26>
+  402f0a:	44 89 b5 40 fe ff ff 	mov    DWORD PTR [rbp-0x1c0],r14d
+  402f11:	66 0f ef c0          	pxor   xmm0,xmm0
+  402f15:	66 0f ef c9          	pxor   xmm1,xmm1
+  402f19:	f3 0f 11 85 18 ff ff 	movss  DWORD PTR [rbp-0xe8],xmm0
+  402f20:	ff 
+  402f21:	f3 0f 11 8d 1c ff ff 	movss  DWORD PTR [rbp-0xe4],xmm1
+  402f28:	ff 
+  402f29:	f3 0f 11 55 90       	movss  DWORD PTR [rbp-0x70],xmm2
+  402f2e:	89 9d 38 fe ff ff    	mov    DWORD PTR [rbp-0x1c8],ebx
+  402f34:	48 89 c3             	mov    rbx,rax
+  402f37:	4c 8b a5 78 fe ff ff 	mov    r12,QWORD PTR [rbp-0x188]
+  402f3e:	4c 8b ad 98 fe ff ff 	mov    r13,QWORD PTR [rbp-0x168]
+  402f45:	4c 8b b5 80 fe ff ff 	mov    r14,QWORD PTR [rbp-0x180]
+  402f4c:	f2 43 0f 10 04 2f    	movsd  xmm0,QWORD PTR [r15+r13*1]
+  402f52:	f2 43 0f 10 4c 2f 08 	movsd  xmm1,QWORD PTR [r15+r13*1+0x8]
+  402f59:	f3 0f 10 95 70 ff ff 	movss  xmm2,DWORD PTR [rbp-0x90]
+  402f60:	ff 
+  402f61:	e8 1a 12 00 00       	call   404180 <evaluate>
+  402f66:	0f 13 85 38 ff ff ff 	movlps QWORD PTR [rbp-0xc8],xmm0
+  402f6d:	48 8b 95 38 ff ff ff 	mov    rdx,QWORD PTR [rbp-0xc8]
+  402f74:	f3 0f 10 95 70 ff ff 	movss  xmm2,DWORD PTR [rbp-0x90]
+  402f7b:	ff 
+  402f7c:	f2 43 0f 10 04 27    	movsd  xmm0,QWORD PTR [r15+r12*1]
+  402f82:	f2 43 0f 10 4c 27 08 	movsd  xmm1,QWORD PTR [r15+r12*1+0x8]
+  402f89:	48 89 95 d0 fe ff ff 	mov    QWORD PTR [rbp-0x130],rdx
+  402f90:	e8 eb 11 00 00       	call   404180 <evaluate>
+  402f95:	0f 13 85 40 ff ff ff 	movlps QWORD PTR [rbp-0xc0],xmm0
+  402f9c:	48 8b 95 40 ff ff ff 	mov    rdx,QWORD PTR [rbp-0xc0]
+  402fa3:	f2 0f 10 95 40 ff ff 	movsd  xmm2,QWORD PTR [rbp-0xc0]
+  402faa:	ff 
+  402fab:	f2 0f 10 85 10 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xf0]
+  402fb2:	ff 
+  402fb3:	f2 0f 10 8d d0 fe ff 	movsd  xmm1,QWORD PTR [rbp-0x130]
+  402fba:	ff 
+  402fbb:	48 89 95 d8 fe ff ff 	mov    QWORD PTR [rbp-0x128],rdx
+  402fc2:	e8 b9 13 00 00       	call   404380 <projection_coefficient>
+  402fc7:	f3 0f 11 85 78 ff ff 	movss  DWORD PTR [rbp-0x88],xmm0
+  402fce:	ff 
+  402fcf:	f2 0f 10 85 10 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xf0]
+  402fd6:	ff 
+  402fd7:	f2 0f 10 8d d0 fe ff 	movsd  xmm1,QWORD PTR [rbp-0x130]
+  402fde:	ff 
+  402fdf:	f2 0f 10 95 d8 fe ff 	movsd  xmm2,QWORD PTR [rbp-0x128]
+  402fe6:	ff 
+  402fe7:	e8 e4 13 00 00       	call   4043d0 <unit_perpendicular_coeffient>
+  402fec:	f3 0f 11 45 88       	movss  DWORD PTR [rbp-0x78],xmm0
+  402ff1:	f2 0f 10 85 10 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xf0]
+  402ff8:	ff 
+  402ff9:	f2 0f 10 8d d0 fe ff 	movsd  xmm1,QWORD PTR [rbp-0x130]
+  403000:	ff 
+  403001:	f2 0f 10 95 d8 fe ff 	movsd  xmm2,QWORD PTR [rbp-0x128]
+  403008:	ff 
+  403009:	e8 12 14 00 00       	call   404420 <distance>
+  40300e:	f3 0f 11 45 a0       	movss  DWORD PTR [rbp-0x60],xmm0
+  403013:	f2 0f 10 85 40 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xc0]
+  40301a:	ff 
+  40301b:	f2 0f 10 8d 38 ff ff 	movsd  xmm1,QWORD PTR [rbp-0xc8]
+  403022:	ff 
+  403023:	e8 58 12 00 00       	call   404280 <subtract>
+  403028:	e8 33 13 00 00       	call   404360 <norm>
+  40302d:	f3 0f 5a c0          	cvtss2sd xmm0,xmm0
+  403031:	66 0f ef c9          	pxor   xmm1,xmm1
+  403035:	f3 0f 5a 4d a0       	cvtss2sd xmm1,DWORD PTR [rbp-0x60]
+  40303a:	f2 0f 51 c0          	sqrtsd xmm0,xmm0
+  40303e:	f2 0f 58 0d 9a 31 00 	addsd  xmm1,QWORD PTR [rip+0x319a]        # 4061e0 <.L_2il0floatpacket.4>
+  403045:	00 
+  403046:	f2 0f 5e c1          	divsd  xmm0,xmm1
+  40304a:	f2 0f 59 c0          	mulsd  xmm0,xmm0
+  40304e:	f2 0f 5a c0          	cvtsd2ss xmm0,xmm0
+  403052:	43 8b 14 37          	mov    edx,DWORD PTR [r15+r14*1]
+  403056:	43 8b 4c 37 04       	mov    ecx,DWORD PTR [r15+r14*1+0x4]
+  40305b:	43 8b 74 37 08       	mov    esi,DWORD PTR [r15+r14*1+0x8]
+  403060:	43 8b 7c 37 0c       	mov    edi,DWORD PTR [r15+r14*1+0xc]
+  403065:	89 95 e0 fe ff ff    	mov    DWORD PTR [rbp-0x120],edx
+  40306b:	89 8d e4 fe ff ff    	mov    DWORD PTR [rbp-0x11c],ecx
+  403071:	89 b5 e8 fe ff ff    	mov    DWORD PTR [rbp-0x118],esi
+  403077:	89 bd ec fe ff ff    	mov    DWORD PTR [rbp-0x114],edi
+  40307d:	f3 0f 11 45 98       	movss  DWORD PTR [rbp-0x68],xmm0
+  403082:	f2 0f 10 85 e8 fe ff 	movsd  xmm0,QWORD PTR [rbp-0x118]
+  403089:	ff 
+  40308a:	f2 0f 10 8d e0 fe ff 	movsd  xmm1,QWORD PTR [rbp-0x120]
+  403091:	ff 
+  403092:	e8 e9 11 00 00       	call   404280 <subtract>
+  403097:	0f 28 c8             	movaps xmm1,xmm0
+  40309a:	0f 13 8d 28 ff ff ff 	movlps QWORD PTR [rbp-0xd8],xmm1
+  4030a1:	f3 0f 10 85 78 ff ff 	movss  xmm0,DWORD PTR [rbp-0x88]
+  4030a8:	ff 
+  4030a9:	e8 82 12 00 00       	call   404330 <scalar_product>
+  4030ae:	0f 13 85 58 ff ff ff 	movlps QWORD PTR [rbp-0xa8],xmm0
+  4030b5:	f2 0f 10 85 28 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xd8]
+  4030bc:	ff 
+  4030bd:	e8 9e 12 00 00       	call   404360 <norm>
+  4030c2:	f3 0f 11 45 80       	movss  DWORD PTR [rbp-0x80],xmm0
+  4030c7:	f2 0f 10 85 28 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xd8]
+  4030ce:	ff 
+  4030cf:	e8 0c 12 00 00       	call   4042e0 <perpendicular>
+  4030d4:	0f 28 c8             	movaps xmm1,xmm0
+  4030d7:	f3 0f 10 45 88       	movss  xmm0,DWORD PTR [rbp-0x78]
+  4030dc:	f3 0f 5e 45 80       	divss  xmm0,DWORD PTR [rbp-0x80]
+  4030e1:	e8 4a 12 00 00       	call   404330 <scalar_product>
+  4030e6:	0f 28 c8             	movaps xmm1,xmm0
+  4030e9:	f2 0f 10 85 58 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xa8]
+  4030f0:	ff 
+  4030f1:	e8 ba 11 00 00       	call   4042b0 <add>
+  4030f6:	0f 28 c8             	movaps xmm1,xmm0
+  4030f9:	f2 0f 10 85 e0 fe ff 	movsd  xmm0,QWORD PTR [rbp-0x120]
+  403100:	ff 
+  403101:	e8 aa 11 00 00       	call   4042b0 <add>
+  403106:	f2 0f 10 8d 10 ff ff 	movsd  xmm1,QWORD PTR [rbp-0xf0]
+  40310d:	ff 
+  40310e:	e8 6d 11 00 00       	call   404280 <subtract>
+  403113:	0f 28 c8             	movaps xmm1,xmm0
+  403116:	f3 0f 10 45 98       	movss  xmm0,DWORD PTR [rbp-0x68]
+  40311b:	e8 10 12 00 00       	call   404330 <scalar_product>
+  403120:	0f 28 c8             	movaps xmm1,xmm0
+  403123:	f2 0f 10 85 18 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xe8]
+  40312a:	ff 
+  40312b:	e8 80 11 00 00       	call   4042b0 <add>
+  403130:	0f 13 85 18 ff ff ff 	movlps QWORD PTR [rbp-0xe8],xmm0
+  403137:	f3 0f 10 45 90       	movss  xmm0,DWORD PTR [rbp-0x70]
+  40313c:	48 ff c3             	inc    rbx
+  40313f:	49 83 c7 10          	add    r15,0x10
+  403143:	f3 0f 58 45 98       	addss  xmm0,DWORD PTR [rbp-0x68]
+  403148:	f3 0f 11 45 90       	movss  DWORD PTR [rbp-0x70],xmm0
+  40314d:	48 3b 9d 68 ff ff ff 	cmp    rbx,QWORD PTR [rbp-0x98]
+  403154:	0f 82 f2 fd ff ff    	jb     402f4c <morph+0x37c>
+  40315a:	0f 28 d0             	movaps xmm2,xmm0
+  40315d:	f3 0f 10 05 83 30 00 	movss  xmm0,DWORD PTR [rip+0x3083]        # 4061e8 <.L_2il0floatpacket.4+0x8>
+  403164:	00 
+  403165:	f3 0f 5e c2          	divss  xmm0,xmm2
+  403169:	f2 0f 10 8d 18 ff ff 	movsd  xmm1,QWORD PTR [rbp-0xe8]
+  403170:	ff 
+  403171:	8b 9d 38 fe ff ff    	mov    ebx,DWORD PTR [rbp-0x1c8]
+  403177:	44 8b b5 40 fe ff ff 	mov    r14d,DWORD PTR [rbp-0x1c0]
+  40317e:	4c 8b ad 90 fe ff ff 	mov    r13,QWORD PTR [rbp-0x170]
+  403185:	4c 8b a5 70 fe ff ff 	mov    r12,QWORD PTR [rbp-0x190]
+  40318c:	e8 9f 11 00 00       	call   404330 <scalar_product>
+  403191:	0f 28 c8             	movaps xmm1,xmm0
+  403194:	f2 0f 10 85 10 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xf0]
+  40319b:	ff 
+  40319c:	e8 0f 11 00 00       	call   4042b0 <add>
+  4031a1:	0f 13 85 50 fe ff ff 	movlps QWORD PTR [rbp-0x1b0],xmm0
+  4031a8:	0f 28 c8             	movaps xmm1,xmm0
+  4031ab:	66 0f ef c0          	pxor   xmm0,xmm0
+  4031af:	e8 8c 10 00 00       	call   404240 <max>
+  4031b4:	f3 0f 10 8d 68 fe ff 	movss  xmm1,DWORD PTR [rbp-0x198]
+  4031bb:	ff 
+  4031bc:	e8 6f 10 00 00       	call   404230 <min>
+  4031c1:	f3 0f 11 85 50 fe ff 	movss  DWORD PTR [rbp-0x1b0],xmm0
+  4031c8:	ff 
+  4031c9:	f3 0f 10 8d 54 fe ff 	movss  xmm1,DWORD PTR [rbp-0x1ac]
+  4031d0:	ff 
+  4031d1:	66 0f ef c0          	pxor   xmm0,xmm0
+  4031d5:	e8 66 10 00 00       	call   404240 <max>
+  4031da:	f3 0f 10 8d a0 fe ff 	movss  xmm1,DWORD PTR [rbp-0x160]
+  4031e1:	ff 
+  4031e2:	e8 49 10 00 00       	call   404230 <min>
+  4031e7:	f3 0f 11 85 c8 fe ff 	movss  DWORD PTR [rbp-0x138],xmm0
+  4031ee:	ff 
+  4031ef:	33 d2                	xor    edx,edx
+  4031f1:	f3 4c 0f 2c bd 50 fe 	cvttss2si r15,DWORD PTR [rbp-0x1b0]
+  4031f8:	ff ff 
+  4031fa:	f3 0f 11 85 54 fe ff 	movss  DWORD PTR [rbp-0x1ac],xmm0
+  403201:	ff 
+  403202:	66 0f ef d2          	pxor   xmm2,xmm2
+  403206:	33 c0                	xor    eax,eax
+  403208:	48 83 bd 68 ff ff ff 	cmp    QWORD PTR [rbp-0x98],0x0
+  40320f:	00 
+  403210:	0f 8e c7 08 00 00    	jle    403add <morph+0xf0d>
+  403216:	44 89 b5 40 fe ff ff 	mov    DWORD PTR [rbp-0x1c0],r14d
+  40321d:	66 0f ef c0          	pxor   xmm0,xmm0
+  403221:	66 0f ef c9          	pxor   xmm1,xmm1
+  403225:	f3 0f 11 85 20 ff ff 	movss  DWORD PTR [rbp-0xe0],xmm0
+  40322c:	ff 
+  40322d:	f3 0f 11 8d 24 ff ff 	movss  DWORD PTR [rbp-0xdc],xmm1
+  403234:	ff 
+  403235:	f3 0f 11 55 b8       	movss  DWORD PTR [rbp-0x48],xmm2
+  40323a:	44 89 bd 48 fe ff ff 	mov    DWORD PTR [rbp-0x1b8],r15d
+  403241:	49 89 d7             	mov    r15,rdx
+  403244:	89 9d 38 fe ff ff    	mov    DWORD PTR [rbp-0x1c8],ebx
+  40324a:	48 89 c3             	mov    rbx,rax
+  40324d:	4c 8b ad 78 fe ff ff 	mov    r13,QWORD PTR [rbp-0x188]
+  403254:	4c 8b a5 98 fe ff ff 	mov    r12,QWORD PTR [rbp-0x168]
+  40325b:	4c 8b b5 88 fe ff ff 	mov    r14,QWORD PTR [rbp-0x178]
+  403262:	f2 42 0f 10 04 23    	movsd  xmm0,QWORD PTR [rbx+r12*1]
+  403268:	f2 42 0f 10 4c 23 08 	movsd  xmm1,QWORD PTR [rbx+r12*1+0x8]
+  40326f:	f3 0f 10 95 70 ff ff 	movss  xmm2,DWORD PTR [rbp-0x90]
+  403276:	ff 
+  403277:	e8 04 0f 00 00       	call   404180 <evaluate>
+  40327c:	0f 13 85 48 ff ff ff 	movlps QWORD PTR [rbp-0xb8],xmm0
+  403283:	48 8b 8d 48 ff ff ff 	mov    rcx,QWORD PTR [rbp-0xb8]
+  40328a:	f3 0f 10 95 70 ff ff 	movss  xmm2,DWORD PTR [rbp-0x90]
+  403291:	ff 
+  403292:	f2 42 0f 10 04 2b    	movsd  xmm0,QWORD PTR [rbx+r13*1]
+  403298:	f2 42 0f 10 4c 2b 08 	movsd  xmm1,QWORD PTR [rbx+r13*1+0x8]
+  40329f:	48 89 8d f0 fe ff ff 	mov    QWORD PTR [rbp-0x110],rcx
+  4032a6:	e8 d5 0e 00 00       	call   404180 <evaluate>
+  4032ab:	0f 13 85 50 ff ff ff 	movlps QWORD PTR [rbp-0xb0],xmm0
+  4032b2:	48 8b 8d 50 ff ff ff 	mov    rcx,QWORD PTR [rbp-0xb0]
+  4032b9:	f2 0f 10 95 50 ff ff 	movsd  xmm2,QWORD PTR [rbp-0xb0]
+  4032c0:	ff 
+  4032c1:	f2 0f 10 85 10 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xf0]
+  4032c8:	ff 
+  4032c9:	f2 0f 10 8d f0 fe ff 	movsd  xmm1,QWORD PTR [rbp-0x110]
+  4032d0:	ff 
+  4032d1:	48 89 8d f8 fe ff ff 	mov    QWORD PTR [rbp-0x108],rcx
+  4032d8:	e8 a3 10 00 00       	call   404380 <projection_coefficient>
+  4032dd:	f3 0f 11 45 a8       	movss  DWORD PTR [rbp-0x58],xmm0
+  4032e2:	f2 0f 10 85 10 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xf0]
+  4032e9:	ff 
+  4032ea:	f2 0f 10 8d f0 fe ff 	movsd  xmm1,QWORD PTR [rbp-0x110]
+  4032f1:	ff 
+  4032f2:	f2 0f 10 95 f8 fe ff 	movsd  xmm2,QWORD PTR [rbp-0x108]
+  4032f9:	ff 
+  4032fa:	e8 d1 10 00 00       	call   4043d0 <unit_perpendicular_coeffient>
+  4032ff:	f3 0f 11 45 c0       	movss  DWORD PTR [rbp-0x40],xmm0
+  403304:	f2 0f 10 85 10 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xf0]
+  40330b:	ff 
+  40330c:	f2 0f 10 8d f0 fe ff 	movsd  xmm1,QWORD PTR [rbp-0x110]
+  403313:	ff 
+  403314:	f2 0f 10 95 f8 fe ff 	movsd  xmm2,QWORD PTR [rbp-0x108]
+  40331b:	ff 
+  40331c:	e8 ff 10 00 00       	call   404420 <distance>
+  403321:	f3 0f 11 45 d0       	movss  DWORD PTR [rbp-0x30],xmm0
+  403326:	f2 0f 10 85 50 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xb0]
+  40332d:	ff 
+  40332e:	f2 0f 10 8d 48 ff ff 	movsd  xmm1,QWORD PTR [rbp-0xb8]
+  403335:	ff 
+  403336:	e8 45 0f 00 00       	call   404280 <subtract>
+  40333b:	e8 20 10 00 00       	call   404360 <norm>
+  403340:	f3 0f 5a c0          	cvtss2sd xmm0,xmm0
+  403344:	66 0f ef c9          	pxor   xmm1,xmm1
+  403348:	f3 0f 5a 4d d0       	cvtss2sd xmm1,DWORD PTR [rbp-0x30]
+  40334d:	f2 0f 51 c0          	sqrtsd xmm0,xmm0
+  403351:	f2 0f 58 0d 87 2e 00 	addsd  xmm1,QWORD PTR [rip+0x2e87]        # 4061e0 <.L_2il0floatpacket.4>
+  403358:	00 
+  403359:	f2 0f 5e c1          	divsd  xmm0,xmm1
+  40335d:	f2 0f 59 c0          	mulsd  xmm0,xmm0
+  403361:	f2 0f 5a c0          	cvtsd2ss xmm0,xmm0
+  403365:	42 8b 0c 33          	mov    ecx,DWORD PTR [rbx+r14*1]
+  403369:	42 8b 74 33 04       	mov    esi,DWORD PTR [rbx+r14*1+0x4]
+  40336e:	42 8b 7c 33 08       	mov    edi,DWORD PTR [rbx+r14*1+0x8]
+  403373:	46 8b 44 33 0c       	mov    r8d,DWORD PTR [rbx+r14*1+0xc]
+  403378:	89 8d 00 ff ff ff    	mov    DWORD PTR [rbp-0x100],ecx
+  40337e:	89 b5 04 ff ff ff    	mov    DWORD PTR [rbp-0xfc],esi
+  403384:	89 bd 08 ff ff ff    	mov    DWORD PTR [rbp-0xf8],edi
+  40338a:	44 89 85 0c ff ff ff 	mov    DWORD PTR [rbp-0xf4],r8d
+  403391:	f3 0f 11 45 c8       	movss  DWORD PTR [rbp-0x38],xmm0
+  403396:	f2 0f 10 85 08 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xf8]
+  40339d:	ff 
+  40339e:	f2 0f 10 8d 00 ff ff 	movsd  xmm1,QWORD PTR [rbp-0x100]
+  4033a5:	ff 
+  4033a6:	e8 d5 0e 00 00       	call   404280 <subtract>
+  4033ab:	0f 28 c8             	movaps xmm1,xmm0
+  4033ae:	0f 13 8d 30 ff ff ff 	movlps QWORD PTR [rbp-0xd0],xmm1
+  4033b5:	f3 0f 10 45 a8       	movss  xmm0,DWORD PTR [rbp-0x58]
+  4033ba:	e8 71 0f 00 00       	call   404330 <scalar_product>
+  4033bf:	0f 13 85 60 ff ff ff 	movlps QWORD PTR [rbp-0xa0],xmm0
+  4033c6:	f2 0f 10 85 30 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xd0]
+  4033cd:	ff 
+  4033ce:	e8 8d 0f 00 00       	call   404360 <norm>
+  4033d3:	f3 0f 11 45 b0       	movss  DWORD PTR [rbp-0x50],xmm0
+  4033d8:	f2 0f 10 85 30 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xd0]
+  4033df:	ff 
+  4033e0:	e8 fb 0e 00 00       	call   4042e0 <perpendicular>
+  4033e5:	0f 28 c8             	movaps xmm1,xmm0
+  4033e8:	f3 0f 10 45 c0       	movss  xmm0,DWORD PTR [rbp-0x40]
+  4033ed:	f3 0f 5e 45 b0       	divss  xmm0,DWORD PTR [rbp-0x50]
+  4033f2:	e8 39 0f 00 00       	call   404330 <scalar_product>
+  4033f7:	0f 28 c8             	movaps xmm1,xmm0
+  4033fa:	f2 0f 10 85 60 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xa0]
+  403401:	ff 
+  403402:	e8 a9 0e 00 00       	call   4042b0 <add>
+  403407:	0f 28 c8             	movaps xmm1,xmm0
+  40340a:	f2 0f 10 85 00 ff ff 	movsd  xmm0,QWORD PTR [rbp-0x100]
+  403411:	ff 
+  403412:	e8 99 0e 00 00       	call   4042b0 <add>
+  403417:	f2 0f 10 8d 10 ff ff 	movsd  xmm1,QWORD PTR [rbp-0xf0]
+  40341e:	ff 
+  40341f:	e8 5c 0e 00 00       	call   404280 <subtract>
+  403424:	0f 28 c8             	movaps xmm1,xmm0
+  403427:	f3 0f 10 45 c8       	movss  xmm0,DWORD PTR [rbp-0x38]
+  40342c:	e8 ff 0e 00 00       	call   404330 <scalar_product>
+  403431:	0f 28 c8             	movaps xmm1,xmm0
+  403434:	f2 0f 10 85 20 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xe0]
+  40343b:	ff 
+  40343c:	e8 6f 0e 00 00       	call   4042b0 <add>
+  403441:	0f 13 85 20 ff ff ff 	movlps QWORD PTR [rbp-0xe0],xmm0
+  403448:	f3 0f 10 45 b8       	movss  xmm0,DWORD PTR [rbp-0x48]
+  40344d:	49 ff c7             	inc    r15
+  403450:	48 83 c3 10          	add    rbx,0x10
+  403454:	f3 0f 58 45 c8       	addss  xmm0,DWORD PTR [rbp-0x38]
+  403459:	f3 0f 11 45 b8       	movss  DWORD PTR [rbp-0x48],xmm0
+  40345e:	4c 3b bd 68 ff ff ff 	cmp    r15,QWORD PTR [rbp-0x98]
+  403465:	0f 82 f7 fd ff ff    	jb     403262 <morph+0x692>
+  40346b:	0f 28 d0             	movaps xmm2,xmm0
+  40346e:	f3 0f 10 05 72 2d 00 	movss  xmm0,DWORD PTR [rip+0x2d72]        # 4061e8 <.L_2il0floatpacket.4+0x8>
+  403475:	00 
+  403476:	f3 0f 5e c2          	divss  xmm0,xmm2
+  40347a:	f2 0f 10 8d 20 ff ff 	movsd  xmm1,QWORD PTR [rbp-0xe0]
+  403481:	ff 
+  403482:	44 8b bd 48 fe ff ff 	mov    r15d,DWORD PTR [rbp-0x1b8]
+  403489:	8b 9d 38 fe ff ff    	mov    ebx,DWORD PTR [rbp-0x1c8]
+  40348f:	44 8b b5 40 fe ff ff 	mov    r14d,DWORD PTR [rbp-0x1c0]
+  403496:	4c 8b ad 90 fe ff ff 	mov    r13,QWORD PTR [rbp-0x170]
+  40349d:	4c 8b a5 70 fe ff ff 	mov    r12,QWORD PTR [rbp-0x190]
+  4034a4:	e8 87 0e 00 00       	call   404330 <scalar_product>
+  4034a9:	0f 28 c8             	movaps xmm1,xmm0
+  4034ac:	f2 0f 10 85 10 ff ff 	movsd  xmm0,QWORD PTR [rbp-0xf0]
+  4034b3:	ff 
+  4034b4:	e8 f7 0d 00 00       	call   4042b0 <add>
+  4034b9:	0f 13 85 58 fe ff ff 	movlps QWORD PTR [rbp-0x1a8],xmm0
+  4034c0:	0f 28 c8             	movaps xmm1,xmm0
+  4034c3:	66 0f ef c0          	pxor   xmm0,xmm0
+  4034c7:	e8 74 0d 00 00       	call   404240 <max>
+  4034cc:	f3 0f 10 8d 68 fe ff 	movss  xmm1,DWORD PTR [rbp-0x198]
+  4034d3:	ff 
+  4034d4:	e8 57 0d 00 00       	call   404230 <min>
+  4034d9:	f3 0f 11 85 58 fe ff 	movss  DWORD PTR [rbp-0x1a8],xmm0
+  4034e0:	ff 
+  4034e1:	f3 0f 10 8d 5c fe ff 	movss  xmm1,DWORD PTR [rbp-0x1a4]
+  4034e8:	ff 
+  4034e9:	66 0f ef c0          	pxor   xmm0,xmm0
+  4034ed:	e8 4e 0d 00 00       	call   404240 <max>
+  4034f2:	f3 0f 10 8d a0 fe ff 	movss  xmm1,DWORD PTR [rbp-0x160]
+  4034f9:	ff 
+  4034fa:	e8 31 0d 00 00       	call   404230 <min>
+  4034ff:	f3 4c 0f 2c d8       	cvttss2si r11,xmm0
+  403504:	f3 48 0f 2c 95 c8 fe 	cvttss2si rdx,DWORD PTR [rbp-0x138]
+  40350b:	ff ff 
+  40350d:	f3 4c 0f 2c 95 58 fe 	cvttss2si r10,DWORD PTR [rbp-0x1a8]
+  403514:	ff ff 
+  403516:	48 8b bd 60 fe ff ff 	mov    rdi,QWORD PTR [rbp-0x1a0]
+  40351d:	43 8d 34 7f          	lea    esi,[r15+r15*2]
+  403521:	44 8b 8d a8 fe ff ff 	mov    r9d,DWORD PTR [rbp-0x158]
+  403528:	43 8d 04 52          	lea    eax,[r10+r10*2]
+  40352c:	4d 8b 55 58          	mov    r10,QWORD PTR [r13+0x58]
+  403530:	66 0f ef c9          	pxor   xmm1,xmm1
+  403534:	44 8b 47 60          	mov    r8d,DWORD PTR [rdi+0x60]
+  403538:	66 0f ef db          	pxor   xmm3,xmm3
+  40353c:	41 0f af d0          	imul   edx,r8d
+  403540:	66 0f ef d2          	pxor   xmm2,xmm2
+  403544:	45 0f af c8          	imul   r9d,r8d
+  403548:	66 0f ef ff          	pxor   xmm7,xmm7
+  40354c:	45 0f af c3          	imul   r8d,r11d
+  403550:	66 0f ef f6          	pxor   xmm6,xmm6
+  403554:	f3 0f 11 85 5c fe ff 	movss  DWORD PTR [rbp-0x1a4],xmm0
+  40355b:	ff 
+  40355c:	66 0f ef c0          	pxor   xmm0,xmm0
+  403560:	f3 0f 10 a5 b8 fe ff 	movss  xmm4,DWORD PTR [rbp-0x148]
+  403567:	ff 
+  403568:	f3 0f 10 ad 70 ff ff 	movss  xmm5,DWORD PTR [rbp-0x90]
+  40356f:	ff 
+  403570:	41 ff c6             	inc    r14d
+  403573:	8d 0c 16             	lea    ecx,[rsi+rdx*1]
+  403576:	46 8d 3c 00          	lea    r15d,[rax+r8*1]
+  40357a:	46 8d 1c 0b          	lea    r11d,[rbx+r9*1]
+  40357e:	42 0f b6 0c 11       	movzx  ecx,BYTE PTR [rcx+r10*1]
+  403583:	f3 0f 2a c9          	cvtsi2ss xmm1,ecx
+  403587:	49 8b 4c 24 58       	mov    rcx,QWORD PTR [r12+0x58]
+  40358c:	f3 0f 59 cc          	mulss  xmm1,xmm4
+  403590:	45 0f b6 14 0f       	movzx  r10d,BYTE PTR [r15+rcx*1]
+  403595:	f3 41 0f 2a c2       	cvtsi2ss xmm0,r10d
+  40359a:	f3 0f 59 c5          	mulss  xmm0,xmm5
+  40359e:	44 8d 54 16 01       	lea    r10d,[rsi+rdx*1+0x1]
+  4035a3:	48 8b 4f 58          	mov    rcx,QWORD PTR [rdi+0x58]
+  4035a7:	8d 54 16 02          	lea    edx,[rsi+rdx*1+0x2]
+  4035ab:	f3 0f 58 c8          	addss  xmm1,xmm0
+  4035af:	f3 44 0f 2c f9       	cvttss2si r15d,xmm1
+  4035b4:	45 88 3c 0b          	mov    BYTE PTR [r11+rcx*1],r15b
+  4035b8:	4d 8b 7d 58          	mov    r15,QWORD PTR [r13+0x58]
+  4035bc:	4d 8b 5c 24 58       	mov    r11,QWORD PTR [r12+0x58]
+  4035c1:	43 0f b6 0c 3a       	movzx  ecx,BYTE PTR [r10+r15*1]
+  4035c6:	46 8d 54 00 01       	lea    r10d,[rax+r8*1+0x1]
+  4035cb:	42 8d 44 00 02       	lea    eax,[rax+r8*1+0x2]
+  4035d0:	f3 0f 2a d9          	cvtsi2ss xmm3,ecx
+  4035d4:	47 0f b6 3c 1a       	movzx  r15d,BYTE PTR [r10+r11*1]
+  4035d9:	42 8d 4c 0b 01       	lea    ecx,[rbx+r9*1+0x1]
+  4035de:	f3 41 0f 2a d7       	cvtsi2ss xmm2,r15d
+  4035e3:	f3 0f 59 dc          	mulss  xmm3,xmm4
+  4035e7:	f3 0f 59 d5          	mulss  xmm2,xmm5
+  4035eb:	46 8d 4c 0b 02       	lea    r9d,[rbx+r9*1+0x2]
+  4035f0:	4c 8b 5f 58          	mov    r11,QWORD PTR [rdi+0x58]
+  4035f4:	83 c3 03             	add    ebx,0x3
+  4035f7:	f3 0f 58 da          	addss  xmm3,xmm2
+  4035fb:	f3 44 0f 2c d3       	cvttss2si r10d,xmm3
+  403600:	46 88 14 19          	mov    BYTE PTR [rcx+r11*1],r10b
+  403604:	49 8b 75 58          	mov    rsi,QWORD PTR [r13+0x58]
+  403608:	4d 8b 44 24 58       	mov    r8,QWORD PTR [r12+0x58]
+  40360d:	0f b6 14 32          	movzx  edx,BYTE PTR [rdx+rsi*1]
+  403611:	42 0f b6 04 00       	movzx  eax,BYTE PTR [rax+r8*1]
+  403616:	f3 0f 2a fa          	cvtsi2ss xmm7,edx
+  40361a:	f3 0f 2a f0          	cvtsi2ss xmm6,eax
+  40361e:	f3 0f 59 fc          	mulss  xmm7,xmm4
+  403622:	f3 0f 59 f5          	mulss  xmm6,xmm5
+  403626:	48 8b 7f 58          	mov    rdi,QWORD PTR [rdi+0x58]
+  40362a:	f3 0f 58 fe          	addss  xmm7,xmm6
+  40362e:	f3 0f 2c d7          	cvttss2si edx,xmm7
+  403632:	41 88 14 39          	mov    BYTE PTR [r9+rdi*1],dl
+  403636:	44 3b b5 b0 fe ff ff 	cmp    r14d,DWORD PTR [rbp-0x150]
+  40363d:	0f 82 8f f8 ff ff    	jb     402ed2 <morph+0x302>
+  403643:	8b 95 a8 fe ff ff    	mov    edx,DWORD PTR [rbp-0x158]
+  403649:	ff c2                	inc    edx
+  40364b:	44 8b bd 30 fe ff ff 	mov    r15d,DWORD PTR [rbp-0x1d0]
+  403652:	41 3b d7             	cmp    edx,r15d
+  403655:	8b 85 b0 fe ff ff    	mov    eax,DWORD PTR [rbp-0x150]
+  40365b:	0f 82 41 f8 ff ff    	jb     402ea2 <morph+0x2d2>
+  403661:	e9 a8 04 00 00       	jmp    403b0e <morph+0xf3e>
+  403666:	48 8b 8d 90 fe ff ff 	mov    rcx,QWORD PTR [rbp-0x170]
+  40366d:	be 08 00 00 00       	mov    esi,0x8
+  403672:	ba 03 00 00 00       	mov    edx,0x3
+  403677:	8b 79 2c             	mov    edi,DWORD PTR [rcx+0x2c]
+  40367a:	8b 59 28             	mov    ebx,DWORD PTR [rcx+0x28]
+  40367d:	89 bd a8 fe ff ff    	mov    DWORD PTR [rbp-0x158],edi
+  403683:	48 c1 e7 20          	shl    rdi,0x20
+  403687:	48 0b fb             	or     rdi,rbx
+  40368a:	e8 41 d6 ff ff       	call   400cd0 <cvCreateImage@plt>
+  40368f:	48 89 85 e8 fe ff ff 	mov    QWORD PTR [rbp-0x118],rax
+  403696:	33 d2                	xor    edx,edx
+  403698:	45 85 e4             	test   r12d,r12d
+  40369b:	0f 8e fb 03 00 00    	jle    403a9c <morph+0xecc>
+  4036a1:	66 0f ef c0          	pxor   xmm0,xmm0
+  4036a5:	41 8d 4c 24 ff       	lea    ecx,[r12-0x1]
+  4036aa:	f3 0f 2a c1          	cvtsi2ss xmm0,ecx
+  4036ae:	4c 89 ad 10 fe ff ff 	mov    QWORD PTR [rbp-0x1f0],r13
+  4036b5:	8d 43 fc             	lea    eax,[rbx-0x4]
+  4036b8:	44 89 b5 a0 fe ff ff 	mov    DWORD PTR [rbp-0x160],r14d
+  4036bf:	f3 0f 11 85 28 fe ff 	movss  DWORD PTR [rbp-0x1d8],xmm0
+  4036c6:	ff 
+  4036c7:	89 9d b0 fe ff ff    	mov    DWORD PTR [rbp-0x150],ebx
+  4036cd:	89 c3                	mov    ebx,eax
+  4036cf:	4c 89 bd 98 fe ff ff 	mov    QWORD PTR [rbp-0x168],r15
+  4036d6:	41 89 d7             	mov    r15d,edx
+  4036d9:	44 8b b5 a8 fe ff ff 	mov    r14d,DWORD PTR [rbp-0x158]
+  4036e0:	4c 8b 6d 10          	mov    r13,QWORD PTR [rbp+0x10]
+  4036e4:	66 0f ef c9          	pxor   xmm1,xmm1
+  4036e8:	33 c9                	xor    ecx,ecx
+  4036ea:	f3 41 0f 2a cf       	cvtsi2ss xmm1,r15d
+  4036ef:	f3 0f 5e 8d 28 fe ff 	divss  xmm1,DWORD PTR [rbp-0x1d8]
+  4036f6:	ff 
+  4036f7:	45 85 f6             	test   r14d,r14d
+  4036fa:	0f 8e 73 03 00 00    	jle    403a73 <morph+0xea3>
+  403700:	f3 0f 10 05 e0 2a 00 	movss  xmm0,DWORD PTR [rip+0x2ae0]        # 4061e8 <.L_2il0floatpacket.4+0x8>
+  403707:	00 
+  403708:	44 89 a5 18 fe ff ff 	mov    DWORD PTR [rbp-0x1e8],r12d
+  40370f:	f3 0f 5c c1          	subss  xmm0,xmm1
+  403713:	f3 0f 11 85 c8 fe ff 	movss  DWORD PTR [rbp-0x138],xmm0
+  40371a:	ff 
+  40371b:	f3 0f 11 8d e0 fe ff 	movss  DWORD PTR [rbp-0x120],xmm1
+  403722:	ff 
+  403723:	44 89 bd 20 fe ff ff 	mov    DWORD PTR [rbp-0x1e0],r15d
+  40372a:	44 8b a5 b0 fe ff ff 	mov    r12d,DWORD PTR [rbp-0x150]
+  403731:	45 33 ed             	xor    r13d,r13d
+  403734:	45 85 e4             	test   r12d,r12d
+  403737:	0f 8e 1a 04 00 00    	jle    403b57 <morph+0xf87>
+  40373d:	66 0f ef c0          	pxor   xmm0,xmm0
+  403741:	f3 0f 2a c1          	cvtsi2ss xmm0,ecx
+  403745:	f3 0f 11 85 d0 fe ff 	movss  DWORD PTR [rbp-0x130],xmm0
+  40374c:	ff 
+  40374d:	89 8d f0 fe ff ff    	mov    DWORD PTR [rbp-0x110],ecx
+  403753:	45 89 ef             	mov    r15d,r13d
+  403756:	45 8d 55 04          	lea    r10d,[r13+0x4]
+  40375a:	45 3b e2             	cmp    r12d,r10d
+  40375d:	66 0f ef c0          	pxor   xmm0,xmm0
+  403761:	f3 0f 10 8d d0 fe ff 	movss  xmm1,DWORD PTR [rbp-0x130]
+  403768:	ff 
+  403769:	45 89 e5             	mov    r13d,r12d
+  40376c:	44 0f 4c fb          	cmovl  r15d,ebx
+  403770:	45 89 e0             	mov    r8d,r12d
+  403773:	f3 41 0f 2a c7       	cvtsi2ss xmm0,r15d
+  403778:	f3 0f 10 95 e0 fe ff 	movss  xmm2,DWORD PTR [rbp-0x120]
+  40377f:	ff 
+  403780:	45 89 f1             	mov    r9d,r14d
+  403783:	48 8b bd 80 fe ff ff 	mov    rdi,QWORD PTR [rbp-0x180]
+  40378a:	45 0f 4d ea          	cmovge r13d,r10d
+  40378e:	48 8b b5 98 fe ff ff 	mov    rsi,QWORD PTR [rbp-0x168]
+  403795:	48 8b 95 78 fe ff ff 	mov    rdx,QWORD PTR [rbp-0x188]
+  40379c:	8b 8d a0 fe ff ff    	mov    ecx,DWORD PTR [rbp-0x160]
+  4037a2:	f3 0f 11 85 d8 fe ff 	movss  DWORD PTR [rbp-0x128],xmm0
+  4037a9:	ff 
+
+  403add:	8b 85 14 ff ff ff    	mov    eax,DWORD PTR [rbp-0xec]
+  403ae3:	f3 0f 10 8d 10 ff ff 	movss  xmm1,DWORD PTR [rbp-0xf0]
+  403aea:	ff 
+  403aeb:	89 85 5c fe ff ff    	mov    DWORD PTR [rbp-0x1a4],eax
+  403af1:	e9 cd f9 ff ff       	jmp    4034c3 <morph+0x8f3>
+  403af6:	f3 0f 11 85 54 fe ff 	movss  DWORD PTR [rbp-0x1ac],xmm0
+  403afd:	ff 
+  403afe:	e9 a8 f6 ff ff       	jmp    4031ab <morph+0x5db>
+  403b03:	ff c2                	inc    edx
+  403b05:	41 3b d7             	cmp    edx,r15d
+  403b08:	0f 82 94 f3 ff ff    	jb     402ea2 <morph+0x2d2>
+  403b0e:	44 8b b5 20 fe ff ff 	mov    r14d,DWORD PTR [rbp-0x1e0]
+  403b15:	89 c3                	mov    ebx,eax
+  403b17:	44 8b a5 18 fe ff ff 	mov    r12d,DWORD PTR [rbp-0x1e8]
+  403b1e:	4c 8b 6d 10          	mov    r13,QWORD PTR [rbp+0x10]
+  403b22:	4c 89 ef             	mov    rdi,r13
+  403b25:	48 8b b5 60 fe ff ff 	mov    rsi,QWORD PTR [rbp-0x1a0]
+  403b2c:	e8 1f d2 ff ff       	call   400d50 <cvWriteFrame@plt>
+  403b31:	41 ff c6             	inc    r14d
+  403b34:	45 3b f4             	cmp    r14d,r12d
+  403b37:	0f 82 0f f3 ff ff    	jb     402e4c <morph+0x27c>
+  403b3d:	4c 8b bd 98 fe ff ff 	mov    r15,QWORD PTR [rbp-0x168]
+  403b44:	4c 8b ad 10 fe ff ff 	mov    r13,QWORD PTR [rbp-0x1f0]
+  403b4b:	48 8d bd 60 fe ff ff 	lea    rdi,[rbp-0x1a0]
+  403b52:	e9 4c ff ff ff       	jmp    403aa3 <morph+0xed3>
+  403b57:	ff c1                	inc    ecx
+  403b59:	41 3b ce             	cmp    ecx,r14d
+  403b5c:	0f 82 cf fb ff ff    	jb     403731 <morph+0xb61>
+  403b62:	e9 f3 fe ff ff       	jmp    403a5a <morph+0xe8a>
+  403b67:	66 0f 1f 84 00 00 00 	nop    WORD PTR [rax+rax*1+0x0]
+  403b6e:	00 00 
+
+0000000000404180 <evaluate>:
+  404180:	0f 28 d8             	movaps xmm3,xmm0
+  404183:	0f 28 e1             	movaps xmm4,xmm1
+  404186:	0f c6 d8 01          	shufps xmm3,xmm0,0x1
+  40418a:	0f c6 e1 01          	shufps xmm4,xmm1,0x1
+  40418e:	f3 0f 59 c2          	mulss  xmm0,xmm2
+  404192:	f3 0f 59 ca          	mulss  xmm1,xmm2
+  404196:	f3 0f 58 d8          	addss  xmm3,xmm0
+  40419a:	f3 0f 58 e1          	addss  xmm4,xmm1
+  40419e:	f3 0f 11 5c 24 f8    	movss  DWORD PTR [rsp-0x8],xmm3
+  4041a4:	f3 0f 11 64 24 fc    	movss  DWORD PTR [rsp-0x4],xmm4
+  4041aa:	f2 0f 10 44 24 f8    	movsd  xmm0,QWORD PTR [rsp-0x8]
+  4041b0:	c3                   	ret    
+  4041b1:	0f 1f 84 00 00 00 00 	nop    DWORD PTR [rax+rax*1+0x0]
+  4041b8:	00 
+  4041b9:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+
+00000000004041c0 <interpolate>:
+  4041c0:	0f 28 d0             	movaps xmm2,xmm0
+  4041c3:	0f 28 d9             	movaps xmm3,xmm1
+  4041c6:	0f c6 d0 01          	shufps xmm2,xmm0,0x1
+  4041ca:	0f c6 d9 01          	shufps xmm3,xmm1,0x1
+  4041ce:	0f 2e c1             	ucomiss xmm0,xmm1
+  4041d1:	7a 02                	jp     4041d5 <interpolate+0x15>
+  4041d3:	74 35                	je     40420a <interpolate+0x4a>
+  4041d5:	f3 0f 11 44 24 ec    	movss  DWORD PTR [rsp-0x14],xmm0
+  4041db:	f3 0f 5c c8          	subss  xmm1,xmm0
+  4041df:	f3 0f 5c da          	subss  xmm3,xmm2
+  4041e3:	f3 0f 5e d9          	divss  xmm3,xmm1
+  4041e7:	f3 0f 59 d9          	mulss  xmm3,xmm1
+  4041eb:	f3 0f 11 4c 24 e8    	movss  DWORD PTR [rsp-0x18],xmm1
+  4041f1:	f3 0f 11 5c 24 f0    	movss  DWORD PTR [rsp-0x10],xmm3
+  4041f7:	f3 0f 11 54 24 f4    	movss  DWORD PTR [rsp-0xc],xmm2
+  4041fd:	f2 0f 10 44 24 e8    	movsd  xmm0,QWORD PTR [rsp-0x18]
+  404203:	f2 0f 10 4c 24 f0    	movsd  xmm1,QWORD PTR [rsp-0x10]
+  404209:	c3                   	ret    
+  40420a:	c7 44 24 e8 00 00 00 	mov    DWORD PTR [rsp-0x18],0x0
+  404211:	00 
+  404212:	f3 0f 5c da          	subss  xmm3,xmm2
+  404216:	f3 0f 11 44 24 ec    	movss  DWORD PTR [rsp-0x14],xmm0
+  40421c:	f3 0f 11 5c 24 f0    	movss  DWORD PTR [rsp-0x10],xmm3
+  404222:	f3 0f 11 54 24 f4    	movss  DWORD PTR [rsp-0xc],xmm2
+  404228:	eb d3                	jmp    4041fd <interpolate+0x3d>
+  40422a:	66 0f 1f 44 00 00    	nop    WORD PTR [rax+rax*1+0x0]
+
+0000000000404230 <min>:
+  404230:	f3 0f 5d c1          	minss  xmm0,xmm1
+  404234:	c3                   	ret    
+  404235:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+  404239:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+
+0000000000404240 <max>:
+  404240:	f3 0f 5f c1          	maxss  xmm0,xmm1
+  404244:	c3                   	ret    
+  404245:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+  404249:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+
+0000000000404280 <subtract>:
+  404280:	0f 28 d0             	movaps xmm2,xmm0
+  404283:	0f 28 d9             	movaps xmm3,xmm1
+  404286:	0f c6 d0 01          	shufps xmm2,xmm0,0x1
+  40428a:	0f c6 d9 01          	shufps xmm3,xmm1,0x1
+  40428e:	f3 0f 5c d3          	subss  xmm2,xmm3
+  404292:	f3 0f 5c c1          	subss  xmm0,xmm1
+  404296:	f3 0f 11 44 24 f8    	movss  DWORD PTR [rsp-0x8],xmm0
+  40429c:	f3 0f 11 54 24 fc    	movss  DWORD PTR [rsp-0x4],xmm2
+  4042a2:	f2 0f 10 44 24 f8    	movsd  xmm0,QWORD PTR [rsp-0x8]
+  4042a8:	c3                   	ret    
+  4042a9:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+
+00000000004042b0 <add>:
+  4042b0:	0f 28 d0             	movaps xmm2,xmm0
+  4042b3:	0f 28 d9             	movaps xmm3,xmm1
+  4042b6:	0f c6 d0 01          	shufps xmm2,xmm0,0x1
+  4042ba:	0f c6 d9 01          	shufps xmm3,xmm1,0x1
+  4042be:	f3 0f 58 d3          	addss  xmm2,xmm3
+  4042c2:	f3 0f 58 c1          	addss  xmm0,xmm1
+  4042c6:	f3 0f 11 44 24 f8    	movss  DWORD PTR [rsp-0x8],xmm0
+  4042cc:	f3 0f 11 54 24 fc    	movss  DWORD PTR [rsp-0x4],xmm2
+  4042d2:	f2 0f 10 44 24 f8    	movsd  xmm0,QWORD PTR [rsp-0x8]
+  4042d8:	c3                   	ret    
+  4042d9:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+
+00000000004042e0 <perpendicular>:
+  4042e0:	0f 13 44 24 f0       	movlps QWORD PTR [rsp-0x10],xmm0
+  4042e5:	8b 44 24 f4          	mov    eax,DWORD PTR [rsp-0xc]
+  4042e9:	0f 57 05 00 1f 00 00 	xorps  xmm0,XMMWORD PTR [rip+0x1f00]        # 4061f0 <.L_2il0floatpacket.0>
+  4042f0:	89 44 24 e8          	mov    DWORD PTR [rsp-0x18],eax
+  4042f4:	f3 0f 11 44 24 ec    	movss  DWORD PTR [rsp-0x14],xmm0
+  4042fa:	f2 0f 10 44 24 e8    	movsd  xmm0,QWORD PTR [rsp-0x18]
+  404300:	c3                   	ret    
+  404301:	0f 1f 84 00 00 00 00 	nop    DWORD PTR [rax+rax*1+0x0]
+  404308:	00 
+  404309:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+
+0000000000404310 <inner_product>:
+  404310:	0f 28 d0             	movaps xmm2,xmm0
+  404313:	0f 28 d9             	movaps xmm3,xmm1
+  404316:	0f c6 d0 01          	shufps xmm2,xmm0,0x1
+  40431a:	0f c6 d9 01          	shufps xmm3,xmm1,0x1
+  40431e:	f3 0f 59 c1          	mulss  xmm0,xmm1
+  404322:	f3 0f 59 d3          	mulss  xmm2,xmm3
+  404326:	f3 0f 58 c2          	addss  xmm0,xmm2
+  40432a:	c3                   	ret    
+  40432b:	0f 1f 44 00 00       	nop    DWORD PTR [rax+rax*1+0x0]
+
+0000000000404330 <scalar_product>:
+  404330:	0f 13 4c 24 f8       	movlps QWORD PTR [rsp-0x8],xmm1
+  404335:	f3 0f 10 54 24 fc    	movss  xmm2,DWORD PTR [rsp-0x4]
+  40433b:	f3 0f 59 c8          	mulss  xmm1,xmm0
+  40433f:	f3 0f 59 c2          	mulss  xmm0,xmm2
+  404343:	f3 0f 11 4c 24 f8    	movss  DWORD PTR [rsp-0x8],xmm1
+  404349:	f3 0f 11 44 24 fc    	movss  DWORD PTR [rsp-0x4],xmm0
+  40434f:	f2 0f 10 44 24 f8    	movsd  xmm0,QWORD PTR [rsp-0x8]
+  404355:	c3                   	ret    
+  404356:	0f 1f 00             	nop    DWORD PTR [rax]
+  404359:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+
+0000000000404360 <norm>:
+  404360:	0f 28 c8             	movaps xmm1,xmm0
+  404363:	0f c6 c8 01          	shufps xmm1,xmm0,0x1
+  404367:	f3 0f 59 c0          	mulss  xmm0,xmm0
+  40436b:	f3 0f 59 c9          	mulss  xmm1,xmm1
+  40436f:	f3 0f 58 c1          	addss  xmm0,xmm1
+  404373:	f3 0f 51 c0          	sqrtss xmm0,xmm0
+  404377:	c3                   	ret    
+  404378:	0f 1f 84 00 00 00 00 	nop    DWORD PTR [rax+rax*1+0x0]
+  40437f:	00 
+
+0000000000404380 <projection_coefficient>:
+  404380:	0f 28 d9             	movaps xmm3,xmm1
+  404383:	0f 28 e2             	movaps xmm4,xmm2
+  404386:	0f 28 f0             	movaps xmm6,xmm0
+  404389:	0f c6 d9 01          	shufps xmm3,xmm1,0x1
+  40438d:	0f c6 e2 01          	shufps xmm4,xmm2,0x1
+  404391:	0f c6 f0 01          	shufps xmm6,xmm0,0x1
+  404395:	f3 0f 5c e3          	subss  xmm4,xmm3
+  404399:	f3 0f 5c f3          	subss  xmm6,xmm3
+  40439d:	0f 28 ec             	movaps xmm5,xmm4
+  4043a0:	f3 0f 5c d1          	subss  xmm2,xmm1
+  4043a4:	f3 0f 5c c1          	subss  xmm0,xmm1
+  4043a8:	f3 0f 59 ec          	mulss  xmm5,xmm4
+  4043ac:	f3 0f 59 f4          	mulss  xmm6,xmm4
+  4043b0:	f3 0f 59 c2          	mulss  xmm0,xmm2
+  4043b4:	0f 28 fa             	movaps xmm7,xmm2
+  4043b7:	f3 0f 58 c6          	addss  xmm0,xmm6
+  4043bb:	f3 0f 59 fa          	mulss  xmm7,xmm2
+  4043bf:	f3 0f 58 fd          	addss  xmm7,xmm5
+  4043c3:	f3 0f 5e c7          	divss  xmm0,xmm7
+  4043c7:	c3                   	ret    
+  4043c8:	0f 1f 84 00 00 00 00 	nop    DWORD PTR [rax+rax*1+0x0]
+  4043cf:	00 
+
+00000000004043d0 <unit_perpendicular_coeffient>:
+  4043d0:	0f 28 d9             	movaps xmm3,xmm1
+  4043d3:	0f 28 e2             	movaps xmm4,xmm2
+  4043d6:	0f 28 e8             	movaps xmm5,xmm0
+  4043d9:	0f c6 d9 01          	shufps xmm3,xmm1,0x1
+  4043dd:	0f c6 e2 01          	shufps xmm4,xmm2,0x1
+  4043e1:	0f c6 e8 01          	shufps xmm5,xmm0,0x1
+  4043e5:	f3 0f 5c e3          	subss  xmm4,xmm3
+  4043e9:	f3 0f 5c eb          	subss  xmm5,xmm3
+  4043ed:	f3 0f 5c c1          	subss  xmm0,xmm1
+  4043f1:	f3 0f 59 c4          	mulss  xmm0,xmm4
+  4043f5:	f3 0f 5c d1          	subss  xmm2,xmm1
+  4043f9:	f3 0f 59 e4          	mulss  xmm4,xmm4
+  4043fd:	0f 28 f2             	movaps xmm6,xmm2
+  404400:	f3 0f 59 d2          	mulss  xmm2,xmm2
+  404404:	0f 57 35 e5 1d 00 00 	xorps  xmm6,XMMWORD PTR [rip+0x1de5]        # 4061f0 <.L_2il0floatpacket.0>
+  40440b:	f3 0f 58 d4          	addss  xmm2,xmm4
+  40440f:	f3 0f 59 ee          	mulss  xmm5,xmm6
+  404413:	f3 0f 51 d2          	sqrtss xmm2,xmm2
+  404417:	f3 0f 58 c5          	addss  xmm0,xmm5
+  40441b:	f3 0f 5e c2          	divss  xmm0,xmm2
+  40441f:	c3                   	ret    
+
+0000000000404420 <distance>:
+  404420:	0f 28 da             	movaps xmm3,xmm2
+  404423:	0f c6 da 01          	shufps xmm3,xmm2,0x1
+  404427:	44 0f 28 d0          	movaps xmm10,xmm0
+  40442b:	0f 28 f9             	movaps xmm7,xmm1
+  40442e:	0f 28 f0             	movaps xmm6,xmm0
+  404431:	0f 28 ea             	movaps xmm5,xmm2
+  404434:	44 0f 28 c9          	movaps xmm9,xmm1
+  404438:	44 0f c6 d0 01       	shufps xmm10,xmm0,0x1
+  40443d:	0f 28 e5             	movaps xmm4,xmm5
+  404440:	0f c6 f9 01          	shufps xmm7,xmm1,0x1
+  404444:	45 0f 28 e2          	movaps xmm12,xmm10
+  404448:	0f 28 c6             	movaps xmm0,xmm6
+  40444b:	0f 28 d3             	movaps xmm2,xmm3
+  40444e:	f3 41 0f 5c e1       	subss  xmm4,xmm9
+  404453:	f3 0f 5c d7          	subss  xmm2,xmm7
+  404457:	f3 41 0f 5c c1       	subss  xmm0,xmm9
+  40445c:	f3 44 0f 5c e7       	subss  xmm12,xmm7
+  404461:	0f 28 cc             	movaps xmm1,xmm4
+  404464:	44 0f 28 c2          	movaps xmm8,xmm2
+  404468:	44 0f 28 c8          	movaps xmm9,xmm0
+  40446c:	44 0f 28 da          	movaps xmm11,xmm2
+  404470:	f3 0f 59 cc          	mulss  xmm1,xmm4
+  404474:	f3 44 0f 59 c2       	mulss  xmm8,xmm2
+  404479:	f3 44 0f 59 cc       	mulss  xmm9,xmm4
+  40447e:	f3 45 0f 59 dc       	mulss  xmm11,xmm12
+  404483:	f3 41 0f 58 c8       	addss  xmm1,xmm8
+  404488:	f3 45 0f 58 cb       	addss  xmm9,xmm11
+  40448d:	f3 44 0f 5e c9       	divss  xmm9,xmm1
+  404492:	66 45 0f ef c0       	pxor   xmm8,xmm8
+  404497:	45 0f 2f c8          	comiss xmm9,xmm8
+  40449b:	72 0e                	jb     4044ab <distance+0x8b>
+  40449d:	f3 0f 10 3d 5b 1d 00 	movss  xmm7,DWORD PTR [rip+0x1d5b]        # 406200 <.L_2il0floatpacket.0+0x10>
+  4044a4:	00 
+  4044a5:	41 0f 2f f9          	comiss xmm7,xmm9
+  4044a9:	73 39                	jae    4044e4 <distance+0xc4>
+  4044ab:	45 0f 2f c1          	comiss xmm8,xmm9
+  4044af:	76 13                	jbe    4044c4 <distance+0xa4>
+  4044b1:	f3 0f 59 c0          	mulss  xmm0,xmm0
+  4044b5:	f3 45 0f 59 e4       	mulss  xmm12,xmm12
+  4044ba:	f3 41 0f 58 c4       	addss  xmm0,xmm12
+  4044bf:	f3 0f 51 c0          	sqrtss xmm0,xmm0
+  4044c3:	c3                   	ret    
+  4044c4:	66 0f ef c0          	pxor   xmm0,xmm0
+  4044c8:	f3 0f 5c f5          	subss  xmm6,xmm5
+  4044cc:	f3 44 0f 5c d3       	subss  xmm10,xmm3
+  4044d1:	f3 0f 59 f6          	mulss  xmm6,xmm6
+  4044d5:	f3 45 0f 59 d2       	mulss  xmm10,xmm10
+  4044da:	f3 41 0f 58 f2       	addss  xmm6,xmm10
+  4044df:	f3 0f 51 c6          	sqrtss xmm0,xmm6
+  4044e3:	c3                   	ret    
+  4044e4:	66 0f ef db          	pxor   xmm3,xmm3
+  4044e8:	f3 0f 52 d9          	rsqrtss xmm3,xmm1
+  4044ec:	f3 41 0f 59 e4       	mulss  xmm4,xmm12
+  4044f1:	f3 0f 59 c2          	mulss  xmm0,xmm2
+  4044f5:	f3 0f 59 cb          	mulss  xmm1,xmm3
+  4044f9:	f3 0f 59 cb          	mulss  xmm1,xmm3
+  4044fd:	f3 0f 10 15 03 1d 00 	movss  xmm2,DWORD PTR [rip+0x1d03]        # 406208 <.L_2il0floatpacket.0+0x18>
+  404504:	00 
+  404505:	f3 0f 59 da          	mulss  xmm3,xmm2
+  404509:	f3 0f 5c 0d f3 1c 00 	subss  xmm1,DWORD PTR [rip+0x1cf3]        # 406204 <.L_2il0floatpacket.0+0x14>
+  404510:	00 
+  404511:	0f 57 25 d8 1c 00 00 	xorps  xmm4,XMMWORD PTR [rip+0x1cd8]        # 4061f0 <.L_2il0floatpacket.0>
+  404518:	f3 0f 59 d9          	mulss  xmm3,xmm1
+  40451c:	f3 0f 58 c4          	addss  xmm0,xmm4
+  404520:	f3 0f 59 c3          	mulss  xmm0,xmm3
+  404524:	f3 0f 2c c0          	cvttss2si eax,xmm0
+  404528:	99                   	cdq    
+  404529:	33 c2                	xor    eax,edx
+  40452b:	66 0f ef c0          	pxor   xmm0,xmm0
+  40452f:	2b c2                	sub    eax,edx
+  404531:	f3 0f 2a c0          	cvtsi2ss xmm0,eax
+  404535:	c3                   	ret    
+  404536:	0f 1f 00             	nop    DWORD PTR [rax]
+  404539:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
