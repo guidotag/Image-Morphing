@@ -5,25 +5,23 @@ import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.imageio.ImageIO;
 
 public class ImagePanel extends JPanel {
-    private int width;
-    private int height;
     private int realWidth;
     private int realHeight;
     private BufferedImage image;
     private String imagePath;
 
     public ImagePanel(int width, int height) {
-        this.width = width;
-        this.height = height;
         this.image = null;
         this.setBorder(BorderFactory.createLineBorder(Color.black));
-        this.setSize(this.width, this.height);
+        this.setPreferredSize(new Dimension(width, height));
+        this.setSize(width, height);
     }
 
     public void paintComponent(Graphics g) {
@@ -46,9 +44,9 @@ public class ImagePanel extends JPanel {
         this.imagePath = path;
         this.realWidth = real.getWidth();
         this.realHeight = real.getHeight();
-        this.image = new BufferedImage(this.width, this.height, real.getType());
+        this.image = new BufferedImage(this.getWidth(), this.getHeight(), real.getType());
         AffineTransform affineTransform = new AffineTransform();
-        affineTransform.scale(this.width / (double)realWidth, this.height / (double)realHeight);
+        affineTransform.scale(this.getWidth() / (double)realWidth, this.getHeight() / (double)realHeight);
         AffineTransformOp scaleTransform = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_BILINEAR);
         scaleTransform.filter(real, this.image);
 
@@ -57,6 +55,10 @@ public class ImagePanel extends JPanel {
 
     public String getImagePath() {
         return this.imagePath;
+    }
+
+    public boolean hasImage() {
+        return this.image != null;
     }
 
     protected int getRealWidth() {
