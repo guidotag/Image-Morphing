@@ -70,11 +70,11 @@ public class ImagePanel extends JPanel {
         return this.scaledImage != null;
     }
 
-    public int getRealWidth() {
+    public int getImageWidth() {
         return this.realWidth;
     }
 
-    public int getRealHeight() {
+    public int getImageHeight() {
         return this.realHeight;
     }
 }

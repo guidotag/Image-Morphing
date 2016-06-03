@@ -145,8 +145,8 @@ public class IMImagePanel extends ImagePanel {
    	}
 
    	private Segment scaleSegment(Segment segment) {
-    	double xScale = super.getRealWidth() / (double)super.getWidth();
-    	double yScale = super.getRealHeight() / (double)super.getHeight();
+    	double xScale = super.getImageWidth() / (double)super.getWidth();
+    	double yScale = super.getImageHeight() / (double)super.getHeight();
 
     	Point fromScaled = new Point((int)(segment.getFrom().getX() * xScale),
     										(int)(segment.getFrom().getY() * yScale));

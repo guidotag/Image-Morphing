@@ -204,14 +204,14 @@ public class IMFrame extends JFrame{
 											 "" + framesCount,
 											 "" + fps).start();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(this, "A problem occured while executing the morph.", "Morph error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "A problem occurred while executing the morph.", "Morph error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
 		try {
 			process.waitFor();
 		} catch (InterruptedException e) {
-			JOptionPane.showMessageDialog(this, "A problem occured while executing the morph.", "Morph error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "A problem occurred while executing the morph.", "Morph error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 

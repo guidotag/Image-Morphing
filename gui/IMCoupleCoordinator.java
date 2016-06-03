@@ -66,7 +66,7 @@ public class IMCoupleCoordinator {
 		if (theOther.hasImage()) {
 			BufferedImage image = ImageIO.read(new File(path));
 
-			if (image.getWidth() != theOther.getRealWidth() || image.getHeight() != theOther.getRealHeight()) {
+			if (image.getWidth() != theOther.getImageWidth() || image.getHeight() != theOther.getImageHeight()) {
 				throw new MismatchingImageSizesException();
 			}
 		}
