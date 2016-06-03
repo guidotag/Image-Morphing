@@ -20,16 +20,18 @@ import javax.swing.JLabel;
 public class IMFrame extends JFrame{
 	private static final String FRAME_TITLE = "Image Morphing";
 	private static final int FRAME_WIDTH = 1280;
-	private static final int FRAME_HEIGHT = 960;
+	private static final int FRAME_HEIGHT = 750;
 	private static final int FRAME_X = 150;
 	private static final int FRAME_Y = 50;
 
-	private static final int SPEED_SLIDER_DEFAULT_VALUE = 50;
+	private static final int FRAMES_COUNT_SLIDER_DEFAULT_VALUE = 50;
+	private static final int FPS_SLIDER_DEFAULT_VALUE = 30;
 
 	private JButton chooseSrcButton;
 	private JButton chooseDstButton;
 	private IMCouplePanel couplePanel;
-	private JSlider speedSlider;
+	private JSlider framesCountSlider;
+	private JSlider fpsSlider;
 
 	private String outputDirectory;
 	private String segmentsDirectory;
@@ -42,14 +44,14 @@ public class IMFrame extends JFrame{
 		this.setResizable(false);
 		this.setLocation(IMFrame.FRAME_X, IMFrame.FRAME_Y);
 
-		// Setup components.
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Dimension screenSize = toolkit.getScreenSize();
+		//Toolkit toolkit = Toolkit.getDefaultToolkit();
+		//Dimension screenSize = toolkit.getScreenSize();
 		this.setSize(IMFrame.FRAME_WIDTH, IMFrame.FRAME_HEIGHT);
 
+		// Setup components.
 		this.couplePanel = new IMCouplePanel();
 		this.couplePanel.setLocation(0, 100);
-		this.couplePanel.setSize(1280, 500);
+		this.couplePanel.setSize(1280, 475);
 
 		JFileChooser fileChooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("bmp filter", "bmp");
@@ -59,43 +61,64 @@ public class IMFrame extends JFrame{
 
 		this.chooseSrcButton = new JButton();
 		this.chooseSrcButton.setText("Choose source picture");
-		this.chooseSrcButton.setLocation(20, 40);
-		this.chooseSrcButton.setSize(300, 40);
+		this.chooseSrcButton.setLocation(20, 30);
+		this.chooseSrcButton.setSize(290, 50);
 		this.chooseSrcButton.addActionListener(new ChooseImageButtonListener(this, fileChooser));
 
 		this.chooseDstButton = new JButton();
 		this.chooseDstButton.setText("Choose destination picture");
-		this.chooseDstButton.setLocation(660, 40);
-		this.chooseDstButton.setSize(300, 40);
+		this.chooseDstButton.setLocation(660, 30);
+		this.chooseDstButton.setSize(290, 50);
 		this.chooseDstButton.setVisible(true);
 		this.chooseDstButton.addActionListener(new ChooseImageButtonListener(this, fileChooser));
 
 		JButton morphButton = new JButton();
 		morphButton.setText("Morph");
-		morphButton.setLocation(960, 570);
-		morphButton.setSize(300, 80);
+		morphButton.setLocation(970, 590);
+		morphButton.setSize(290, 110);
 		morphButton.addActionListener(new MorphButtonListener(this));
-
-		JLabel sliderLabel = new JLabel();
-		sliderLabel.setText("Morph speed: " + IMFrame.SPEED_SLIDER_DEFAULT_VALUE + " frames");
-		sliderLabel.setLocation(660, 700);
-		sliderLabel.setSize(200, 25);
-
-		this.speedSlider = new JSlider(0, 100, IMFrame.SPEED_SLIDER_DEFAULT_VALUE);
-		this.speedSlider.setMajorTickSpacing(10);
-		this.speedSlider.setMinorTickSpacing(5);
-		this.speedSlider.setPaintTicks(true);
-		this.speedSlider.setPaintLabels(true);
-		this.speedSlider.setSnapToTicks(true);
-		this.speedSlider.setLocation(660, 600);
-		this.speedSlider.setSize(280, 50);
-		this.speedSlider.addChangeListener(new SpeedSliderListener(this.speedSlider, sliderLabel));
 
 		JButton clearSegmentsButton = new JButton();
 		clearSegmentsButton.setText("Clear segments");
-		clearSegmentsButton.setLocation(20, 600);
-		clearSegmentsButton.setSize(300, 40);
+		clearSegmentsButton.setLocation(660, 590);
+		clearSegmentsButton.setSize(290, 50);
 		clearSegmentsButton.addActionListener(new ClearSegmentsButtonListener(this.couplePanel));
+
+		JButton clearImagesButton = new JButton();
+		clearImagesButton.setText("Clear pictures");
+		clearImagesButton.setLocation(660, 650);
+		clearImagesButton.setSize(290, 50);
+		clearImagesButton.addActionListener(new ClearImagesButtonListener(this.couplePanel));
+
+		JLabel framesCountSliderLabel = new JLabel();
+		framesCountSliderLabel.setText("Frames count: " + IMFrame.FRAMES_COUNT_SLIDER_DEFAULT_VALUE);
+		framesCountSliderLabel.setLocation(365, 600);
+		framesCountSliderLabel.setSize(200, 25);
+
+		JLabel fpsSliderLabel = new JLabel();
+		fpsSliderLabel.setText("FPS: " + IMFrame.FPS_SLIDER_DEFAULT_VALUE);
+		fpsSliderLabel.setLocation(365, 675);
+		fpsSliderLabel.setSize(200, 25);
+
+		this.framesCountSlider = new JSlider(0, 200, IMFrame.FRAMES_COUNT_SLIDER_DEFAULT_VALUE);
+		this.framesCountSlider.setMajorTickSpacing(20);
+		this.framesCountSlider.setMinorTickSpacing(10);
+		this.framesCountSlider.setPaintTicks(true);
+		this.framesCountSlider.setPaintLabels(true);
+		this.framesCountSlider.setSnapToTicks(true);
+		this.framesCountSlider.setLocation(20, 600);
+		this.framesCountSlider.setSize(320, 45);
+		this.framesCountSlider.addChangeListener(new FramesCountSliderListener(this.framesCountSlider, framesCountSliderLabel));
+
+		this.fpsSlider = new JSlider(0, 80, IMFrame.FPS_SLIDER_DEFAULT_VALUE);
+		this.fpsSlider.setMajorTickSpacing(10);
+		this.fpsSlider.setMinorTickSpacing(5);
+		this.fpsSlider.setPaintTicks(true);
+		this.fpsSlider.setPaintLabels(true);
+		this.fpsSlider.setSnapToTicks(true);
+		this.fpsSlider.setLocation(20, 675);
+		this.fpsSlider.setSize(320, 45);
+		this.fpsSlider.addChangeListener(new FPSSliderListener(this.fpsSlider, fpsSliderLabel));
 
 		// Add components to the frame.
 		Container contentPane = this.getContentPane();
@@ -103,9 +126,12 @@ public class IMFrame extends JFrame{
 		contentPane.add(this.chooseSrcButton);
 		contentPane.add(this.chooseDstButton);
 		contentPane.add(morphButton);
-		contentPane.add(this.speedSlider);
-		contentPane.add(sliderLabel);
+		contentPane.add(this.framesCountSlider);
+		contentPane.add(this.fpsSlider);
+		contentPane.add(framesCountSliderLabel);
+		contentPane.add(fpsSliderLabel);
 		contentPane.add(clearSegmentsButton);
+		contentPane.add(clearImagesButton);
 
 		// The rest of the attributes.
 		this.outputDirectory = "./output";
@@ -120,27 +146,36 @@ public class IMFrame extends JFrame{
 			} else if (source == this.chooseDstButton) {
 				this.couplePanel.loadDstImage(path);
 			} else {
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException("source");
 			}
-		} catch(IOException ex) {
+		} catch (IOException e) {
 			JOptionPane.showMessageDialog(this, "Cannot load chosen picture.", "Picture loading error", JOptionPane.ERROR_MESSAGE);
+		} catch (MismatchingImageSizesException e) {
+			JOptionPane.showMessageDialog(this, "Both pictures must be the same size.", "Picture size error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
-	private void callMorph() {
-		// Check we can call morph.
+	private boolean checkMorphInput() {
 		if (!this.couplePanel.bothImagesSelected()) {
 			JOptionPane.showMessageDialog(this, "Select source and destination pictures.", "Morph input error", JOptionPane.ERROR_MESSAGE);
-			return;
+			return false;
 		}
 
 		if (!this.couplePanel.bothPositiveSegmentsCount()) {
 			JOptionPane.showMessageDialog(this, "A positive number of segments must be provided on each picture.", "Morph input error", JOptionPane.ERROR_MESSAGE);
-			return;
+			return false;
 		}
 
 		if (!this.couplePanel.bothEqualSegmentsCount()) {
 			JOptionPane.showMessageDialog(this, "The number of segments defined on each picture must be the same.", "Morph input error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		return true;
+	}
+
+	private void callMorph() {
+		if (!checkMorphInput()) {
 			return;
 		}
 
@@ -153,8 +188,9 @@ public class IMFrame extends JFrame{
 		String morphName = IMFrame.getNameWithoutExtension(srcImagePath) + "2" + IMFrame.getNameWithoutExtension(dstImagePath);
 		String outputImagePath = this.outputDirectory + "/" + morphName + ".avi";
 		String segmentsPath = this.segmentsDirectory + "/" + morphName + ".segments";
-		// TODO - Check if segmentsPath already exists. If it does, add a (n).
-		int framesCount = this.speedSlider.getValue() + 2;
+		// TODO - Check if segmentsPath already exists. If it does, add an (n).
+		int framesCount = this.framesCountSlider.getValue() + 2;
+		int fps = this.fpsSlider.getValue();
 
 		this.printSegmentsFile(segmentsPath, srcImageSegments, dstImageSegments);
 
@@ -166,18 +202,20 @@ public class IMFrame extends JFrame{
 											 outputImagePath,
 											 segmentsPath,
 											 "" + framesCount,
-											 "" + 80).start();
+											 "" + fps).start();
 		} catch (IOException e) {
-			// TODO
+			JOptionPane.showMessageDialog(this, "A problem occured while executing the morph.", "Morph error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
 		try {
 			process.waitFor();
 		} catch (InterruptedException e) {
-			// TODO
+			JOptionPane.showMessageDialog(this, "A problem occured while executing the morph.", "Morph error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+
+		JOptionPane.showMessageDialog(this, "Morph finished.", "Morph information", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void printSegmentsFile(String segmentsPath, ArrayList<Segment> srcImageSegments, ArrayList<Segment> dstImageSegments) {
@@ -253,17 +291,47 @@ public class IMFrame extends JFrame{
 		}
 	}
 
-	private class SpeedSliderListener implements ChangeListener {
-		private JSlider speedSlider;
+	private class ClearImagesButtonListener implements ActionListener {
+		private IMCouplePanel couplePanel;
+
+		public ClearImagesButtonListener(IMCouplePanel couplePanel) {
+			this.couplePanel = couplePanel;
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			this.couplePanel.clearImages();
+		}
+	}
+
+	private class FramesCountSliderListener implements ChangeListener {
+		private JSlider framesCountSlider;
 		private JLabel sliderLabel;
 
-		public SpeedSliderListener(JSlider speedSlider, JLabel sliderLabel) {
-			this.speedSlider = speedSlider;
+		public FramesCountSliderListener(JSlider framesCountSlider, JLabel sliderLabel) {
+			this.framesCountSlider = framesCountSlider;
 			this.sliderLabel = sliderLabel;
 		}
 
 		public void stateChanged(ChangeEvent e) {
-			this.sliderLabel.setText("Morph speed: " + speedSlider.getValue() + " frames");
+			this.sliderLabel.setText("Frames count: " + this.framesCountSlider.getValue());
+		}
+	}
+
+	private class FPSSliderListener implements ChangeListener {
+		private JSlider fpsSlider;
+		private JLabel sliderLabel;
+
+		public FPSSliderListener(JSlider fpsSlider, JLabel sliderLabel) {
+			this.fpsSlider = fpsSlider;
+			this.sliderLabel = sliderLabel;
+		}
+
+		public void stateChanged(ChangeEvent e) {
+			if (this.fpsSlider.getValue() == 0) {
+				this.fpsSlider.setValue(5);
+			}
+
+			this.sliderLabel.setText("FPS: " + this.fpsSlider.getValue());
 		}
 	}
 }

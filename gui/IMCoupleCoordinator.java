@@ -1,4 +1,7 @@
+import java.io.File;
 import java.io.IOException;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 public class IMCoupleCoordinator {
 	private IMImagePanel srcImagePanel;
@@ -27,11 +30,11 @@ public class IMCoupleCoordinator {
 		other.enableMouseListener();
 	}
 
-	public void loadSrcImage(String path) throws IOException {
+	public void loadSrcImage(String path) throws IOException, MismatchingImageSizesException {
 		this.loadImage(this.srcImagePanel, path);
 	}
 
-	public void loadDstImage(String path) throws IOException {
+	public void loadDstImage(String path) throws IOException, MismatchingImageSizesException {
 		this.loadImage(this.dstImagePanel, path);
 	}
 
@@ -47,11 +50,27 @@ public class IMCoupleCoordinator {
 		}
 	}
 
-	private void loadImage(ImagePanel imagePanel, String path) throws IOException {
+	public void clearImages() {
+		this.srcImagePanel.clearImage();
+		this.dstImagePanel.clearImage();
+		this.clearSegments();
+	}
+
+	private void loadImage(ImagePanel imagePanel, String path) throws IOException, MismatchingImageSizesException {
 		if (imagePanel != this.srcImagePanel && imagePanel != this.dstImagePanel) {
 			throw new IllegalArgumentException("imagePanel");
 		}
 
+		ImagePanel theOther = (imagePanel == this.srcImagePanel) ? this.dstImagePanel : this.srcImagePanel;
+
+		if (theOther.hasImage()) {
+			BufferedImage image = ImageIO.read(new File(path));
+
+			if (image.getWidth() != theOther.getRealWidth() || image.getHeight() != theOther.getRealHeight()) {
+				throw new MismatchingImageSizesException();
+			}
+		}
+		
 		imagePanel.setImage(path);
 		this.clearSegments();
 	}

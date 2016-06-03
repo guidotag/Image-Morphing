@@ -14,41 +14,50 @@ import javax.imageio.ImageIO;
 public class ImagePanel extends JPanel {
     private int realWidth;
     private int realHeight;
-    private BufferedImage image;
+    private BufferedImage scaledImage;
     private String imagePath;
 
     public ImagePanel(int width, int height) {
-        this.image = null;
+        this.scaledImage = null;
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.setPreferredSize(new Dimension(width, height));
         this.setSize(width, height);
+        this.imagePath = null;
+        this.realWidth = 0;
+        this.realHeight = 0;
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (this.image != null) {
-            g.drawImage(image, 0, 0, null);
+        if (this.scaledImage != null) {
+            g.drawImage(scaledImage, 0, 0, null);
         }
     }
 
-    public void setImage(String path) throws IOException {
-        BufferedImage real;
+    public void clearImage() {
+        this.scaledImage = null;
+        this.imagePath = null;
+        this.realWidth = 0;
+        this.realHeight = 0;
 
-        try {
-            real = ImageIO.read(new File(path));
-        } catch (IOException e) {
-            throw e;
+        this.repaint();
+    }
+
+    public void setImage(String path) throws IOException {
+        if (path == null) {
+            throw new IllegalArgumentException("path");
         }
 
+        BufferedImage image = ImageIO.read(new File(path));
         this.imagePath = path;
-        this.realWidth = real.getWidth();
-        this.realHeight = real.getHeight();
-        this.image = new BufferedImage(this.getWidth(), this.getHeight(), real.getType());
+        this.realWidth = image.getWidth();
+        this.realHeight = image.getHeight();
+        this.scaledImage = new BufferedImage(this.getWidth(), this.getHeight(), image.getType());
         AffineTransform affineTransform = new AffineTransform();
         affineTransform.scale(this.getWidth() / (double)realWidth, this.getHeight() / (double)realHeight);
         AffineTransformOp scaleTransform = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_BILINEAR);
-        scaleTransform.filter(real, this.image);
+        scaleTransform.filter(image, this.scaledImage);
 
         this.repaint();
     }
@@ -58,14 +67,14 @@ public class ImagePanel extends JPanel {
     }
 
     public boolean hasImage() {
-        return this.image != null;
+        return this.scaledImage != null;
     }
 
-    protected int getRealWidth() {
+    public int getRealWidth() {
         return this.realWidth;
     }
 
-    protected int getRealHeight() {
+    public int getRealHeight() {
         return this.realHeight;
     }
 }

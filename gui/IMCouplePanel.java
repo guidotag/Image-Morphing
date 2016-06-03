@@ -60,15 +60,19 @@ public class IMCouplePanel extends JPanel {
 		return this.dstImagePanel.getImagePath();
 	}
 
-	public void loadSrcImage(String path) throws IOException {
+	public void loadSrcImage(String path) throws IOException, MismatchingImageSizesException {
 		this.coordinator.loadSrcImage(path);
 	}
 
-	public void loadDstImage(String path) throws IOException {
+	public void loadDstImage(String path) throws IOException, MismatchingImageSizesException {
 		this.coordinator.loadDstImage(path);
 	}
 
 	public void clearSegments() {
 		this.coordinator.clearSegments();
+	}
+
+	public void clearImages() {
+		this.coordinator.clearImages();
 	}
 }
