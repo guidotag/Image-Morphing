@@ -22,7 +22,7 @@ public class Main {
 		try {
 			image = ImageIO.read(input);
 		} catch (Exception e) {
-			// TODO
+			e.printStackTrace();
 			return;
 		}
 
@@ -30,7 +30,7 @@ public class Main {
 		try {
 			ImageIO.write(image, "bmp", output);
 		} catch (Exception e) {
-			// TODO
+			e.printStackTrace();
 			return;
 		}
 	}

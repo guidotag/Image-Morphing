@@ -189,7 +189,7 @@ public class IMFrame extends JFrame{
 		String outputImagePath = this.outputDirectory + "/" + morphName + ".avi";
 		String segmentsPath = this.segmentsDirectory + "/" + morphName + ".segments";
 		// TODO - Check if segmentsPath already exists. If it does, add an (n).
-		int framesCount = this.framesCountSlider.getValue() + 2;
+		int framesCount = this.framesCountSlider.getValue();
 		int fps = this.fpsSlider.getValue();
 
 		this.printSegmentsFile(segmentsPath, srcImageSegments, dstImageSegments);
@@ -313,6 +313,10 @@ public class IMFrame extends JFrame{
 		}
 
 		public void stateChanged(ChangeEvent e) {
+			if (this.framesCountSlider.getValue() == 0) {
+				this.framesCountSlider.setValue(5);
+			}
+
 			this.sliderLabel.setText("Frames count: " + this.framesCountSlider.getValue());
 		}
 	}

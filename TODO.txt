@@ -1,12 +1,10 @@
-- Verificar que las 2 imagenes cargadas tengan el mismo tamanio.
-- Variar fps.
-- Barra de menu que tenga:
-	- Preferences. Debe abrir una ventanita con opciones para elegir:
+- Menu bar:
+	- Preferences. Should open a window with fields:
 		- Segments file folder.
 		- Morph binary file.
 		- Output folder.
 	- Help.
 
-- Boton para swapear imagenes (con sus segmentos).
-- Permitir borrar segmentos individualmente. Capaz se puede hacer seleccionando con click izquierdo, y luego supr.
-- Cargar archivo de segmentos. Como hacemos para verificar que sea valido para las 2 imagenes cargadas?
+- Button to swap images (with its segments).
+- Individual segment deletion. We could left-click a segment, mark it in a different color, and finally remove it with supr.
+- Load segments file. How do we check the segments are valid given the two loaded pictures?

@@ -4,7 +4,6 @@ public class Segment {
 	private Point from;
 	private Point to;
 
-	// TODO - Maybe use firstEndpoint and secondEndpoint.
 	public Segment(Point from, Point to) {
 		this.from = from;
 		this.to = to;

@@ -61,12 +61,12 @@ public class IMCoupleCoordinator {
 			throw new IllegalArgumentException("imagePanel");
 		}
 
-		ImagePanel theOther = (imagePanel == this.srcImagePanel) ? this.dstImagePanel : this.srcImagePanel;
+		ImagePanel other = (imagePanel == this.srcImagePanel) ? this.dstImagePanel : this.srcImagePanel;
 
-		if (theOther.hasImage()) {
+		if (other.hasImage()) {
 			BufferedImage image = ImageIO.read(new File(path));
 
-			if (image.getWidth() != theOther.getImageWidth() || image.getHeight() != theOther.getImageHeight()) {
+			if (image.getWidth() != other.getImageWidth() || image.getHeight() != other.getImageHeight()) {
 				throw new MismatchingImageSizesException();
 			}
 		}
