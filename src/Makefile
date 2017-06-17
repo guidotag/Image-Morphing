@@ -1,4 +1,4 @@
-CC = icc
+CC = gcc
 ASM = nasm
 CFLAGS = -std=c99 -Wall -pedantic -m64 -O3
 ASMFLAGS = -felf64 -g -F dwarf

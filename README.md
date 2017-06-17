@@ -1,7 +1,7 @@
 Image-Morphing
 ==============
 
-Final project for the course Computer Organization II, at the University of Buenos Aires, Faculty of Exact and Natural Sciences.
+![example](jobs.gif "Example")
 
 ## Hardware prerequisites
 
