@@ -18,10 +18,11 @@ all:
 	mv $(GUI_DIR)/$(JAR) $(BUILD_DIR)
 	# Building morph
 	cd $(MORPH_DIR); make
-	mv $(MORPH_DIR)/$(BIN) $(BUILD_DIR)
+	mv $(MORPH_DIR)/$(BIN) $(BUILD_DIR)	
 
 bundle:
-	
+	make all
+	tar -c -f bundle.tar $(BUILD_DIR)
 
 clean:
 	rm -rf $(BUILD_DIR)
